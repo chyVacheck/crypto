@@ -70,9 +70,9 @@
     - как [эта](https://kkomisarov.wixsite.com/website/copy-of-aml-policy)
 - Contact
   - как [эта](https://kkomisarov.wixsite.com/website/contact)
-- Account
-  - Просмотр с авторизацией
 - Dashboard
+- Login/Registration
+- Account
   - Просмотр с авторизацией
 - Admin Panel
   - Просмотр с авторизацией уровня администратор/владелец
