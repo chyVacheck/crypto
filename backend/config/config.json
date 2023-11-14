@@ -1,0 +1,22 @@
+{
+  "PORT": 4000,
+  "URL": "api",
+  "DB_ADDRESS": "mongodb://localhost:27017/crypto",
+  "JWT_SECRET": "dev-secret",
+  "ALL_EMAILS": {
+    "SERVICE": "gmail",
+    "SUPPORT": {
+      "EMAIL": "support@gmail.com",
+      "PASS": ""
+    },
+    "SYSTEM": {
+      "EMAIL": "system@gmail.com",
+      "PASS": ""
+    },
+    "COMPANY": {
+      "EMAIL": "company@gmail.com",
+      "PASS": ""
+    }
+  },
+  "STATUS_DEV": "true"
+}
