@@ -6,7 +6,7 @@ const Auth = require('./auth');
 
 // * controllers
 // ? users
-const { users } = require('../controllers/user');
+const { auth } = require('../controllers/auth');
 
 // ? middlewares
 const jwtCheck = require('../middlewares/Auth');
@@ -25,7 +25,7 @@ router.use(jwtCheck); // ? check cookie
 router.delete(
   `/${SERVER_SETTING.URL}/v1/auth/signout`,
   Validator.signout,
-  users.signOut,
+  auth.signOut,
 ); // ? signout
 
 router.use(`*`, NotFound); // ? error 404 for another routers

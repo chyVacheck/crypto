@@ -324,11 +324,6 @@ class Users {
         next(err);
       });
   };
-
-  // ? выход из системы
-  signOut = (req, res) => {
-    res.clearCookie('jwt').send({ message: MESSAGE.INFO.LOGOUT });
-  };
 }
 const users = new Users({
   jwt_secret: SERVER_SETTING.JWT_SECRET,
