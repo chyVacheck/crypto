@@ -4,6 +4,7 @@ const Auth = require('express').Router();
 // * controllers
 // ? users
 const { users } = require('../controllers/user');
+const { admins } = require('../controllers/admin');
 
 // * middlewares
 // ? validation
@@ -18,5 +19,8 @@ Auth.post('/verifyAndSignup', Validator.verifyAndSignup, users.createOne);
 
 // * авторизация пользователя
 Auth.post('/signin', Validator.signin, users.login);
+
+// * авторизация админа
+Auth.post('/login', Validator.adminSignin, admins.login);
 
 module.exports = Auth;

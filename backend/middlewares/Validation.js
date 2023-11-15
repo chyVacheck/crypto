@@ -43,6 +43,27 @@ Validator.signin = celebrate({
   }),
 });
 
+Validator.adminSignin = celebrate({
+  body: Joi.object().keys({
+    login: Joi.string().required().min(VALID_VALUES.TEXT.LENGTH.MIN),
+    password: Joi.string()
+      .required()
+      .min(VALID_VALUES.PASSWORD.LENGTH.MIN)
+      .max(VALID_VALUES.PASSWORD.LENGTH.MAX),
+  }),
+});
+
+Validator.createOneAdmin = celebrate({
+  body: Joi.object().keys({
+    login: Joi.string().required().min(VALID_VALUES.TEXT.LENGTH.MIN),
+    email: Joi.string().min(VALID_VALUES.EMAIL.LENGTH.MIN),
+    password: Joi.string()
+      .required()
+      .min(VALID_VALUES.PASSWORD.LENGTH.MIN)
+      .max(VALID_VALUES.PASSWORD.LENGTH.MAX),
+  }),
+});
+
 Validator.signout = celebrate({
   body: Joi.object().keys({}),
 });

@@ -49,6 +49,7 @@ const MESSAGE = {
       SIMPLE: 'You are not allowed to do this operation',
       TIME_UP: 'Confirmation time is up, try get new code',
       MUST_BE_USER: 'You must be user',
+      MUST_BE_ADMIN: 'You must be admin',
     },
     NOT_FOUND: {
       SIMPLE: 'Not found',
@@ -73,6 +74,7 @@ const MESSAGE = {
     DUPLICATE: {
       SIMPLE: 'You can not use these parameters, try other ones',
       MAIL: 'You have not yet completed your last registration',
+      ADMIN: 'There are already Admin with this email',
       USER: 'There is already a user with this mail',
     },
     VALIDATION: {

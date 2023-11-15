@@ -5,10 +5,7 @@ const mongoose = require('mongoose');
 async function connectMongo(address) {
   mongoose.set('strictQuery', true);
   // ? подключаемся к серверу mongo
-  await mongoose.connect(address, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(address);
   console.log('Connecting to MongoDB');
 }
 
