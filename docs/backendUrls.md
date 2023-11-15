@@ -82,3 +82,47 @@
     "message": "You have successfully logged out"
   }
   ```
+
+---
+
+- _POST_ `/api/v1/auth/login`
+
+  ```json
+  {
+    "login": "login",
+    "password": "test_password_1"
+  }
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "message": "You have successfully logged in"
+  }
+  ```
+
+## Admin
+
+- _POST_ `/api/v1/admin/createOneAdmin`
+
+  ```json
+  {
+    "login": "login",
+    "email": "email@email.com", // not required
+    "password": "test_password_1"
+  }
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "message": "Admin has been created",
+    "data": {
+      "login": "unique_name_6",
+      "email": "email@email.com",
+      "_id": "6554e6957ed2ba3c7fa7d9fe"
+    }
+  }
+  ```
