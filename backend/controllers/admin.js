@@ -22,6 +22,22 @@ class Admins {
     this.cookie_setting = data.cookie_setting;
   }
 
+  // * GET
+  // ? возвращает текущего пользователя по _id
+  getInfo = (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    admin
+      .findById(_id)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.ADMIN))
+      .then((adminMe) => res.send({ data: adminMe }))
+      .catch(next);
+  };
+
   // * POST
   // ? создает пользователя
   createOne = async (req, res, next) => {

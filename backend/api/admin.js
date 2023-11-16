@@ -9,6 +9,10 @@ const { admins } = require('../controllers/admin');
 // ? validation
 const Validator = require('./../middlewares/Validation');
 
+// ? GET
+// * получение данных о администраторе
+Admin.get('/me', admins.getInfo);
+
 // ? POST
 // * регистрация
 Admin.post('/createOneAdmin', Validator.createOneAdmin, admins.createOne);

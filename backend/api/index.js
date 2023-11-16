@@ -4,8 +4,10 @@ const router = require('express').Router();
 // api
 const Auth = require('./auth');
 const Admin = require('./admin');
+const User = require('./user');
+
 // * controllers
-// ? users
+// ? auth
 const { auth } = require('../controllers/auth');
 
 // ? middlewares
@@ -29,6 +31,8 @@ router.delete(
 ); // ? signout
 
 router.use(`/${SERVER_SETTING.URL}/v1/admin`, Admin); // ? Admin
+
+router.use(`/${SERVER_SETTING.URL}/v1/user`, User);
 
 router.use(`*`, NotFound); // ? error 404 for another routers
 
