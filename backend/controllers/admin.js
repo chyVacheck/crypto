@@ -11,6 +11,7 @@ const {
 
 // * models
 const admin = require('../models/Admin');
+const user = require('../models/User');
 
 // * utils
 // ? constants
@@ -23,7 +24,7 @@ class Admins {
   }
 
   // * GET
-  // ? возвращает текущего пользователя по _id
+  // ? возвращает текущего администратора по _id
   getInfo = (req, res, next) => {
     const { _id, isAdmin } = req.user;
 
@@ -35,6 +36,37 @@ class Admins {
       .findById(_id)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.ADMIN))
       .then((adminMe) => res.send({ data: adminMe }))
+      .catch(next);
+  };
+
+  // ? возвращает всех пользователей
+  getAllUser = (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    user
+      .find()
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USERS))
+      .then((users) => res.send({ data: users }))
+      .catch(next);
+  };
+
+  // ? возвращает всех пользователей
+  getUserById = (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+    const { userId } = req.params;
+
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    user
+      .findById(userId)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((user) => res.send({ data: user }))
       .catch(next);
   };
 

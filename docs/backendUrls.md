@@ -122,6 +122,54 @@
   }
   ```
 
+---
+
+- _GET_ `api/v1/admin/users`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": [
+      {
+        "_id": "655608239736cf4d57ee5299",
+        "name": "test_name",
+        "secondName": "test_second_name",
+        "email": "test@email.com",
+        "phone": "123-456-7890"
+      }
+    ]
+  }
+  ```
+
+---
+
+- _GET_ `api/v1/admin/users/:userId`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "_id": "655608239736cf4d57ee5299",
+      "name": "test_name",
+      "secondName": "test_second_name",
+      "email": "test@email.com",
+      "phone": "123-456-7890"
+    }
+  }
+  ```
+
+---
+
 - _POST_ `/api/v1/admin/createOneAdmin`
 
   ```json
