@@ -104,6 +104,24 @@
 
 ## Admin
 
+- _GET_ `/api/v1/admin/me`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "login": "unique_name_1",
+      "email": "email@email.com", // can not be without
+      "_id": "6554e6957ed2ba3c7fa7d9fe"
+    }
+  }
+  ```
+
 - _POST_ `/api/v1/admin/createOneAdmin`
 
   ```json
@@ -123,6 +141,28 @@
       "login": "unique_name_6",
       "email": "email@email.com",
       "_id": "6554e6957ed2ba3c7fa7d9fe"
+    }
+  }
+  ```
+
+## User
+
+- _GET_ `/api/v1/user/me`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "_id": "655608239736cf4d57ee5299",
+      "name": "Test_name",
+      "secondName": "Test_secondName",
+      "email": "test@email.com",
+      "phone": "123-456-7890"
     }
   }
   ```
