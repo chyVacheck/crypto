@@ -89,7 +89,7 @@ const MESSAGE = {
       REQUEST: 'Request has been created',
       DEPOSIT: 'Deposit has been created',
       USER: 'User has been created',
-      MAIL: 'Email was successfully send to your mail address',
+      MAIL: 'Code was successfully send to your email address',
       ADMIN: 'Admin has been created',
     },
     POST: {

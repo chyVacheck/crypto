@@ -29,7 +29,7 @@
   ```json
   {
     "email": "test@gmail.com",
-    "code": "28a56e30-831b-11ee-9bec-2bbc99ecda14"
+    "code": "5K4DS4"
   }
   ```
 

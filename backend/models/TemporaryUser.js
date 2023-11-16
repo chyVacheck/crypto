@@ -1,7 +1,7 @@
-// ? modules
+// ! modules
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
+// * utils
 // ? constants
 const { VALID_VALUES, MESSAGE } = require('../utils/constants');
 
@@ -42,7 +42,6 @@ const temporaryUserSchema = new mongoose.Schema(
     },
     timeEnd: {
       type: Date,
-      default: new Date(Date.now() + 600000),
     },
     attempts: {
       type: Number,

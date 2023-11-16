@@ -197,6 +197,9 @@ class Users {
             throw Error(error);
           } else {
             console.log('Письмо успешно отправлено:', info.response);
+
+            const timeEnd = new Date(Date.now() + 600000);
+
             const data = await temporaryUser.create({
               name: name,
               secondName: secondName,
@@ -204,6 +207,7 @@ class Users {
               phone: phone,
               password: hash,
               code: code,
+              timeEnd: timeEnd,
             });
 
             setTimeout(async () => {
