@@ -1,0 +1,14 @@
+.button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.button:hover {
+  opacity: var(--opacity-hover);
+}
+
+.button:active {
+  opacity: var(--opacity-active);
+}

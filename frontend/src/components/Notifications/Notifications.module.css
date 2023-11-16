@@ -1,0 +1,96 @@
+.main {
+  margin: 0;
+  position: fixed;
+  top: 74px;
+  right: calc((100% - var(--max-width-app)) / 2 + 70px);
+  width: 310px;
+  transition: all 0.4s ease;
+  padding: 0;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.notification {
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  background-color: var(--sub-main-bg-color);
+  padding: 15px;
+  gap: 15px;
+  border: 1px solid var(--border-color);
+  display: grid;
+  grid-template-columns: 45px auto;
+  align-items: center;
+}
+
+.icon {
+  --current-icon: url(./../../assets/images/unsuccessful.svg);
+  width: 45px;
+  height: 45px;
+  background-size: contain;
+  background-image: var(--current-icon);
+}
+
+.icon_type_successful {
+  --current-icon: url(./../../assets/images/successful.svg);
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.button {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.name {
+  margin: 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.button_type_close {
+  background: none;
+  width: 16px;
+  height: 14px;
+  background-image: url(./../../assets/images/button-saved.svg);
+  background-size: contain;
+}
+
+.text {
+  width: 100%;
+  color: var(--sub-text-color);
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 544px) {
+  .main {
+    right: 10px;
+    width: calc(100% - (4.375% * 2));
+  }
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .main {
+    right: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .main {
+    right: 70px;
+  }
+}

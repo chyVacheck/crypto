@@ -1,0 +1,7 @@
+.copy {
+  cursor: pointer;
+}
+
+.copy:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,175 @@
+.SearchForm {
+  width: 100%;
+  padding: 70px 70px 10px;
+  box-sizing: border-box;
+}
+
+.SearchForm__container {
+  box-sizing: border-box;
+  padding: 0 0 69px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchForm__field-input {
+  height: 72px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 9px;
+  padding: 0 19px;
+  background: var(--input-bg-color);
+  gap: 16px;
+}
+
+.SearchForm__icon {
+  width: 34px;
+}
+
+.SearchForm__input {
+  border: none;
+  background: none;
+  height: 47.2222%;
+  width: 100%;
+  padding: 0;
+  outline: none;
+  color: var(--main-text-color);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  border-bottom: 1px solid var(--input-bg-color);
+}
+
+.SearchForm__input:focus-visible {
+  border-bottom: 1px solid var(--input-focus-border-color);
+}
+
+.SearchForm__settings-and-button-search {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0 30px;
+  margin: 0;
+  padding: 16px 0;
+  box-sizing: border-box;
+}
+
+.SearchForm__button-search {
+  height: 100%;
+  min-width: 58.65px;
+  height: 34px;
+  background-color: var(--submit-button-bg-color);
+  color: var(--main-text-color);
+  border-radius: 48px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.SearchForm__settings {
+  width: max-content;
+  box-sizing: border-box;
+  border-left: 1px solid var(--border-color);
+  padding: 0 0 0 29px;
+  display: flex;
+  align-items: center;
+  gap: 0 14px;
+}
+
+.SearchForm__settings_place_container {
+  border: none;
+  display: none;
+}
+
+.SearchForm__button-toggle {
+  min-width: 36px;
+  min-height: 20px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  padding: 2px;
+  border: 1px solid var(--border-color);
+  background-color: var(--button-bg-dark-color);
+  display: flex;
+  align-items: center;
+  transition: all 0.4s;
+  outline: none;
+}
+
+.SearchForm__button-toggle_active_active {
+  background-color: var(--light-bg-color);
+  border-color: var(--light-bg-color);
+}
+
+.SearchForm__button-toggle::before {
+  background-color: var(--button-component-color-unactive);
+  display: block;
+  border-radius: 8px;
+  content: '';
+  width: 16px;
+  height: 16px;
+  transition: all 0.4s;
+}
+
+.SearchForm__button-toggle_active_active.SearchForm__button-toggle::before {
+  margin: 0 0 0 calc(100% - 16px);
+  background-color: var(--button-component-color-active);
+}
+
+.SearchForm__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0;
+  min-width: max-content;
+}
+
+@media screen and (min-width: 320px) and (max-width: 544px) {
+  .SearchForm {
+    padding: 80px 10px 10px;
+  }
+  .SearchForm__container {
+    padding: 0 0 44px;
+    gap: 45px;
+  }
+  .SearchForm__input {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .SearchForm__settings_place_field {
+    display: none;
+  }
+  .SearchForm__settings_place_container {
+    padding: 0;
+    width: fit-content;
+    display: flex;
+  }
+  .SearchForm__text {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .SearchForm {
+    padding: 80px 30px 10px;
+  }
+  .SearchForm__container {
+    padding: 0 0 109px;
+  }
+  .SearchForm__settings-and-button-search {
+    gap: 19px;
+  }
+  .SearchForm__settings {
+    padding: 0 0 0 19px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+}

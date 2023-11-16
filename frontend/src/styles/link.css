@@ -1,0 +1,13 @@
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--fg-link);
+}
+
+.link:hover {
+  opacity: var(--opacity-hover);
+}
+
+.link:active {
+  opacity: var(--opacity-active);
+}

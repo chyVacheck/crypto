@@ -1,0 +1,16 @@
+{
+  "Main": {
+    "BaseUrl": {
+      "prod": {
+        "url": "http://localhost:4000/api",
+        "version": 1
+      },
+      "dev": {
+        "url": "http://localhost:4000/api",
+        "version": 1
+      }
+    },
+    "credentials": "include"
+  },
+  "contentType": "application/json"
+}

@@ -1,0 +1,106 @@
+/* ! assets */
+/* * vendor */
+@import url(./assets/vendor/normalize.css);
+
+/* * styles */
+@import url(./styles/button.css);
+@import url(./styles/copy.css);
+@import url(./styles/link.css);
+@import url(./styles/typography.css);
+
+body {
+  font-family: monospace;
+}
+
+#root {
+  /* ? font */
+  --ff-primary: monospace;
+
+  /* ? foreground */
+  --fg-primary: #fff;
+  --fg-secondary: #8b8b8b;
+  --fg-link: #4285f4;
+  --fg-error: #ee3465;
+  --fg-disabled: #c4c4c4;
+
+  /* ? opacities */
+  --opacity-hover: 64%;
+  --opacity-active: 45%;
+
+  /* ? borders */
+  --border-color: #424242;
+  --border-error: #ee3465;
+
+  /* ? backgrounds */
+  --bg-enabled: #4285f4;
+  --bg-disabled: #f8f8f8;
+  --bg-primary: #202020;
+  --bg-secondary: #272727;
+  --bg-input: #2f2f2f;
+
+  /* --- --- --- */
+
+  --button-text-color: #000000;
+  --movies-card-bg-color: #222222;
+
+  --landing-title-border-color: #dadada;
+  --landing-title-black-border-color: #000;
+
+  --button-out-color: #ee3465;
+  --user-icon-button-bg-color: #313131;
+  --button-bg-color: #ee3465;
+  --button-bg-color-no-added: #313131;
+
+  --input-focus-border-color: #4285f4;
+
+  --preloader-bg-color: #4285f4;
+  --preloader-color: #3ddc84;
+}
+
+#root {
+  background-color: var(--main-bg-color);
+  /* ? height */
+  --height-header: 74px;
+
+  /* ? max-width */
+  --max-width-app: 1280px;
+
+  /* ? bg-colors */
+  --main-bg-color: #202020;
+  --sub-main-bg-color: #272727;
+
+  --error: #ee3465;
+  --ok: #3ddc84;
+
+  --logo-bg-color: var(--ok);
+  --light-bg-color: var(--ok);
+
+  --user-card-bg-color: #222222;
+
+  --light-bg-color: var(--ok);
+
+  --second-main-text-color: #e7e7e7;
+
+  --err-text-color: var(--error);
+  --button-text-color: #000000;
+
+  --light-bg-color: var(--ok);
+
+  --button-component-color-active: #fff;
+  --input-focus-border-color: #4285f4;
+  --button-bg-dark-color: #343434;
+
+  --button-component-color-active: #fff;
+  --button-component-color-unactive: #a0a0a0;
+}
+
+/* ? scrollbar  */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+body::-webkit-scrollbar-track {
+  background-color: #202020;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #8b8b8b;
+}

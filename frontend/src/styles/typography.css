@@ -1,0 +1,85 @@
+/* ? titles */
+
+.title-first {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.36px;
+}
+
+.title-second {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0.38px;
+}
+
+.title-third {
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.41px;
+}
+
+/* ? labels */
+
+.label-first {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+}
+
+.label-second {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+}
+
+.label-third {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -0.08px;
+}
+
+/* ? another */
+
+.body {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+}
+
+.subhead {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.24px;
+}
+
+.caption {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.08px;
+}
+
+.detail {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.25px;
+}
