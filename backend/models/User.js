@@ -37,17 +37,45 @@ const userSchema = new mongoose.Schema(
       required: true,
       select: false,
     },
+    typeOfUser: {
+      type: String,
+      enum: VALID_VALUES.USER.TYPE.VALUES,
+    },
     passport: {
-      data: Buffer,
-      contentType: String,
+      name: {
+        type: String,
+      },
+      data: {
+        type: Buffer,
+        select: false,
+      },
+      type: {
+        type: String,
+      },
     },
     proofOfAddress: {
-      data: Buffer,
-      contentType: String,
+      name: {
+        type: String,
+      },
+      data: {
+        type: Buffer,
+        select: false,
+      },
+      type: {
+        type: String,
+      },
     },
     selfieWithIDOrPassport: {
-      data: Buffer,
-      contentType: String,
+      name: {
+        type: String,
+      },
+      data: {
+        type: Buffer,
+        select: false,
+      },
+      type: {
+        type: String,
+      },
     },
   },
   { versionKey: false },

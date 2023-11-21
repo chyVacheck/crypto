@@ -170,6 +170,20 @@
 
 ---
 
+- _GET_ `api/v1/admin/users/:userId/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  file
+  ```
+
+---
+
 - _POST_ `/api/v1/admin/createOneAdmin`
 
   ```json
@@ -193,6 +207,81 @@
   }
   ```
 
+---
+
+- _PUT_ `api/v1/admin/users/:userId/file/:typeOfFile`
+
+  ```json
+  file
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "passport": {
+        "name": "test_passport.pdf",
+        "type": "application/pdf"
+      },
+      "proofOfAddress": {
+        "name": "proof_of_address.jpg",
+        "type": "image/jpeg"
+      },
+      "selfieWithIDOrPassport": {
+        "name": "selfieWithIDOrPassport.jpg",
+        "type": "image/jpeg"
+      },
+      "_id": "655608239736cf4d57ee5299",
+      "name": "Test_name",
+      "secondName": "Test_secondName",
+      "email": "test@email.com",
+      "phone": "123-456-7890",
+      "typeOfUser": "company representative" // or can be 'juridical person'
+    }
+  }
+  ```
+
+---
+
+- _PATCH_ `api/v1/admin/users/:userId`
+
+  ```json
+  {
+    "name": "Test_name",
+    "secondName": "Test_secondName",
+    "phone": "123-456-7890",
+    "typeOfUser": "company representative" // or can be 'juridical person'
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "data": {
+      "passport": {
+        "name": "test_passport.pdf",
+        "type": "application/pdf"
+      },
+      "proofOfAddress": {
+        "name": "proof_of_address.jpg",
+        "type": "image/jpeg"
+      },
+      "selfieWithIDOrPassport": {
+        "name": "selfieWithIDOrPassport.jpg",
+        "type": "image/jpeg"
+      },
+      "_id": "655608239736cf4d57ee5299",
+      "name": "Test_name",
+      "secondName": "Test_secondName",
+      "email": "test@email.com",
+      "phone": "123-456-7890",
+      "typeOfUser": "company representative" // or can be 'juridical person'
+    }
+  }
+  ```
+
 ## User
 
 - _GET_ `/api/v1/user/me`
@@ -206,11 +295,113 @@
   ```json
   {
     "data": {
+      "passport": {
+        "name": "test_passport.pdf",
+        "type": "application/pdf"
+      },
+      "proofOfAddress": {
+        "name": "proof_of_address.jpg",
+        "type": "image/jpeg"
+      },
+      "selfieWithIDOrPassport": {
+        "name": "selfieWithIDOrPassport.jpg",
+        "type": "image/jpeg"
+      },
       "_id": "655608239736cf4d57ee5299",
       "name": "Test_name",
       "secondName": "Test_secondName",
       "email": "test@email.com",
-      "phone": "123-456-7890"
+      "phone": "123-456-7890",
+      "typeOfUser": "company representative" // or can be 'juridical person'
+    }
+  }
+  ```
+
+---
+
+- _GET_ `/api/v1/user/me/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  file
+  ```
+
+---
+
+- _PUT_ `/api/v1/user/me/file/:typeOfFile`
+
+  ```json
+  file
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "passport": {
+        "name": "test_passport.pdf",
+        "type": "application/pdf"
+      },
+      "proofOfAddress": {
+        "name": "proof_of_address.jpg",
+        "type": "image/jpeg"
+      },
+      "selfieWithIDOrPassport": {
+        "name": "selfieWithIDOrPassport.jpg",
+        "type": "image/jpeg"
+      },
+      "_id": "655608239736cf4d57ee5299",
+      "name": "Test_name",
+      "secondName": "Test_secondName",
+      "email": "test@email.com",
+      "phone": "123-456-7890",
+      "typeOfUser": "company representative" // or can be 'juridical person'
+    }
+  }
+  ```
+
+---
+
+- _PATCH_ `/api/v1/user/me`
+
+  ```json
+  {
+    "name": "Test_name",
+    "secondName": "Test_secondName",
+    "phone": "123-456-7890",
+    "typeOfUser": "company representative" // or can be 'juridical person'
+  }
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "data": {
+      "passport": {
+        "name": "test_passport.pdf",
+        "type": "application/pdf"
+      },
+      "proofOfAddress": {
+        "name": "proof_of_address.jpg",
+        "type": "image/jpeg"
+      },
+      "selfieWithIDOrPassport": {
+        "name": "selfieWithIDOrPassport.jpg",
+        "type": "image/jpeg"
+      },
+      "_id": "655608239736cf4d57ee5299",
+      "name": "Test_name",
+      "secondName": "Test_secondName",
+      "email": "test@email.com",
+      "phone": "123-456-7890",
+      "typeOfUser": "company representative" // or can be 'juridical person'
     }
   }
   ```

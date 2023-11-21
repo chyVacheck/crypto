@@ -7,6 +7,7 @@ const {
   BadRequestError,
   ConflictError,
   ForbiddenError,
+  NotFoundError,
 } = require('../errors/AllErrors');
 
 // * models
@@ -15,7 +16,13 @@ const user = require('../models/User');
 
 // * utils
 // ? constants
-const { SERVER_SETTING, MESSAGE, STATUS, DEV } = require('../utils/constants');
+const {
+  SERVER_SETTING,
+  MESSAGE,
+  STATUS,
+  DEV,
+  VALID_VALUES,
+} = require('../utils/constants');
 
 class Admins {
   constructor(data) {
@@ -23,11 +30,15 @@ class Admins {
     this.cookie_setting = data.cookie_setting;
   }
 
+  // ? создание токена
+  _createToken = (data) => jwt.sign(data, this.jwt_secret);
+
   // * GET
   // ? возвращает текущего администратора по _id
   getInfo = (req, res, next) => {
     const { _id, isAdmin } = req.user;
 
+    // проверка доступа
     if (!isAdmin) {
       return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
     }
@@ -43,6 +54,7 @@ class Admins {
   getAllUser = (req, res, next) => {
     const { _id, isAdmin } = req.user;
 
+    // проверка доступа
     if (!isAdmin) {
       return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
     }
@@ -55,10 +67,11 @@ class Admins {
   };
 
   // ? возвращает всех пользователей
-  getUserById = (req, res, next) => {
+  getUserByUserId = (req, res, next) => {
     const { _id, isAdmin } = req.user;
     const { userId } = req.params;
 
+    // проверка доступа
     if (!isAdmin) {
       return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
     }
@@ -70,13 +83,39 @@ class Admins {
       .catch(next);
   };
 
+  // ? получение файла пользователя
+  getUsersFileByUserId = (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+    const { userId, typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    user
+      .findById(userId)
+      .select(`+${typeOfFile}.data`)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userData) => {
+        // проверка наличия файла
+        if (typeof userData[typeOfFile].data === 'undefined') {
+          return next(new NotFoundError(MESSAGE.ERROR.NOT_FOUND.FILE));
+        }
+
+        res.set('Content-Type', userData[typeOfFile].type);
+        res.send(userData[typeOfFile].data);
+      })
+      .catch(next);
+  };
+
   // * POST
   // ? создает пользователя
   createOne = async (req, res, next) => {
     const { isAdmin } = req.user;
     const { login, email, password } = req.body;
 
-    // проверка на права доступа
+    // проверка доступа
     if (!isAdmin) {
       return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
     }
@@ -134,9 +173,6 @@ class Admins {
       });
   };
 
-  // ? создание токена
-  _createToken = (data) => jwt.sign(data, this.jwt_secret);
-
   // ? авторизация пользователя
   login = (req, res, next) => {
     const { login, password } = req.body;
@@ -152,6 +188,87 @@ class Admins {
       .catch((err) => {
         next(err);
       });
+  };
+
+  // * PUT
+  // ? добавление файла пользователю
+  addUsersFileByUserId = async (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+    const { userId, typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    // наличие файла
+    if (!req.file) {
+      return next(
+        new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_NOT_UPLOAD),
+      );
+    }
+
+    const { originalname, mimetype, buffer, size } = req.file;
+
+    // размер файла
+    if (size > VALID_VALUES.USER.FILE.SIZE.MAX) {
+      return next(
+        new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_TOO_HEAVY),
+      );
+    }
+
+    const options = { new: true };
+    const updates = {
+      passport: {
+        passport: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+      proofOfAddress: {
+        proofOfAddress: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+      selfieWithIDOrPassport: {
+        selfieWithIDOrPassport: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+    };
+
+    const update = updates[typeOfFile];
+
+    await user
+      .findByIdAndUpdate(userId, update, options)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userMe) => res.send({ data: userMe }))
+      .catch(next);
+  };
+
+  // * PATCH
+  // ? изменение данных о пользователе
+  patchUserDataByUserId = (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+    const { userId } = req.params;
+
+    // проверка доступа
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    const options = { new: true };
+
+    user
+      .findByIdAndUpdate(userId, req.body, options)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userMe) => res.send({ data: userMe }))
+      .catch(next);
   };
 }
 

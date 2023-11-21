@@ -22,6 +22,7 @@ const {
   MESSAGE,
   STATUS,
   EMAILS,
+  VALID_VALUES,
   DEV,
 } = require('../utils/constants');
 // ? utils
@@ -34,7 +35,7 @@ class Users {
   }
 
   // * GET
-  // ? возвращает текущего пользователя по _id
+  // ? возвращает данные текущего пользователя по _id
   getInfo = (req, res, next) => {
     const { _id, isUser } = req.user;
 
@@ -46,6 +47,31 @@ class Users {
       .findById(_id)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
       .then((userMe) => res.send({ data: userMe }))
+      .catch(next);
+  };
+
+  // ? возвращает файл пользователя
+  getFile = (req, res, next) => {
+    const { _id, isUser } = req.user;
+    const { typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isUser) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_USER));
+    }
+
+    user
+      .findById(_id)
+      .select(`+${typeOfFile}.data`)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userMe) => {
+        // проверка наличия файла
+        if (typeof userMe[typeOfFile].data === 'undefined') {
+          return next(new NotFoundError(MESSAGE.ERROR.NOT_FOUND.FILE));
+        }
+        res.set('Content-Type', userMe[typeOfFile].type);
+        res.send(userMe[typeOfFile].data);
+      })
       .catch(next);
   };
 
@@ -328,7 +354,89 @@ class Users {
         next(err);
       });
   };
+
+  // * PUT
+  // ? добавления файла
+  addFile = async (req, res, next) => {
+    const { _id, isUser } = req.user;
+    const { typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isUser) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_USER));
+    }
+
+    // наличие файла
+    if (!req.file) {
+      return next(
+        new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_NOT_UPLOAD),
+      );
+    }
+
+    const { originalname, mimetype, buffer, size } = req.file;
+
+    // размер файла
+    if (size > VALID_VALUES.USER.FILE.SIZE.MAX) {
+      return next(
+        new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_TOO_HEAVY),
+      );
+    }
+
+    const options = { new: true };
+    const updates = {
+      passport: {
+        passport: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+      proofOfAddress: {
+        proofOfAddress: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+      selfieWithIDOrPassport: {
+        selfieWithIDOrPassport: {
+          name: originalname,
+          data: buffer,
+          type: mimetype,
+        },
+      },
+    };
+
+    const update = updates[typeOfFile];
+
+    await user
+      .findByIdAndUpdate(_id, update, options)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userMe) => res.send({ data: userMe }))
+      .catch(next);
+  };
+
+  // * PATCH
+
+  // ? изменение данных о пользователе
+  patchUserData = (req, res, next) => {
+    const { _id, isUser } = req.user;
+
+    // проверка доступа
+    if (!isUser) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_USER));
+    }
+
+    const options = { new: true };
+
+    user
+      .findByIdAndUpdate(_id, req.body, options)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userMe) => res.send({ data: userMe }))
+      .catch(next);
+  };
 }
+
 const users = new Users({
   jwt_secret: SERVER_SETTING.JWT_SECRET,
   cookie_setting: {

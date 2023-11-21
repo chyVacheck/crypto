@@ -37,6 +37,9 @@ const MESSAGE = {
       SIMPLE: 'The request has already been accepted',
     },
     BAD_REQUEST: {
+      FILE_BAD_TYPE: 'File must be another type',
+      FILE_TOO_HEAVY: 'File is too large',
+      FILE_NOT_UPLOAD: 'File was not uploaded',
       SIMPLE: 'BAD REQUEST',
       EMAIL_CODE: 'Your code is wrong, try again',
       VERIFY_FAILED:
@@ -52,6 +55,7 @@ const MESSAGE = {
       MUST_BE_ADMIN: 'You must be admin',
     },
     NOT_FOUND: {
+      FILE: "Looks like there aren't this file yet",
       SIMPLE: 'Not found',
       REQUEST: 'Request not found',
       USER: 'User not found',
@@ -177,6 +181,18 @@ const VALID_VALUES = {
   },
   SHARE_HOLDER: {
     POSSIBLE_ANSWERS: ['Individual', 'Company'],
+  },
+  USER: {
+    TYPE: {
+      VALUES: ['juridical person', 'company representative'],
+    },
+    FILE: {
+      TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
+      SIZE: {
+        MAX: 5 * 1025 * 1024,
+      },
+      VALUES: ['passport', 'proofOfAddress', 'selfieWithIDOrPassport'],
+    },
   },
 };
 
