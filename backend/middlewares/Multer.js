@@ -2,7 +2,7 @@
 const multer = require('multer');
 
 // * errors
-const { BadRequestError } = require('./../errors/BadRequestError');
+const { BadRequestError } = require('./../errors/AllErrors');
 
 // * utils
 // ? constants
@@ -18,6 +18,21 @@ module.exports.uploadUserFile = multer({
     if (
       !file.mimetype.startsWith('image/') &&
       !VALID_VALUES.USER.FILE.TYPES.includes(file.mimetype)
+    ) {
+      return cb(new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_BAD_TYPE));
+    }
+
+    cb(null, true);
+  },
+});
+
+module.exports.uploadCompanyFile = multer({
+  storage: storageUserFiles,
+  fileFilter: (req, file, cb) => {
+    // Проверка типа файла
+    if (
+      !file.mimetype.startsWith('image/') &&
+      !VALID_VALUES.COMPANY.FILE.TYPES.includes(file.mimetype)
     ) {
       return cb(new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.FILE_BAD_TYPE));
     }

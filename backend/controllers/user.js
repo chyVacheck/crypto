@@ -417,9 +417,8 @@ class Users {
   };
 
   // * PATCH
-
   // ? изменение данных о пользователе
-  patchUserData = (req, res, next) => {
+  patchUserData = async (req, res, next) => {
     const { _id, isUser } = req.user;
 
     // проверка доступа
@@ -429,10 +428,10 @@ class Users {
 
     const options = { new: true };
 
-    user
+    await user
       .findByIdAndUpdate(_id, req.body, options)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
-      .then((userMe) => res.send({ data: userMe }))
+      .then((userData) => res.send({ data: userData }))
       .catch(next);
   };
 }

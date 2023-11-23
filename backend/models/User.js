@@ -1,12 +1,13 @@
-// ? modules
+// ! modules
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// ? constants
-const { VALID_VALUES, MESSAGE } = require('../utils/constants');
-
 // * errors
 const { BadRequestError, NotFoundError } = require('../errors/AllErrors');
+
+// * utils
+// ? constants
+const { VALID_VALUES, MESSAGE } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema(
   {

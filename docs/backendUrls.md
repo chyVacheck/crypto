@@ -405,3 +405,243 @@
     }
   }
   ```
+
+## Company
+
+- _GET_ `/api/v1/company/:companyId`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  {
+    "data": {
+      "certificateOfIncorporation": {
+        "name": "certificate.png",
+        "type": "image/png"
+      },
+      "_id": "655e966f17595eeb42e37b40",
+      "owners": ["655608239736cf4d57ee5299"],
+      "registrationNumber": "test_registration_number_1",
+      "shareholder": ["655ea146434cbdfdae9a5dd7"] // всегда будет хотя бы один
+    }
+  }
+  ```
+
+---
+
+- _GET_ `/api/v1/company/:companyId/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  file
+  ```
+
+---
+
+- _GET_ `/api/v1/company/:companyId/shareholder/:shareholderId`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  {
+    "data": {
+      "individual": {
+        "fullName": "test"
+      },
+      "_id": "655ea146434cbdfdae9a5dd7",
+      "typeOfShareholder": "individual"
+    }
+  }
+  ```
+
+  or
+
+  ```json
+  {
+    "data": {
+      "company": {
+        "registrationNumber": "test_registration_number_1"
+      },
+      "_id": "655f4048fbd2e7a2f4a9e6fb",
+      "typeOfShareholder": "company"
+    }
+  }
+  ```
+
+---
+
+- _GET_ `/api/v1/company/:companyId/shareholder/:shareholderId/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  file
+  ```
+
+---
+
+- _POST_ `/api/v1/company`
+
+  ```json
+  {
+    "registrationNumber": "test_registration_number_2",
+    "shareholder": {
+      "typeOfShareholder": "company",
+      "data": {
+        "registrationNumber": "test_registration_number"
+      }
+    }
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Company has been created",
+    "data": {
+      "owners": ["655608239736cf4d57ee5299"], // id пользователя создавшего компанию
+      "registrationNumber": "test_registration_number_1",
+      "shareholder": ["655f40ddfbd2e7a2f4a9e705"], // id только что созданного акционера
+      "_id": "655f40ddfbd2e7a2f4a9e708"
+    }
+  }
+  ```
+
+---
+
+- _POST_ `/api/v1/company/shareholder`
+
+  ```json
+  {
+    "typeOfShareholder": "company",
+    "data": {
+      "registrationNumber": "test_registrationNumber"
+    }
+  }
+  ```
+
+  or
+
+  ```json
+  {
+    "typeOfShareholder": "individual",
+    "data": {
+      "fullName": "test_fullName"
+    }
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Shareholder has been created"
+  }
+  ```
+
+---
+
+- _PUT_ `/api/v1/company/:companyId/file/:typeOfFile`
+
+  ```json
+  file
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "File was successful upload"
+  }
+  ```
+
+---
+
+- _PUT_ `/api/v1/company/:companyId/shareholder/:shareholderId/file/:typeOfFile`
+
+  ```json
+  file
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "File was successful upload"
+  }
+  ```
+
+---
+
+- _PATCH_ `/api/v1/company/:companyId`
+
+  ```json
+  {
+    "name": "test" // и другие данные о компании
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Info of company was successful updated"
+  }
+  ```
+
+---
+
+- _PATCH_ `/api/v1/company/:companyId/shareholder/:shareholderId`
+
+  ```json
+  {
+    // передавать можно любые значение, как для индивидуального акционера, так и для компании акционера
+    // но приниматься и сохраняться будут только данные, подходящие под тип акционера
+    "fullName": "test", // если это индивидуальный акционер, то это значение обновиться
+    "name": "test" // если это компания, то это значение обновиться
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Info patched"
+  }
+  ```
+
+---
+
+- _DELETE_ `/api/v1/company/:companyId/shareholder/:shareholderId`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Deleted"
+  }
+  ```
+
+---

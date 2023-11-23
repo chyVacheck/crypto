@@ -5,6 +5,7 @@ const router = require('express').Router();
 const Auth = require('./auth');
 const Admin = require('./admin');
 const User = require('./user');
+const Company = require('./company');
 
 // * controllers
 // ? auth
@@ -32,7 +33,9 @@ router.delete(
 
 router.use(`/${SERVER_SETTING.URL}/v1/admin`, Admin); // ? Admin
 
-router.use(`/${SERVER_SETTING.URL}/v1/user`, User);
+router.use(`/${SERVER_SETTING.URL}/v1/user`, User); // ? User
+
+router.use(`/${SERVER_SETTING.URL}/v1/company`, Company); // ? Company
 
 router.use(`*`, NotFound); // ? error 404 for another routers
 

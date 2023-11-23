@@ -53,11 +53,16 @@ const MESSAGE = {
       TIME_UP: 'Confirmation time is up, try get new code',
       MUST_BE_USER: 'You must be user',
       MUST_BE_ADMIN: 'You must be admin',
+      SHAREHOLDER: "This shareholder is not your's",
+      TOO_FEW_SHAREHOLDER: 'You may not delete all shareholders',
+      FILE: 'You are not allowed to upload this type of file',
+      ONLY_ONE_COMPANY: 'One user can have only one company',
     },
     NOT_FOUND: {
       FILE: "Looks like there aren't this file yet",
       SIMPLE: 'Not found',
-      REQUEST: 'Request not found',
+      COMPANY: 'Company not found',
+      SHAREHOLDER: 'Shareholder not found',
       USER: 'User not found',
       USERS: 'No user found',
       ROUTER: 'Router not found',
@@ -90,11 +95,11 @@ const MESSAGE = {
   INFO: {
     CREATED: {
       SIMPLE: 'CREATED',
-      REQUEST: 'Request has been created',
-      DEPOSIT: 'Deposit has been created',
+      SHAREHOLDER: 'Shareholder has been created',
       USER: 'User has been created',
       MAIL: 'Code was successfully send to your email address',
       ADMIN: 'Admin has been created',
+      COMPANY: 'Company has been created',
     },
     POST: {
       SIMPLE: 'Was successful posted',
@@ -106,9 +111,11 @@ const MESSAGE = {
     },
     PUT: {
       SIMPLE: 'Was successful put',
+      FILE: 'File was successful upload',
     },
     PATCH: {
       SIMPLE: 'Info patched',
+      COMPANY: 'Info of company was successful updated',
     },
     LOGOUT: 'You have successfully logged out',
     LOGIN: 'You have successfully logged in',
@@ -161,7 +168,7 @@ const VALID_VALUES = {
     },
   },
   LEGAL_FORM: {
-    POSSIBLE_ANSWERS: [
+    VALUES: [
       'Limited Liability Company',
       'Self Employed',
       'Individual trader',
@@ -180,7 +187,32 @@ const VALID_VALUES = {
     },
   },
   SHARE_HOLDER: {
-    POSSIBLE_ANSWERS: ['Individual', 'Company'],
+    VALUES: ['individual', 'company'],
+    FILE: {
+      TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
+      SIZE: {
+        MAX: 10 * 1025 * 1024,
+      },
+      VALUES: ['certificateOfIncorporation', 'passport', 'proofOfAddress'],
+    },
+    INDIVIDUAL: {
+      FILE: {
+        TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
+        SIZE: {
+          MAX: 5 * 1025 * 1024,
+        },
+        VALUES: ['passport', 'proofOfAddress'],
+      },
+    },
+    COMPANY: {
+      FILE: {
+        TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
+        SIZE: {
+          MAX: 10 * 1025 * 1024,
+        },
+        VALUES: ['certificateOfIncorporation'],
+      },
+    },
   },
   USER: {
     TYPE: {
@@ -192,6 +224,15 @@ const VALID_VALUES = {
         MAX: 5 * 1025 * 1024,
       },
       VALUES: ['passport', 'proofOfAddress', 'selfieWithIDOrPassport'],
+    },
+  },
+  COMPANY: {
+    FILE: {
+      TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
+      SIZE: {
+        MAX: 10 * 1025 * 1024,
+      },
+      VALUES: ['certificateOfIncorporation'],
     },
   },
 };
