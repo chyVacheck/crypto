@@ -7,10 +7,20 @@ import s from './Popup.module.css';
 import closeIcon from './../../assets/images/icons/close_light.svg';
 
 function Popup({ title, file, closePopup }) {
+  console.log(file.type.startsWith('image'));
   return (
     <article className={s.main}>
       <div className={s.container}>
-        <img className={s.image} src={file.src} alt={file.alt} />
+        {file.type.startsWith('image') ? (
+          <img className={s.image} src={file.src} alt={file.alt} />
+        ) : (
+          <iframe
+            className={s.file}
+            title={file.alt}
+            src={file.src}
+            alt={file.alt}
+          />
+        )}
         <h3 className={`title-third ${s.title}`}>{title}</h3>
         <img
           onClick={closePopup}

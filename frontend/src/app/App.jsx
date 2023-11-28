@@ -194,6 +194,7 @@ function App() {
                   }
                 />
 
+                {/* PROFILE */}
                 <Route
                   path={paths.user.profile}
                   element={

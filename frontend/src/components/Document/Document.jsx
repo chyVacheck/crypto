@@ -18,6 +18,7 @@ function Document({
   icon,
   typeOfFile,
   openFile,
+  expansionOfFile,
 }) {
   const fileInputRef = useRef(null);
   const [isFileUpload, setFileUpload] = useState(isActive);
@@ -54,6 +55,7 @@ function Document({
             type='button'
             onClick={() => {
               openFile({
+                type: expansionOfFile,
                 src: icon.url,
                 alt: icon.alt,
                 title: title,

@@ -55,6 +55,7 @@ function Profile({ addNotification, setUser }) {
     src: null,
     alt: null,
     title: null,
+    type: null,
   });
 
   // Passport Uploaded
@@ -147,6 +148,7 @@ function Profile({ addNotification, setUser }) {
 
   // ?
   function openFile(file) {
+    console.log(151, file);
     setCurrenFile(file);
     setPopupOpen(true);
   }
@@ -504,6 +506,7 @@ function Profile({ addNotification, setUser }) {
                   alt: 'passport',
                 }}
                 typeOfFile={'passport'}
+                expansionOfFile={isPassportUploaded && userData.passport.type}
               />
 
               {/* // ? proof of Address */}
@@ -519,6 +522,9 @@ function Profile({ addNotification, setUser }) {
                   alt: 'Proof of address',
                 }}
                 typeOfFile={'proofOfAddress'}
+                expansionOfFile={
+                  isProofOfAddressUploaded && userData.proofOfAddress.type
+                }
               />
 
               {/* // ? Selfie With ID Or Passport */}
@@ -536,6 +542,10 @@ function Profile({ addNotification, setUser }) {
                   alt: 'Selfie with id',
                 }}
                 typeOfFile={'selfieWithIDOrPassport'}
+                expansionOfFile={
+                  isSelfieWithIDOrPassportUploaded &&
+                  userData.selfieWithIDOrPassport.type
+                }
               />
             </div>
 
@@ -564,6 +574,7 @@ function Profile({ addNotification, setUser }) {
           file={{
             src: currenFile.src,
             alt: currenFile.alt,
+            type: currenFile.type,
           }}
         />
       )}
