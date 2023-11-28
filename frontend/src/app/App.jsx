@@ -26,6 +26,8 @@ import Login from '../pages/Login/Login';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
 // Signup
 import Signup from '../pages/Signup/Signup';
+// Profile
+import Profile from '../pages/Profile/Profile';
 // Verify Email
 import VerifyEmail from '../pages/VerifyEmail/VerifyEmail';
 
@@ -49,7 +51,7 @@ function App() {
   const [isCookiesChecked, setCookiesChecked] = useState(false);
 
   // ? авторизовался ли пользователь
-  const [isLogin, setLogin] = useState(false);
+  const [isUserLogin, setUserLogin] = useState(false);
 
   // ? авторизовался ли администратор
   const [isAdminLogin, setAdminLogin] = useState(false);
@@ -77,7 +79,7 @@ function App() {
       await mainApi
         .getUserInfo()
         .then((res) => {
-          setLogin(true);
+          setUserLogin(true);
           setCurrentUser(res.data);
         })
         .catch((err) => {
@@ -98,7 +100,7 @@ function App() {
       await mainApi
         .getAdminInfo()
         .then((res) => {
-          setLogin(false);
+          setUserLogin(false);
           setAdminLogin(true);
           setCurrentUser(res.data);
         })
@@ -144,13 +146,13 @@ function App() {
                   path={paths.signin}
                   element={
                     <ProtectedRoute
-                      isActive={!isLogin}
+                      isActive={!isUserLogin}
                       page={page}
                       to={paths.main}
                     >
                       <Login
                         addNotification={addNotification}
-                        setLogin={setLogin}
+                        setLogin={setUserLogin}
                       />
                     </ProtectedRoute>
                   }
@@ -161,7 +163,7 @@ function App() {
                   path={paths.signup}
                   element={
                     <ProtectedRoute
-                      isActive={!isLogin}
+                      isActive={!isUserLogin}
                       page={page}
                       to={paths.main}
                     >
@@ -180,13 +182,29 @@ function App() {
                     <ProtectedRoute
                       isActive={temporaryInfo.email}
                       page={page}
-                      to={paths.register}
+                      to={paths.signup}
                     >
                       <VerifyEmail
                         setCurrentUser={setCurrentUser}
                         addNotification={addNotification}
                         info={temporaryInfo}
-                        setLogin={setLogin}
+                        setLogin={setUserLogin}
+                      />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path={paths.user.profile}
+                  element={
+                    <ProtectedRoute
+                      isActive={isUserLogin}
+                      page={page}
+                      to={paths.signin}
+                    >
+                      <Profile
+                        addNotification={addNotification}
+                        setUser={setCurrentUser}
                       />
                     </ProtectedRoute>
                   }

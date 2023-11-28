@@ -27,3 +27,14 @@ export function checkValidity(input, pattern) {
 export function checkAnswerFromServer(status, type) {
   return typeOfErrorFromServer[type][status];
 }
+
+// функция по копированию текса в буфер обмена
+export function copy(text) {
+  const copyTextarea = document.createElement('textarea');
+  copyTextarea.textContent = text;
+
+  document.body.appendChild(copyTextarea);
+  copyTextarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(copyTextarea);
+}

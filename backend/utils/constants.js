@@ -108,6 +108,7 @@ const MESSAGE = {
     },
     DELETE: {
       SIMPLE: 'Deleted',
+      FILE: 'File was successful deleted',
     },
     PUT: {
       SIMPLE: 'Was successful put',
@@ -115,6 +116,7 @@ const MESSAGE = {
     },
     PATCH: {
       SIMPLE: 'Info patched',
+      USER: 'Info of user was successful updated',
       COMPANY: 'Info of company was successful updated',
     },
     LOGOUT: 'You have successfully logged out',
@@ -216,7 +218,7 @@ const VALID_VALUES = {
   },
   USER: {
     TYPE: {
-      VALUES: ['juridical person', 'company representative'],
+      VALUES: ['Juridical person', 'Authorised person'],
     },
     FILE: {
       TYPES: ['image/jpeg', 'image/png', 'application/pdf'],

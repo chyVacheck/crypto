@@ -9,7 +9,7 @@ class MainApi {
   }
 
   // проверка ответа от сервера
-  _checkResponse(res, url, message = '') {
+  _checkResponse(res, url, message = '', type) {
     // тут проверка ответа
     if (res.ok) {
       // во время dev выводим в консоль
@@ -19,7 +19,9 @@ class MainApi {
             message && ` for [${message}]`
           } was successfully processed`,
         );
-      return res.json();
+
+      if (type === 'json') return res.json();
+      return res;
     }
 
     // ? ошибки
@@ -43,9 +45,9 @@ class MainApi {
   }
 
   // запрос на сервер
-  async _request(url, options, message) {
+  async _request(url, options, message, type = 'json') {
     const res = await fetch(url, options);
-    return this._checkResponse(res, url, message);
+    return this._checkResponse(res, url, message, type);
   }
 
   // ? GET
@@ -60,6 +62,24 @@ class MainApi {
         headers: this._headers,
       },
       'get user info',
+    );
+  }
+
+  // получение файла пользователя
+  getUserFile(data) {
+    const _headers = this._headers;
+
+    _headers['Content-Type'] = data['Content-Type'];
+
+    return this._request(
+      `${this._address}/user/me/file/${data.typeOfFile}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: _headers,
+      },
+      `get user file ${data.typeOfFile}`,
+      data.typeOfFile,
     );
   }
 
@@ -164,7 +184,58 @@ class MainApi {
     );
   }
 
+  // ? PUT
+
+  /* положить файл пользователю
+
+   */
+  putUserFile(data) {
+    return this._request(
+      `${this._address}/user/me/file/${data.typeOfFile}`,
+      {
+        method: 'PUT',
+        credentials: this._credentials,
+        body: data.file,
+      },
+      `put user file ${data.typeOfFile}`,
+    );
+  }
+
+  // ? PATCH
+
+  /* обновление данных пользователя
+    user = {
+      name: "new name"
+    }
+  */
+  updateUserData(user) {
+    return this._request(
+      `${this._address}/user/me`,
+      {
+        method: 'PATCH',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify(user),
+      },
+      'update user data',
+    );
+  }
+
   // ? DELETE
+
+  /* удаление файла пользователя
+   */
+  deleteUserFile(typeOfFile) {
+    return this._request(
+      `${this._address}/user/me/file/${typeOfFile}`,
+      {
+        method: 'DELETE',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `delete user file ${typeOfFile}`,
+    );
+  }
 
   // выход из системы
   logOut() {

@@ -2,8 +2,8 @@
   margin: 0;
   position: fixed;
   top: 74px;
-  right: calc((100% - var(--max-width-app)) / 2 + 70px);
-  width: 310px;
+  right: calc((100% - var(--max-width-app)) / 2 + 50px);
+  width: max-content;
   transition: all 0.4s ease;
   padding: 0;
   gap: 15px;
@@ -78,19 +78,19 @@
 
 @media screen and (max-width: 544px) {
   .main {
-    right: 10px;
-    width: calc(100% - (4.375% * 2));
+    right: 25px;
+    width: calc(100% - 50px);
   }
 }
 
 @media screen and (min-width: 544px) and (max-width: 1024px) {
   .main {
-    right: 30px;
+    right: 50px;
   }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
   .main {
-    right: 70px;
+    right: 50px;
   }
 }

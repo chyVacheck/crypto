@@ -412,7 +412,9 @@ class Users {
     await user
       .findByIdAndUpdate(_id, update, options)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
-      .then((userMe) => res.send({ data: userMe }))
+      .then((userMe) =>
+        res.send({ message: MESSAGE.INFO.PUT.FILE, data: userMe }),
+      )
       .catch(next);
   };
 
@@ -431,7 +433,32 @@ class Users {
     await user
       .findByIdAndUpdate(_id, req.body, options)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
-      .then((userData) => res.send({ data: userData }))
+      .then((userData) =>
+        res.send({ message: MESSAGE.INFO.PATCH.USER, data: userData }),
+      )
+      .catch(next);
+  };
+
+  // * DELETE
+  // ? удаление файла
+  deleteUserFile = async (req, res, next) => {
+    const { _id, isUser } = req.user;
+    const { typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isUser) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_USER));
+    }
+
+    await user
+      .findById(_id)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userData) => {
+        userData[typeOfFile] = undefined;
+        userData.save().then(() => {
+          res.send({ message: MESSAGE.INFO.DELETE.FILE });
+        });
+      })
       .catch(next);
   };
 }

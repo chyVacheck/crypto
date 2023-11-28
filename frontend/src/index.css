@@ -33,8 +33,11 @@ body {
 
   /* ? backgrounds */
   --bg-enabled: #4285f4;
+  --bg-danger: #ee3465;
   --bg-disabled: #f8f8f8;
   --bg-primary: #202020;
+  --bg-popup: rgba(0, 0, 0, 0.85);
+
   --bg-secondary: #272727;
   --bg-input: #2f2f2f;
 
@@ -68,6 +71,9 @@ body {
   /* ? bg-colors */
   --main-bg-color: #202020;
   --sub-main-bg-color: #272727;
+
+  --input-bg-hover: #a9aeb83d;
+  --tertiary-bg-tertiary-trans: #c9ccd13d;
 
   --error: #ee3465;
   --ok: #3ddc84;

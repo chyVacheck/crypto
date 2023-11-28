@@ -31,4 +31,8 @@ User.put(
 // * изменить данные
 User.patch('/me', Validator.patchUserData, users.patchUserData);
 
+// ? DELETE
+// * удалить файл
+User.delete('/me/file/:typeOfFile', Validator.usersFile, users.deleteUserFile);
+
 module.exports = User;

@@ -17,19 +17,21 @@ export const paths = {
   },
   signin: `${DEFAULT_URL}signin`,
   signup: `${DEFAULT_URL}signup`,
+  user: {
+    profile: `${DEFAULT_URL}profile`,
+  },
   verifyEmail: `${DEFAULT_URL}verifyEmail`,
-};
-
-export const VALUES = {
-  bad: 100,
-  notBad: 300,
 };
 
 export const LINK_REPOSITORY = 'https://github.com/chyVacheck/crypto';
 
 export const PATTERN_PAGE_USER_ID = /^\/users(\/[a-zA-Z0-9]*)?$/;
 
-export const activeFooterRoutes = [paths.admin.main, paths.main];
+export const activeFooterRoutes = [
+  paths.admin.main,
+  paths.main,
+  paths.user.profile,
+];
 
 export const VALIDATION = {
   NAME: {

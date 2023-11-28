@@ -1,9 +1,11 @@
+// ! modules
+import { NavLink } from 'react-router-dom';
+
 // ? style
 import s from './SignForm.module.css';
 
 // ? components
 import Logo from './../Logo/Logo';
-import { NavLink } from 'react-router-dom';
 
 function SignForm({
   title,
