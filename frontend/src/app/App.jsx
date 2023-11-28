@@ -28,6 +28,8 @@ import PageNotFound from '../pages/PageNotFound/PageNotFound';
 import Signup from '../pages/Signup/Signup';
 // Profile
 import Profile from '../pages/Profile/Profile';
+// UserProfileById
+import UserProfileById from '../pages/UserProfileById/UserProfileById';
 // Verify Email
 import VerifyEmail from '../pages/VerifyEmail/VerifyEmail';
 
@@ -239,6 +241,20 @@ function App() {
                       to={paths.admin.signin}
                     >
                       <CreateAdmin addNotification={addNotification} />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* VIEW USER PROFILE */}
+                <Route
+                  path={paths.admin.userProfile}
+                  element={
+                    <ProtectedRoute
+                      isActive={isAdminLogin}
+                      page={page}
+                      to={paths.admin.signin}
+                    >
+                      <UserProfileById addNotification={addNotification} />
                     </ProtectedRoute>
                   }
                 />

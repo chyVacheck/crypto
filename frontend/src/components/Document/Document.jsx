@@ -7,8 +7,6 @@ import s from './Document.module.css';
 // ? assets
 // * images
 import uploadImage from './../../assets/images/upload_type_color.png';
-//   icons
-import addIcon from './../../assets/images/icons/add.svg';
 
 function Document({
   handleSubmit,

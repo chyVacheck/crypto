@@ -7,7 +7,6 @@ import s from './Popup.module.css';
 import closeIcon from './../../assets/images/icons/close_light.svg';
 
 function Popup({ title, file, closePopup }) {
-  console.log(file.type.startsWith('image'));
   return (
     <article className={s.main}>
       <div className={s.container}>

@@ -247,7 +247,9 @@ class Admins {
     await user
       .findByIdAndUpdate(userId, update, options)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
-      .then((userMe) => res.send({ data: userMe }))
+      .then((userMe) =>
+        res.send({ message: MESSAGE.INFO.PUT.FILE, data: userMe }),
+      )
       .catch(next);
   };
 
@@ -267,7 +269,32 @@ class Admins {
     user
       .findByIdAndUpdate(userId, req.body, options)
       .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
-      .then((userMe) => res.send({ data: userMe }))
+      .then((userMe) =>
+        res.send({ message: MESSAGE.INFO.PATCH.USER, data: userMe }),
+      )
+      .catch(next);
+  };
+
+  // * DELETE
+  // ? удаление файла у пользователя
+  deleteUserFileById = async (req, res, next) => {
+    const { _id, isAdmin } = req.user;
+    const { userId, typeOfFile } = req.params;
+
+    // проверка доступа
+    if (!isAdmin) {
+      return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_ADMIN));
+    }
+
+    await user
+      .findById(userId)
+      .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.USER))
+      .then((userData) => {
+        userData[typeOfFile] = undefined;
+        userData.save().then(() => {
+          res.send({ message: MESSAGE.INFO.DELETE.FILE });
+        });
+      })
       .catch(next);
   };
 }

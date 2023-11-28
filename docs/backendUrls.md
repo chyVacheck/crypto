@@ -209,7 +209,7 @@
 
 ---
 
-- _PUT_ `api/v1/admin/users/:userId/file/:typeOfFile`
+- _PUT_ `/api/v1/admin/users/:userId/file/:typeOfFile`
 
   ```json
   file
@@ -244,7 +244,7 @@
 
 ---
 
-- _PATCH_ `api/v1/admin/users/:userId`
+- _PATCH_ `/api/v1/admin/users/:userId`
 
   ```json
   {
@@ -279,6 +279,22 @@
       "phone": "123-456-7890",
       "typeOfUser": "company representative" // or can be 'juridical person'
     }
+  }
+  ```
+
+---
+
+- _DELETE_ `/api/v1/admin/users/:userId/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "message": "File was successful deleted"
   }
   ```
 
@@ -403,6 +419,22 @@
       "phone": "123-456-7890",
       "typeOfUser": "company representative" // or can be 'juridical person'
     }
+  }
+  ```
+
+---
+
+- _DELETE_ `/api/v1/user/me/file/:typeOfFile`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer:
+
+  ```json
+  {
+    "message": "File was successful deleted"
   }
   ```
 

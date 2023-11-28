@@ -14,6 +14,7 @@ export const paths = {
     main: `${DEFAULT_URL}admin/main`,
     signin: `${DEFAULT_URL}admin/signin`,
     create: `${DEFAULT_URL}admin/create`,
+    userProfile: `${DEFAULT_URL}admin/users/:userId`,
   },
   signin: `${DEFAULT_URL}signin`,
   signup: `${DEFAULT_URL}signup`,

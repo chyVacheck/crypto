@@ -49,4 +49,12 @@ Admin.patch(
   admins.patchUserDataByUserId,
 );
 
+// ? DELETE
+// * удалить файл пользователя по его id
+Admin.delete(
+  '/users/:userId/file/:typeOfFile',
+  Validator.userIdUsersFile,
+  admins.deleteUserFileById,
+);
+
 module.exports = Admin;

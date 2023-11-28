@@ -65,6 +65,21 @@ class MainApi {
     );
   }
 
+  /* получение информации о пользователе по его id
+
+  */
+  getUserInfoById(userId) {
+    return this._request(
+      `${this._address}/admin/users/${userId}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      'get user info',
+    );
+  }
+
   // получение файла пользователя
   getUserFile(data) {
     const _headers = this._headers;
@@ -73,6 +88,26 @@ class MainApi {
 
     return this._request(
       `${this._address}/user/me/file/${data.typeOfFile}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: _headers,
+      },
+      `get user file ${data.typeOfFile}`,
+      data.typeOfFile,
+    );
+  }
+
+  /* получение файла пользователя по его id
+
+  */
+  getUserFileById(data, userId) {
+    const _headers = this._headers;
+
+    _headers['Content-Type'] = data['Content-Type'];
+
+    return this._request(
+      `${this._address}/admin/users/${userId}/file/${data.typeOfFile}`,
       {
         method: 'GET',
         credentials: this._credentials,
@@ -201,6 +236,21 @@ class MainApi {
     );
   }
 
+  /* положить файл пользователю по его Id
+
+   */
+  putUserFileById(data) {
+    return this._request(
+      `${this._address}/admin/users/${data.userId}/file/${data.typeOfFile}`,
+      {
+        method: 'PUT',
+        credentials: this._credentials,
+        body: data.file,
+      },
+      `put user file ${data.typeOfFile}`,
+    );
+  }
+
   // ? PATCH
 
   /* обновление данных пользователя
@@ -221,6 +271,24 @@ class MainApi {
     );
   }
 
+  /* обновление данных пользователя
+    user = {
+      name: "new name"
+    }
+  */
+  updateUserDataById(user, userId) {
+    return this._request(
+      `${this._address}/admin/users/:${userId}`,
+      {
+        method: 'PATCH',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify(user),
+      },
+      'update user data',
+    );
+  }
+
   // ? DELETE
 
   /* удаление файла пользователя
@@ -228,6 +296,20 @@ class MainApi {
   deleteUserFile(typeOfFile) {
     return this._request(
       `${this._address}/user/me/file/${typeOfFile}`,
+      {
+        method: 'DELETE',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `delete user file ${typeOfFile}`,
+    );
+  }
+
+  /* удаление файла пользователя по его id
+   */
+  deleteUserFileById(typeOfFile, userId) {
+    return this._request(
+      `${this._address}/admin/users/${userId}/file/${typeOfFile}`,
       {
         method: 'DELETE',
         credentials: this._credentials,
