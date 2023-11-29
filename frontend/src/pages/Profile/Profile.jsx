@@ -1,5 +1,6 @@
 // ! modules
 import { useState, useRef, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // ? styles
 import s from './Profile.module.css';
@@ -24,11 +25,12 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // ? utils
 // * constants
-import { VALIDATION } from '../../utils/constants';
+import { VALIDATION, paths } from '../../utils/constants';
 // * utils
 import { checkValidity, copy } from '../../utils/utils';
 
 function Profile({ addNotification, setUser }) {
+  const navigate = useNavigate();
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =
@@ -217,7 +219,7 @@ function Profile({ addNotification, setUser }) {
             setProofOfAddressUploaded(false);
             break;
 
-          case 'selfieWithIDOrPass':
+          case 'selfieWithIDOrPassport':
             setSelfieWithIDOrPassUploaded(false);
             break;
 
@@ -229,6 +231,29 @@ function Profile({ addNotification, setUser }) {
         // устанавливаем ошибку
         addNotification({
           name: 'Update user data',
+          ok: false,
+          text: err.message,
+        });
+      });
+  }
+
+  async function handleLogout(e) {
+    e.preventDefault();
+
+    await mainApi
+      .logOut()
+      .then((res) => {
+        addNotification({
+          name: 'Logout',
+          ok: true,
+          text: res.message,
+        });
+        navigate(paths.main);
+      })
+      .catch((err) => {
+        // устанавливаем ошибку
+        addNotification({
+          name: 'Logout',
           ok: false,
           text: err.message,
         });
@@ -326,7 +351,17 @@ function Profile({ addNotification, setUser }) {
       <section className={s.main}>
         <article className={s.container}>
           <div className={s.header}>
-            <Logo />
+            <div className={s['logo-and-button']}>
+              <Logo />
+
+              <button
+                type='button'
+                onClick={handleLogout}
+                className={`button subhead ${s.logout}`}
+              >
+                Log out
+              </button>
+            </div>
 
             <h1 className={s.title}>Profile</h1>
           </div>
@@ -477,10 +512,14 @@ function Profile({ addNotification, setUser }) {
                       <div
                         onClick={() => {
                           // смена валидации формы
-                          setIsFormValid(userData.typeOfUser !== element);
                           typeOfUserRef.current.value = element;
                           setDropdownTypeOfUserOpen(false);
                           if (!_isCurrent) setFormAnotherData(true);
+                          setIsFormValid(
+                            isFormValid &&
+                              userData.typeOfUser !==
+                                typeOfUserRef.current.value,
+                          );
                         }}
                         key={index}
                         className={`${s.answer} ${

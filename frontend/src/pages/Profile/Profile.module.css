@@ -29,6 +29,19 @@
   line-height: 29px;
 }
 
+.logo-and-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout {
+  min-width: 70px;
+  background: var(--bg-danger);
+  color: var(--fg-primary);
+  border-radius: 7px;
+  padding: 3.5px 7px;
+}
+
 .form {
   height: 100%;
   display: flex;
@@ -210,10 +223,6 @@
     width: 100%;
     gap: 35px 0;
     padding: 56px 25px 30px;
-  }
-  .header {
-    align-items: center;
-    flex-direction: row;
   }
   .title {
     text-align: center;
