@@ -113,15 +113,24 @@ function Profile({ addNotification, setUser }) {
 
         switch (data.typeOfFile) {
           case 'passport':
-            _newUserData.passport = { url: imageUrl };
+            _newUserData.passport = {
+              url: imageUrl,
+              type: data['Content-Type'],
+            };
             setPassportUploaded(true);
             break;
           case 'proofOfAddress':
-            _newUserData.proofOfAddress = { url: imageUrl };
+            _newUserData.proofOfAddress = {
+              url: imageUrl,
+              type: data['Content-Type'],
+            };
             setProofOfAddressUploaded(true);
             break;
           case 'selfieWithIDOrPassport':
-            _newUserData.selfieWithIDOrPassport = { url: imageUrl };
+            _newUserData.selfieWithIDOrPassport = {
+              url: imageUrl,
+              type: data['Content-Type'],
+            };
             setSelfieWithIDOrPassUploaded(true);
             break;
 
