@@ -18,6 +18,7 @@ export const paths = {
   },
   signin: `${DEFAULT_URL}signin`,
   signup: `${DEFAULT_URL}signup`,
+  support: `${DEFAULT_URL}support`,
   user: {
     profile: `${DEFAULT_URL}profile`,
   },
@@ -32,6 +33,7 @@ export const activeFooterRoutes = [
   paths.admin.main,
   paths.main,
   paths.user.profile,
+  paths.support,
 ];
 
 export const VALIDATION = {
@@ -42,6 +44,14 @@ export const VALIDATION = {
   PASSWORD: {
     MIN: 2,
     MAX: 32,
+  },
+  TITLE: {
+    MIN: 2,
+    MAX: 32,
+  },
+  MESSAGE: {
+    MIN: 10,
+    MAX: 4000,
   },
 };
 

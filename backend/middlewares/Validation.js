@@ -260,4 +260,11 @@ Validator.companyIdCompanyFile = celebrate({
   }),
 });
 
+Validator.mail = celebrate({
+  body: Joi.object().keys({
+    title: Joi.string().required().min(VALID_VALUES.MAIL.TITLE.LENGTH.MIN),
+    message: Joi.string().required().min(VALID_VALUES.MAIL.MESSAGE.LENGTH.MIN),
+  }),
+});
+
 module.exports = Validator;

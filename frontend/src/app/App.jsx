@@ -28,6 +28,8 @@ import PageNotFound from '../pages/PageNotFound/PageNotFound';
 import Signup from '../pages/Signup/Signup';
 // Profile
 import Profile from '../pages/Profile/Profile';
+// Support
+import Support from '../pages/Support/Support';
 // UserProfileById
 import UserProfileById from '../pages/UserProfileById/UserProfileById';
 // Verify Email
@@ -209,6 +211,20 @@ function App() {
                         addNotification={addNotification}
                         setUser={setCurrentUser}
                       />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* SUPPORT */}
+                <Route
+                  path={paths.support}
+                  element={
+                    <ProtectedRoute
+                      isActive={isUserLogin}
+                      page={page}
+                      to={paths.signin}
+                    >
+                      <Support addNotification={addNotification} />
                     </ProtectedRoute>
                   }
                 />

@@ -219,6 +219,28 @@ class MainApi {
     );
   }
 
+  /* отправка сообщения в поддержку
+    mail = {
+      title: "title" // заглавие
+      message: "message" // сообщение в поддержку
+    }
+  */
+  sendMailToSupport(mail) {
+    return this._request(
+      `${this._address}/support/mail`,
+      {
+        method: 'POST',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify({
+          title: mail.title,
+          message: mail.message,
+        }),
+      },
+      'send mail to support',
+    );
+  }
+
   // ? PUT
 
   /* положить файл пользователю

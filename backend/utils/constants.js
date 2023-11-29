@@ -98,6 +98,7 @@ const MESSAGE = {
       SHAREHOLDER: 'Shareholder has been created',
       USER: 'User has been created',
       MAIL: 'Code was successfully send to your email address',
+      SUPPORT_MAIL: 'Mail was successfully send',
       ADMIN: 'Admin has been created',
       COMPANY: 'Company has been created',
     },
@@ -144,6 +145,20 @@ const VALID_VALUES = {
     LENGTH: {
       MIN: 2,
       MAX: 32,
+    },
+  },
+  MAIL: {
+    TITLE: {
+      LENGTH: {
+        MIN: 2,
+        MAX: 32,
+      },
+    },
+    MESSAGE: {
+      LENGTH: {
+        MIN: 10,
+        MAX: 4000,
+      },
     },
   },
   PASSWORD: {

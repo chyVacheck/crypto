@@ -677,3 +677,24 @@
   ```
 
 ---
+
+## Support
+
+- _POST_ `/api/v1/support/mail`
+
+  ```json
+  {
+    "title": "test_title",
+    "message": "test_message"
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Mail was successfully send"
+  }
+  ```
+
+---
