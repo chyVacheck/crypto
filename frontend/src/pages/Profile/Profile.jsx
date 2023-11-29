@@ -159,7 +159,6 @@ function Profile({ addNotification, setUser }) {
 
   // ?
   function openFile(file) {
-    console.log(151, file);
     setCurrenFile(file);
     setPopupOpen(true);
   }
