@@ -509,12 +509,16 @@ function UserProfileById({ addNotification }) {
 
                     return (
                       <div
-                        onClick={() => {
+                        onClick={(event) => {
                           // смена валидации формы
-                          setIsFormValid(userData.typeOfUser !== element);
                           typeOfUserRef.current.value = element;
                           setDropdownTypeOfUserOpen(false);
                           if (!_isCurrent) setFormAnotherData(true);
+                          setIsFormValid(
+                            event.target.closest('form').checkValidity() &&
+                              userData.typeOfUser !==
+                                typeOfUserRef.current.value,
+                          );
                         }}
                         key={index}
                         className={`${s.answer} ${
