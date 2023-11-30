@@ -332,8 +332,10 @@ class MainApi {
     userId = 655608239736cf4d57ee5299
   */
   updateUserDataById(user, userId) {
+    let _headers = this._headers;
+    _headers['Content-Type'] = SETTINGS_API.contentType;
     return this._request(
-      `${this._address}/admin/users/:${userId}`,
+      `${this._address}/admin/users/${userId}`,
       {
         method: 'PATCH',
         credentials: this._credentials,

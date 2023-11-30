@@ -18,6 +18,7 @@ export const paths = {
   },
   company: {
     create: `${DEFAULT_URL}company/create`,
+    profile: `${DEFAULT_URL}company/:companyId`,
   },
   signin: `${DEFAULT_URL}signin`,
   signup: `${DEFAULT_URL}signup`,
@@ -30,7 +31,7 @@ export const paths = {
 
 export const LINK_REPOSITORY = 'https://github.com/chyVacheck/crypto';
 
-export const PATTERN_PAGE_USER_ID = /^\/users(\/[a-zA-Z0-9]*)?$/;
+export const PATTERN_PAGE_USER_ID = /^\/admin\/users(\/[a-zA-Z0-9]*)?$/;
 
 export const activeFooterRoutes = [
   paths.admin.main,

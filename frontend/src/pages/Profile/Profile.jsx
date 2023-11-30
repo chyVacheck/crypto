@@ -168,12 +168,38 @@ function Profile({ addNotification, setUser }) {
     setCurrentTextSubmitButton('Saving data...');
     e.preventDefault();
 
+    if (
+      userData.typeOfUser !== typeOfUserRef.current.value &&
+      typeOfUserRef.current.value === 'Juridical person'
+    ) {
+      await mainApi.deleteCompanyById(userData.companyId).then(async (res) => {
+        addNotification({
+          name: 'Delete company',
+          ok: true,
+          text: res.message,
+        });
+
+        await mainApi
+          .updateUserData({
+            companyId: undefined,
+            typeOfUser: typeOfUserRef.current.value,
+          })
+          .then((answer) => {
+            Object.assign(userData, {
+              companyId: answer.data.companyId,
+              typeOfUser: answer.data.typeOfUser,
+            });
+
+            setUser(userData);
+          });
+      });
+    }
+
     await mainApi
       .updateUserData({
         name: nameRef.current.value,
         secondName: secondNameRef.current.value,
         phone: phoneRef.current.value,
-        typeOfUser: typeOfUserRef.current.value,
       })
       .then((res) => {
         addNotification({
@@ -184,10 +210,9 @@ function Profile({ addNotification, setUser }) {
 
         const _newUserData = userData;
 
-        _newUserData.name = nameRef.current.value;
-        _newUserData.secondName = secondNameRef.current.value;
-        _newUserData.phone = phoneRef.current.value;
-        _newUserData.typeOfUser = typeOfUserRef.current.value;
+        _newUserData.name = res.data.name;
+        _newUserData.secondName = res.data.secondName;
+        _newUserData.phone = res.data.phone;
 
         setUser(_newUserData);
       })
@@ -268,7 +293,7 @@ function Profile({ addNotification, setUser }) {
       });
   }
 
-  const answers = ['Juridical person', 'Authorised person'];
+  const answers = ['Juridical person', 'Legal entity'];
 
   useEffect(() => {
     nameRef.current.value = userData.name;
@@ -522,8 +547,8 @@ function Profile({ addNotification, setUser }) {
                         onClick={(event) => {
                           // перенаправляем пользователя на создание компании
                           if (
-                            userData.typeOfUser !== 'Authorised person' &&
-                            element === 'Authorised person'
+                            userData.typeOfUser !== 'Legal entity' &&
+                            element === 'Legal entity'
                           ) {
                             window.location.href = paths.company.create;
                             // ! navigate не перезагружает страницу из-за чего вылазит ошибка в виде

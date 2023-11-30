@@ -21,9 +21,6 @@ import Document from '../../components/Document/Document';
 import Logo from '../../components/Logo/Logo';
 import Popup from './../../components/Popup/Popup';
 
-// ? contexts
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-
 // ? utils
 // * constants
 import { VALIDATION, STATUS } from '../../utils/constants';
@@ -33,7 +30,6 @@ import { checkValidity, copy } from '../../utils/utils';
 function UserProfileById({ addNotification }) {
   const { userId } = useParams();
 
-  const adminData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =
     useState('Save data');
@@ -244,7 +240,7 @@ function UserProfileById({ addNotification }) {
       });
   }
 
-  const answers = ['Juridical person', 'Authorised person'];
+  const answers = ['Juridical person', 'Legal entity'];
 
   useEffect(() => {
     mainApi
@@ -362,7 +358,7 @@ function UserProfileById({ addNotification }) {
           <div className={s.header}>
             <Logo />
 
-            <h1 className={s.title}>Profile</h1>
+            <h1 className={s.title}>User Data</h1>
           </div>
 
           <form onSubmit={handleSubmit} className={s.form}>
@@ -395,6 +391,22 @@ function UserProfileById({ addNotification }) {
                   {userId}
                 </p>
               </div>
+
+              {/* // ? Company Id */}
+              {!!userData.companyId && (
+                <div className={s.info}>
+                  <h6 className={`${s.name} caption`}>Company Id</h6>
+
+                  <p
+                    className={`copy ${s.text}`}
+                    onClick={() => {
+                      copy(userData.companyId);
+                    }}
+                  >
+                    {userData.companyId}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* // ? input поля */}
