@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: VALID_VALUES.USER.TYPE.VALUES,
     },
+    companyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Company',
+    },
     passport: {
       name: {
         type: String,

@@ -181,6 +181,15 @@ function Profile({ addNotification, setUser }) {
           ok: true,
           text: res.message,
         });
+
+        const _newUserData = userData;
+
+        _newUserData.name = nameRef.current.value;
+        _newUserData.secondName = secondNameRef.current.value;
+        _newUserData.phone = phoneRef.current.value;
+        _newUserData.typeOfUser = typeOfUserRef.current.value;
+
+        setUser(_newUserData);
       })
       .catch((err) => {
         // устанавливаем ошибку
@@ -269,9 +278,6 @@ function Profile({ addNotification, setUser }) {
   }, [userData]);
 
   useEffect(() => {
-    // todo удалить потом
-    console.log(userData);
-
     // ? passport
     if (userData.passport && !userData.passport.url) {
       mainApi
@@ -485,7 +491,11 @@ function Profile({ addNotification, setUser }) {
                       ? s.input_validity_invalid
                       : ''
                   }`}
-                  placeholder='click to choose'
+                  placeholder={
+                    isDropdownTypeOfUserOpen
+                      ? 'click to close'
+                      : 'click to choose'
+                  }
                   id='typeOfUserRef'
                   type='text'
                   ref={typeOfUserRef}
@@ -510,6 +520,14 @@ function Profile({ addNotification, setUser }) {
                     return (
                       <div
                         onClick={(event) => {
+                          // перенаправляем пользователя на создание компании
+                          if (
+                            userData.typeOfUser !== 'Authorised person' &&
+                            element === 'Authorised person'
+                          ) {
+                            navigate(paths.company.create);
+                          }
+
                           // смена валидации формы
                           typeOfUserRef.current.value = element;
                           setDropdownTypeOfUserOpen(false);
@@ -545,15 +563,16 @@ function Profile({ addNotification, setUser }) {
                 openFile={openFile}
                 handleDelete={deleteFileOnServer}
                 handleSubmit={uploadFileToServer}
-                isActive={isPassportUploaded}
+                isActive={userData.passport && !!userData.passport.url}
+                _isFileUpload={isPassportUploaded}
                 title={'passport'}
                 icon={{
-                  url: isPassportUploaded && userData.passport.url,
+                  url: userData.passport && userData.passport.url,
                   src: passportImage,
                   alt: 'passport',
                 }}
                 typeOfFile={'passport'}
-                expansionOfFile={isPassportUploaded && userData.passport.type}
+                expansionOfFile={userData.passport && userData.passport.type}
               />
 
               {/* // ? proof of Address */}
@@ -561,16 +580,19 @@ function Profile({ addNotification, setUser }) {
                 openFile={openFile}
                 handleDelete={deleteFileOnServer}
                 handleSubmit={uploadFileToServer}
-                isActive={isProofOfAddressUploaded}
+                isActive={
+                  userData.proofOfAddress && !!userData.proofOfAddress.url
+                }
+                _isFileUpload={isProofOfAddressUploaded}
                 title={'Proof of address'}
                 icon={{
-                  url: isProofOfAddressUploaded && userData.proofOfAddress.url,
+                  url: userData.proofOfAddress && userData.proofOfAddress.url,
                   src: proofOfAddressImage,
                   alt: 'Proof of address',
                 }}
                 typeOfFile={'proofOfAddress'}
                 expansionOfFile={
-                  isProofOfAddressUploaded && userData.proofOfAddress.type
+                  userData.proofOfAddress && userData.proofOfAddress.type
                 }
               />
 
@@ -579,18 +601,22 @@ function Profile({ addNotification, setUser }) {
                 openFile={openFile}
                 handleDelete={deleteFileOnServer}
                 handleSubmit={uploadFileToServer}
-                isActive={isSelfieWithIDOrPassportUploaded}
+                isActive={
+                  userData.selfieWithIDOrPassport &&
+                  !!userData.selfieWithIDOrPassport.url
+                }
+                _isFileUpload={isSelfieWithIDOrPassportUploaded}
                 title={'Selfie with id'}
                 icon={{
                   url:
-                    isSelfieWithIDOrPassportUploaded &&
+                    userData.selfieWithIDOrPassport &&
                     userData.selfieWithIDOrPassport.url,
                   src: selfieWithIdImage,
                   alt: 'Selfie with id',
                 }}
                 typeOfFile={'selfieWithIDOrPassport'}
                 expansionOfFile={
-                  isSelfieWithIDOrPassportUploaded &&
+                  userData.selfieWithIDOrPassport &&
                   userData.selfieWithIDOrPassport.type
                 }
               />

@@ -158,7 +158,7 @@ class Companies {
     });
 
     user
-      .findByIdAndUpdate(_id, { typeOfUser: 'company representative' })
+      .findByIdAndUpdate(_id, { typeOfUser: 'Authorised person' })
       .catch(next);
 
     const shareholderId = await shareholder
@@ -188,6 +188,7 @@ class Companies {
       .create(data)
       .then((companyData) => {
         res.send({ message: MESSAGE.INFO.CREATED.COMPANY, data: companyData });
+        user.findByIdAndUpdate(_id, { companyId: companyData._id }).catch(next);
       })
       .catch((err) => {
         if (err.name === 'ValidationError') {

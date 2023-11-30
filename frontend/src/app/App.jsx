@@ -20,6 +20,8 @@ import { CurrentUserContext } from './../contexts/CurrentUserContext';
 // * pages
 // CreateAdmin
 import CreateAdmin from '../pages/CreateAdmin/CreateAdmin';
+// CreateCompany
+import CreateCompany from '../pages/CreateCompany/CreateCompany';
 // Login
 import Login from '../pages/Login/Login';
 // PageNotFound
@@ -85,6 +87,7 @@ function App() {
         .then((res) => {
           setUserLogin(true);
           setCurrentUser(res.data);
+          console.log(res.data);
         })
         .catch((err) => {
           if (STATUS.DEV)
@@ -208,6 +211,23 @@ function App() {
                       to={paths.signin}
                     >
                       <Profile
+                        addNotification={addNotification}
+                        setUser={setCurrentUser}
+                      />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* COMPANY CREATE */}
+                <Route
+                  path={paths.company.create}
+                  element={
+                    <ProtectedRoute
+                      isActive={isUserLogin && !currentUser.companyId}
+                      page={page}
+                      to={paths.user.profile}
+                    >
+                      <CreateCompany
                         addNotification={addNotification}
                         setUser={setCurrentUser}
                       />

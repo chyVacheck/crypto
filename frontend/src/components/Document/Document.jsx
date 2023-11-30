@@ -12,6 +12,7 @@ function Document({
   handleSubmit,
   handleDelete,
   isActive,
+  _isFileUpload,
   title,
   icon,
   typeOfFile,
@@ -19,7 +20,7 @@ function Document({
   expansionOfFile,
 }) {
   const fileInputRef = useRef(null);
-  const [isFileUpload, setFileUpload] = useState(isActive);
+  const [isFileUpload, setFileUpload] = useState(_isFileUpload);
 
   //
   function uploadFile(e) {

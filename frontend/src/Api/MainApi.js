@@ -66,7 +66,7 @@ class MainApi {
   }
 
   /* получение информации о пользователе по его id
-
+    userId = 655608239736cf4d57ee5299
   */
   getUserInfoById(userId) {
     return this._request(
@@ -99,7 +99,7 @@ class MainApi {
   }
 
   /* получение файла пользователя по его id
-
+    userId = 655608239736cf4d57ee5299
   */
   getUserFileById(data, userId) {
     const _headers = this._headers;
@@ -241,10 +241,36 @@ class MainApi {
     );
   }
 
+  /* создание нового администратора
+    company = {
+      "registrationNumber": "test_registration_number_2",
+      "shareholder": {
+        "typeOfShareholder": "company",
+        "data": {
+          "registrationNumber": "test_registration_number"
+        }
+    }
+  */
+  createCompany(company) {
+    return this._request(
+      `${this._address}/company`,
+      {
+        method: 'POST',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify(company),
+      },
+      'create company',
+    );
+  }
+
   // ? PUT
 
   /* положить файл пользователю
-
+    data = {
+      typeOfFile: "passport"
+      file: // ? file
+    }
    */
   putUserFile(data) {
     return this._request(
@@ -259,7 +285,11 @@ class MainApi {
   }
 
   /* положить файл пользователю по его Id
-
+    data = {
+      userId: 655608239736cf4d57ee5299,
+      typeOfFile: "passport"
+      file: // ? file
+    }
    */
   putUserFileById(data) {
     return this._request(
@@ -281,6 +311,8 @@ class MainApi {
     }
   */
   updateUserData(user) {
+    let _headers = this._headers;
+    _headers['Content-Type'] = SETTINGS_API.contentType;
     return this._request(
       `${this._address}/user/me`,
       {
@@ -296,7 +328,8 @@ class MainApi {
   /* обновление данных пользователя
     user = {
       name: "new name"
-    }
+    },
+    userId = 655608239736cf4d57ee5299
   */
   updateUserDataById(user, userId) {
     return this._request(

@@ -16,6 +16,9 @@ export const paths = {
     create: `${DEFAULT_URL}admin/create`,
     userProfile: `${DEFAULT_URL}admin/users/:userId`,
   },
+  company: {
+    create: `${DEFAULT_URL}company/create`,
+  },
   signin: `${DEFAULT_URL}signin`,
   signup: `${DEFAULT_URL}signup`,
   support: `${DEFAULT_URL}support`,
@@ -34,6 +37,7 @@ export const activeFooterRoutes = [
   paths.main,
   paths.user.profile,
   paths.support,
+  paths.company.create,
 ];
 
 export const VALIDATION = {
@@ -52,6 +56,10 @@ export const VALIDATION = {
   MESSAGE: {
     MIN: 10,
     MAX: 4000,
+  },
+  REGISTRATION_NUMBER: {
+    MIN: 1,
+    MAX: 20,
   },
 };
 
