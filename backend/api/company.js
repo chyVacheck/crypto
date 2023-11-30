@@ -86,4 +86,7 @@ Company.delete(
   companies.deleteShareholderByIdCompanyById,
 );
 
+// ? DELETE
+Company.delete('/:companyId', Validator.companyId, companies.deleteCompanyById);
+
 module.exports = Company;

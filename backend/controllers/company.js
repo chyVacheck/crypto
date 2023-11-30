@@ -157,9 +157,7 @@ class Companies {
       }
     });
 
-    user
-      .findByIdAndUpdate(_id, { typeOfUser: 'Authorised person' })
-      .catch(next);
+    user.findByIdAndUpdate(_id, { typeOfUser: 'Legal entity' }).catch(next);
 
     const shareholderId = await shareholder
       .create({
@@ -521,6 +519,49 @@ class Companies {
           );
 
           await companyData.save();
+
+          res
+            .status(STATUS.INFO.OK)
+            .send({ message: MESSAGE.INFO.DELETE.SIMPLE });
+        });
+    } catch (error) {
+      return next(error);
+    }
+  };
+
+  // ? удаление компании
+  deleteCompanyById = async (req, res, next) => {
+    const { _id, isAdmin, isUser } = req.user;
+    const { companyId } = req.params;
+
+    try {
+      const companyData = await company
+        .findById(companyId)
+        .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.COMPANY));
+
+      // проверка доступа
+      if (!companyData.owners.includes(_id) && !isAdmin) {
+        return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SIMPLE));
+      }
+
+      await company
+        .findByIdAndDelete(companyId)
+        .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.COMPANY))
+        .then(async () => {
+          if (isUser) {
+            await user.findByIdAndUpdate(
+              _id,
+              {
+                $unset: { companyId },
+                typeOfUser: 'Juridical person',
+              },
+              { new: true },
+            );
+          }
+
+          for (const shareholderId of companyData.shareholder) {
+            await shareholder.findByIdAndDelete(shareholderId);
+          }
 
           res
             .status(STATUS.INFO.OK)

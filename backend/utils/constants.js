@@ -233,7 +233,7 @@ const VALID_VALUES = {
   },
   USER: {
     TYPE: {
-      VALUES: ['Juridical person', 'Authorised person'],
+      VALUES: ['Juridical person', 'Legal entity'],
     },
     FILE: {
       TYPES: ['image/jpeg', 'image/png', 'application/pdf'],
