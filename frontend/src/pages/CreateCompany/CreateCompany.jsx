@@ -109,6 +109,7 @@ function CreateCompany({ addNotification, setUser }) {
         const _newUserData = userData;
 
         _newUserData.companyId = res.data._id;
+        _newUserData.typeOfUser = 'Authorised person';
 
         setUser(_newUserData);
       })

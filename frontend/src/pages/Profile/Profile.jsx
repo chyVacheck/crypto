@@ -525,7 +525,13 @@ function Profile({ addNotification, setUser }) {
                             userData.typeOfUser !== 'Authorised person' &&
                             element === 'Authorised person'
                           ) {
-                            navigate(paths.company.create);
+                            window.location.href = paths.company.create;
+                            // ! navigate не перезагружает страницу из-за чего вылазит ошибка в виде
+                            // ! странного не прохода валидации сервером запроса на регистрацию компании
+                            // ! по этому используется
+                            // ! window.location.href = paths.company.create;
+                            // ! что бы происходило обновление страницы
+                            // navigate(paths.company.create);
                           }
 
                           // смена валидации формы
