@@ -1,6 +1,6 @@
 // ! modules
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // ? styles
 import s from './App.module.css';
@@ -22,6 +22,8 @@ import { CurrentUserContext } from './../contexts/CurrentUserContext';
 import CreateAdmin from '../pages/CreateAdmin/CreateAdmin';
 // CreateCompany
 import CreateCompany from '../pages/CreateCompany/CreateCompany';
+// ListOfUsers
+import ListOfUsers from '../pages/ListOfUsers/ListOfUsers';
 // Login
 import Login from '../pages/Login/Login';
 // PageNotFound
@@ -291,6 +293,20 @@ function App() {
                       to={paths.admin.signin}
                     >
                       <UserProfileById addNotification={addNotification} />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* LIST OF USERS */}
+                <Route
+                  path={paths.admin.users}
+                  element={
+                    <ProtectedRoute
+                      isActive={isAdminLogin}
+                      page={page}
+                      to={paths.admin.signin}
+                    >
+                      <ListOfUsers addNotification={addNotification} />
                     </ProtectedRoute>
                   }
                 />

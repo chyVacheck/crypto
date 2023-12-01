@@ -65,6 +65,19 @@ class MainApi {
     );
   }
 
+  // получение информации о пользователях
+  getUsersInfo() {
+    return this._request(
+      `${this._address}/admin/users`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      'get users info',
+    );
+  }
+
   /* получение информации о пользователе по его id
     userId = 655608239736cf4d57ee5299
   */

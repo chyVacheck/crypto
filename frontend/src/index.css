@@ -30,6 +30,7 @@ body {
   /* ? borders */
   --border-color: #424242;
   --border-error: #ee3465;
+  --border-input-focus: #4285f4;
 
   /* ? backgrounds */
   --bg-enabled: #4285f4;
@@ -44,7 +45,6 @@ body {
   /* --- --- --- */
 
   --button-text-color: #000000;
-  --movies-card-bg-color: #222222;
 
   --landing-title-border-color: #dadada;
   --landing-title-black-border-color: #000;
@@ -53,8 +53,6 @@ body {
   --user-icon-button-bg-color: #313131;
   --button-bg-color: #ee3465;
   --button-bg-color-no-added: #313131;
-
-  --input-focus-border-color: #4285f4;
 
   --preloader-bg-color: #4285f4;
   --preloader-color: #3ddc84;
@@ -93,7 +91,6 @@ body {
   --light-bg-color: var(--ok);
 
   --button-component-color-active: #fff;
-  --input-focus-border-color: #4285f4;
   --button-bg-dark-color: #343434;
 
   --button-component-color-active: #fff;

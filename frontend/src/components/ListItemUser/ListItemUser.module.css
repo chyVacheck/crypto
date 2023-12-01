@@ -1,0 +1,44 @@
+.main {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 21px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.data {
+  display: flex;
+  justify-content: space-between;
+  gap: 7px;
+}
+
+.text {
+  margin: 0;
+}
+
+.value {
+  color: var(--fg-secondary);
+}
+
+.link {
+  text-align: end;
+}
+
+@media screen and (max-width: 544px) {
+  .main {
+    padding: 14px;
+  }
+  .data {
+    flex-direction: column;
+    gap: 14px;
+  }
+}

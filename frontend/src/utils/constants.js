@@ -15,6 +15,7 @@ export const paths = {
     signin: `${DEFAULT_URL}admin/signin`,
     create: `${DEFAULT_URL}admin/create`,
     userProfile: `${DEFAULT_URL}admin/users/:userId`,
+    users: `${DEFAULT_URL}admin/users`,
   },
   company: {
     create: `${DEFAULT_URL}company/create`,
@@ -35,6 +36,7 @@ export const PATTERN_PAGE_USER_ID = /^\/admin\/users(\/[a-zA-Z0-9]*)?$/;
 
 export const activeFooterRoutes = [
   paths.admin.main,
+  paths.admin.users,
   paths.main,
   paths.user.profile,
   paths.support,
