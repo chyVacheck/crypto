@@ -1,0 +1,44 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.title {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.paragraphs {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 7px;
+  margin: 0;
+}
+
+.index {
+  color: var(--fg-secondary);
+}
+
+.paragraph {
+  margin: 0;
+}
+
+@media screen and (max-width: 544px) {
+  .main {
+    gap: 7px;
+  }
+  .paragraphs {
+    padding: 0;
+  }
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .main {
+    gap: 14px;
+  }
+  .paragraphs {
+    padding: 0 0 0 21px;
+  }
+}

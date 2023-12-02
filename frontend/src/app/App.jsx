@@ -18,6 +18,10 @@ import Notifications from './../components/Notifications/Notifications';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
 // * pages
+// AMLPolicy
+import AMLPolicy from './../pages/AMLPolicy/AMLPolicy';
+// CookiesPolicy
+import CookiesPolicy from '../pages/CookiesPolicy/CookiesPolicy';
 // CreateAdmin
 import CreateAdmin from '../pages/CreateAdmin/CreateAdmin';
 // CreateCompany
@@ -28,12 +32,16 @@ import ListOfUsers from '../pages/ListOfUsers/ListOfUsers';
 import Login from '../pages/Login/Login';
 // PageNotFound
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
+// PrivacyPolicy
+import PrivacyPolicy from '../pages/PrivacyPolicy/PrivacyPolicy';
 // Signup
 import Signup from '../pages/Signup/Signup';
 // Profile
 import Profile from '../pages/Profile/Profile';
 // Support
 import Support from '../pages/Support/Support';
+// TermsAndConditions
+import TermsAndConditions from '../pages/TermsAndConditions/TermsAndConditions';
 // UserProfileById
 import UserProfileById from '../pages/UserProfileById/UserProfileById';
 // Verify Email
@@ -149,6 +157,29 @@ function App() {
               <Routes>
                 {/* MAIN */}
                 <Route path={paths.main} element={<p>main</p>} />
+
+                {/* PRIVACY POLICY */}
+                <Route
+                  path={paths.policies.privacyPolicy}
+                  element={<PrivacyPolicy />}
+                />
+
+                {/* COOKIES POLICY */}
+                <Route
+                  path={paths.policies.cookiesPolicy}
+                  element={<CookiesPolicy />}
+                />
+
+                {/* AML POLICY */}
+                <Route
+                  path={paths.policies.amlPolicy}
+                  element={<AMLPolicy />}
+                />
+                {/* TERMS AND CONDITIONS */}
+                <Route
+                  path={paths.policies.termsConditions}
+                  element={<TermsAndConditions />}
+                />
 
                 {/* LOGIN */}
                 <Route

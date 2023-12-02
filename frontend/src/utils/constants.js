@@ -17,6 +17,12 @@ export const paths = {
     userProfile: `${DEFAULT_URL}admin/users/:userId`,
     users: `${DEFAULT_URL}admin/users`,
   },
+  policies: {
+    termsConditions: `${DEFAULT_URL}policies/terms-and-conditions`,
+    privacyPolicy: `${DEFAULT_URL}policies/privacy`,
+    amlPolicy: `${DEFAULT_URL}policies/aml`,
+    cookiesPolicy: `${DEFAULT_URL}policies/cookies`,
+  },
   company: {
     create: `${DEFAULT_URL}company/create`,
     profile: `${DEFAULT_URL}company/:companyId`,
@@ -41,6 +47,10 @@ export const activeFooterRoutes = [
   paths.user.profile,
   paths.support,
   paths.company.create,
+  paths.policies.amlPolicy,
+  paths.policies.cookiesPolicy,
+  paths.policies.privacyPolicy,
+  paths.policies.termsConditions,
 ];
 
 export const VALIDATION = {
