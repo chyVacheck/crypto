@@ -2,63 +2,203 @@
   width: 100%;
   box-sizing: border-box;
   margin: 0;
-  padding: 74px 70px 20px;
+  padding: 80px 70px 40px;
   display: flex;
   flex-direction: column;
   color: var(--fg-primary);
+  background-color: var(--bg-footer);
+}
+
+.block-from {
+  display: grid;
+  gap: 50px;
+  padding: 0 0 50px;
+  margin: 0 auto;
+  max-width: 910px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.address-block {
+  font-weight: normal;
+}
+
+.address {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.send-message {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  padding: 10px 8px;
+  min-height: 300px;
+  display: grid;
+  grid-template-rows: 40px 1fr 42px;
+}
+
+.form-name {
+  font-weight: normal;
+  margin: 0 0 0 8px;
+}
+
+.inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  --current-border-input: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 34px;
+  padding: 3px 3px 3px 24px;
+  margin: 0;
+  background: none;
+  border: 1px solid var(--current-border-input);
+  color: var(--fg-primary);
+}
+
+.input:focus-visible {
+  outline: none;
+  --current-border-input: var(--border-input-focus);
+}
+
+.textarea {
+  --current-border-input: #fff;
+  width: 100%;
+  resize: none;
+  box-sizing: border-box;
+  min-height: 34px;
+  padding: 7px 7px 7px 24px;
+  margin: 8px 0;
+  background: none;
+  border: 1px solid var(--current-border-input);
+  color: var(--fg-primary);
+}
+
+.input_validity_invalid {
+  --current-border-input: var(--border-error);
+}
+
+.textarea:focus-visible {
+  outline: none;
+  --current-border-input: var(--border-input-focus);
+}
+
+.submit {
+  --current-border-input: #fff;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  background: none;
+  border: 1px solid var(--current-border-input);
+  color: var(--fg-primary);
+  transition: all 0.4s ease;
+}
+
+.submit:hover {
+  opacity: 1;
+  background-color: var(--bg-enabled);
+  --current-border-input: var(--border-input-focus);
+}
+
+.submit_validity_invalid,
+.submit_validity_invalid:hover {
+  background-color: transparent;
+  color: var(--fg-disabled);
+  --current-border-input: var(--border-color);
 }
 
 .title {
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-  margin: 0 0 20px;
+  margin: 0;
+  font-weight: normal;
+}
+
+.subtitle {
   color: var(--fg-secondary);
-  text-align: center;
+  margin: 0 0 6px 0;
 }
 
 .info {
   border-top: 1px solid var(--border-color);
-  padding: 20px 0 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 30px 0;
+  padding: 40px 0 0;
+  display: grid;
+  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  grid-template-columns: auto auto 1fr;
+  gap: 40px 60px;
+  max-width: var(--max-width-app);
 }
 
-.texts {
+.links {
   display: flex;
-  flex-direction: row;
-  gap: 0 20px;
+  flex-direction: column;
+  gap: 3px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.name {
+  margin: 0;
+  font-size: small;
 }
 
 .text {
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
-@media screen and (min-width: 320px) and (max-width: 544px) {
+.text_place_address {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 544px) {
   .main {
-    padding: 69px 3.125% 20px;
+    padding: 70px 2% 20px;
   }
-  .title {
-    margin: 0 0 21px;
+  .address {
+    gap: 20px;
+  }
+  .block-from {
+    padding: 0 20px 40px;
+    grid-template-columns: 1fr;
+  }
+  .form {
+    grid-template-rows: 78px 1fr 42px;
+  }
+  .inputs {
+    flex-direction: column;
+    gap: 10px;
   }
   .info {
-    padding: 10% 0 0;
-    flex-direction: column-reverse;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
   }
-  .texts {
-    flex-direction: column-reverse;
-    gap: 12px 0;
-  }
-  .text {
-    font-size: 12px;
-    line-height: 15px;
+  .links {
+    gap: 10px;
   }
 }
 
 @media screen and (min-width: 544px) and (max-width: 1024px) {
   .main {
-    padding: 64px 3.90625% 20px;
+    padding: 70px 4% 40px;
+  }
+  .block-from {
+    gap: 40px;
+    max-width: 710px;
+    grid-template-columns: 1fr;
+  }
+  .address {
+    gap: 30px;
   }
 }

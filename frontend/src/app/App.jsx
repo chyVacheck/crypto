@@ -18,8 +18,12 @@ import Notifications from './../components/Notifications/Notifications';
 import { CurrentUserContext } from './../contexts/CurrentUserContext';
 
 // * pages
+// About
+import About from './../pages/About/About';
 // AMLPolicy
 import AMLPolicy from './../pages/AMLPolicy/AMLPolicy';
+// CompanyProfile
+import CompanyProfile from '../pages/CompanyProfile/CompanyProfile';
 // CookiesPolicy
 import CookiesPolicy from '../pages/CookiesPolicy/CookiesPolicy';
 // CreateAdmin
@@ -38,6 +42,8 @@ import PrivacyPolicy from '../pages/PrivacyPolicy/PrivacyPolicy';
 import Signup from '../pages/Signup/Signup';
 // Profile
 import Profile from '../pages/Profile/Profile';
+// Services
+import Services from '../pages/Services/Services';
 // Support
 import Support from '../pages/Support/Support';
 // TermsAndConditions
@@ -153,10 +159,16 @@ function App() {
       <section className={s.main}>
         {isCookiesChecked ? (
           <>
-            <main className={s.container}>
+            <main>
               <Routes>
                 {/* MAIN */}
                 <Route path={paths.main} element={<p>main</p>} />
+
+                {/* ABOUT */}
+                <Route path={paths.about} element={<About />} />
+
+                {/* SERVICES */}
+                <Route path={paths.services} element={<Services />} />
 
                 {/* PRIVACY POLICY */}
                 <Route
@@ -268,12 +280,31 @@ function App() {
                   }
                 />
 
+                {/* COMPANY PROFILE */}
+                <Route
+                  path={paths.company.profile}
+                  element={
+                    <ProtectedRoute
+                      isActive={
+                        isAdminLogin || (isUserLogin && currentUser.companyId)
+                      }
+                      page={page}
+                      to={paths.company.create}
+                    >
+                      <CompanyProfile
+                        addNotification={addNotification}
+                        setUser={setCurrentUser}
+                      />
+                    </ProtectedRoute>
+                  }
+                />
+
                 {/* SUPPORT */}
                 <Route
                   path={paths.support}
                   element={
                     <ProtectedRoute
-                      isActive={isUserLogin}
+                      isActive={isUserLogin || isAdminLogin}
                       page={page}
                       to={paths.signin}
                     >
@@ -346,7 +377,7 @@ function App() {
                 <Route path='*' element={<PageNotFound />} />
               </Routes>
             </main>
-            <Footer page={page} />
+            <Footer page={page} addNotification={addNotification} />
             {notifications.length > 0 && (
               <Notifications
                 notifications={notifications}

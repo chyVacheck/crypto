@@ -93,6 +93,21 @@ class MainApi {
     );
   }
 
+  /* получение информации о компании по её id
+    companyId = 655608239736cf4d57ee5299
+  */
+  getCompanyInfoById(companyId) {
+    return this._request(
+      `${this._address}/company/${companyId}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      'get company info',
+    );
+  }
+
   // получение файла пользователя
   getUserFile(data) {
     const _headers = this._headers;
@@ -254,6 +269,30 @@ class MainApi {
     );
   }
 
+  /* отправка сообщения для связи с владельцами сайта
+    mail = {
+      name: "name",
+      email: "email",
+      message: "message"
+    }
+  */
+  sendMailToCommunicate(mail) {
+    return this._request(
+      `${this._address}/support/mailToCommunicate`,
+      {
+        method: 'POST',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify({
+          name: mail.name,
+          email: mail.email,
+          message: mail.message,
+        }),
+      },
+      'send mail to communicate',
+    );
+  }
+
   /* создание нового администратора
     company = {
       "registrationNumber": "test_registration_number_2",
@@ -386,6 +425,20 @@ class MainApi {
         headers: this._headers,
       },
       `delete user file ${typeOfFile}`,
+    );
+  }
+
+  /* удаление компании по её id
+   */
+  deleteCompanyById(companyId) {
+    return this._request(
+      `${this._address}/company/${companyId}`,
+      {
+        method: 'DELETE',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `delete company`,
     );
   }
 

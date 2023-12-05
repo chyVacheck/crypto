@@ -1,6 +1,21 @@
 /* ? titles */
 
+.title-main {
+  font-size: 55px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.48px;
+}
+
+@media screen and (max-width: 544px) {
+  .title-main {
+    font-size: 33.25px;
+  }
+}
+
 .title-first {
+  font-family: var(--ff-lending);
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -9,6 +24,7 @@
 }
 
 .title-second {
+  font-family: var(--ff-lending);
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -27,6 +43,7 @@
 /* ? labels */
 
 .label-first {
+  font-family: var(--ff-lending);
   font-size: 15px;
   font-style: normal;
   font-weight: 600;
@@ -50,9 +67,45 @@
   letter-spacing: -0.08px;
 }
 
+/* ? landing */
+
+.landing-input {
+  font-family: var(--ff-lending);
+  font-size: 17px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.4em;
+  letter-spacing: 0;
+}
+
+.landing-subtitle {
+  font-family: var(--ff-lending);
+  font-size: 17px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1.4em;
+  letter-spacing: 0;
+}
+
+.landing-paragraph {
+  font-family: var(--ff-lending);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.3em;
+  letter-spacing: 0;
+}
+
+@media screen and (max-width: 544px) {
+  .landing-paragraph {
+    font-size: 20px;
+  }
+}
+
 /* ? another */
 
 .body {
+  font-family: var(--ff-lending);
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
@@ -61,6 +114,7 @@
 }
 
 .subhead {
+  font-family: var(--ff-lending);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -69,17 +123,19 @@
 }
 
 .caption {
+  font-family: var(--ff-lending);
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px;
-  letter-spacing: -0.08px;
+  line-height: 16px;
+  letter-spacing: 0.8px;
 }
 
 .detail {
-  font-size: 10px;
+  font-family: var(--ff-lending);
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
-  line-height: 12px;
+  line-height: 14px;
   letter-spacing: 0.25px;
 }

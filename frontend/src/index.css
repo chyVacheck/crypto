@@ -1,8 +1,10 @@
 /* ! assets */
 /* * vendor */
 @import url(./assets/vendor/normalize.css);
+/* * fonts */
+@import url(./assets/fonts/fonts.css);
 
-/* * styles */
+/* ! styles */
 @import url(./styles/button.css);
 @import url(./styles/copy.css);
 @import url(./styles/link.css);
@@ -13,13 +15,16 @@ body {
 }
 
 #root {
-  /* ? font */
+  /* ? font family */
   --ff-primary: monospace;
+  --ff-lending: 'Helvetica W01 Light', sans-serif;
 
   /* ? foreground */
   --fg-primary: #fff;
   --fg-secondary: #8b8b8b;
-  --fg-link: #4285f4;
+  --fg-link: #ff9900;
+  /* --fg-title: #c86567; */
+  --fg-subtitle: #ff9b00;
   --fg-error: #ee3465;
   --fg-disabled: #c4c4c4;
 
@@ -30,18 +35,24 @@ body {
   /* ? borders */
   --border-color: #424242;
   --border-error: #ee3465;
-  --border-input-focus: #4285f4;
+  --border-input-focus: #ff9b00;
+  --border-input-enabled: #ff9b00;
 
   /* ? backgrounds */
-  --bg-enabled: #4285f4;
+
+  --bg-enabled: #ff9b00;
   --bg-danger: #ee3465;
   --bg-disabled: #f8f8f8;
-  --bg-primary: #202020;
+  /* --bg-primary: #202020; */
+  --bg-primary: #191b1f;
   --bg-popup: rgba(0, 0, 0, 0.85);
+  --bg-lending: #191b1f;
+  --bg-lending-other: #19242e;
+  --bg-lending-secondary: #2d3643;
+  --bg-footer: #1e242e;
 
   --bg-secondary: #272727;
-  --bg-input: #2f2f2f;
-
+  --bg-input: #1e242e;
   /* --- --- --- */
 
   --button-text-color: #000000;
@@ -55,11 +66,9 @@ body {
   --button-bg-color-no-added: #313131;
 
   --preloader-bg-color: #4285f4;
-  --preloader-color: #3ddc84;
 }
 
 #root {
-  background-color: var(--main-bg-color);
   /* ? height */
   --height-header: 74px;
 
@@ -74,21 +83,13 @@ body {
   --tertiary-bg-tertiary-trans: #c9ccd13d;
 
   --error: #ee3465;
-  --ok: #3ddc84;
-
-  --logo-bg-color: var(--ok);
-  --light-bg-color: var(--ok);
 
   --user-card-bg-color: #222222;
-
-  --light-bg-color: var(--ok);
 
   --second-main-text-color: #e7e7e7;
 
   --err-text-color: var(--error);
   --button-text-color: #000000;
-
-  --light-bg-color: var(--ok);
 
   --button-component-color-active: #fff;
   --button-bg-dark-color: #343434;

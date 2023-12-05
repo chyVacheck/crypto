@@ -1,6 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
+  background-color: var(--bg-primary);
+  padding: 70px 0;
+  max-width: var(--max-width-app);
   margin: 0 auto;
   gap: 28px;
 }

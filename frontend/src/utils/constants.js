@@ -10,6 +10,8 @@ const DEFAULT_URL = configSite.default_url;
 // ? все пути
 export const paths = {
   main: `${DEFAULT_URL}main`,
+  about: `${DEFAULT_URL}about`,
+  services: `${DEFAULT_URL}services`,
   admin: {
     main: `${DEFAULT_URL}admin/main`,
     signin: `${DEFAULT_URL}admin/signin`,
@@ -44,9 +46,21 @@ export const activeFooterRoutes = [
   paths.admin.main,
   paths.admin.users,
   paths.main,
+  paths.about,
+  paths.services,
   paths.user.profile,
   paths.support,
   paths.company.create,
+  paths.policies.amlPolicy,
+  paths.policies.cookiesPolicy,
+  paths.policies.privacyPolicy,
+  paths.policies.termsConditions,
+];
+
+export const activeFormFooterRoutes = [
+  paths.main,
+  paths.about,
+  paths.services,
   paths.policies.amlPolicy,
   paths.policies.cookiesPolicy,
   paths.policies.privacyPolicy,

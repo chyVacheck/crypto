@@ -1,5 +1,4 @@
 .main {
-  background-color: var(--bg-primary);
   position: relative;
   font-family: var(--ff-primary);
   font-style: normal;
@@ -7,10 +6,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto min-content;
-  grid-template-columns: minmax(auto, var(--max-width-app));
+  grid-template-columns: 100%;
   justify-content: center;
-}
-
-.container {
-  width: 100%;
+  background-color: var(--bg-primary);
 }

@@ -1,0 +1,99 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block {
+  width: 100%;
+  background-color: var(--bg-lending);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block_type_with-image {
+  background-color: var(--bg-lending-secondary);
+}
+
+.container {
+  max-width: var(--max-width-app);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 28px;
+  padding: 110px 0 60px;
+  background-color: var(--bg-lending);
+  justify-content: center;
+  font-family: var(--ff-lending);
+}
+
+.column {
+  max-width: 528px;
+}
+
+.title {
+  margin: 0;
+}
+
+.subtitle {
+  margin: 0 0 10px 0;
+  color: var(--fg-subtitle);
+}
+
+.texts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.text {
+  margin: 0;
+}
+
+.block-with-image {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 70px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.main-image {
+  object-fit: cover;
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  max-height: 600px;
+}
+
+@media screen and (max-width: 544px) {
+  .columns {
+    padding: 25px 35px 20px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .block-with-image {
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .columns {
+    padding: 25px 60px 20px;
+    grid-template-columns: 1fr;
+    gap: 21px;
+  }
+  .column {
+    max-width: 100%;
+  }
+  .block-with-image {
+    padding: 20px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+}

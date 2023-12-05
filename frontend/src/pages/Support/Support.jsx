@@ -84,9 +84,7 @@ function Support({ addNotification }) {
     <section className={s.main}>
       <article className={s.container}>
         <div className={s.header}>
-          <div className={s['logo-and-button']}></div>
-
-          <h1 className={s.title}>Support</h1>
+          <h1 className={`title-first ${s.title}`}>Support</h1>
         </div>
 
         <form onSubmit={handleSubmit} className={s.form}>
@@ -94,11 +92,11 @@ function Support({ addNotification }) {
           <div className={s.fields}>
             {/* // ? Title */}
             <div className={s.field}>
-              <h6 className={`${s.name} caption`}>Title</h6>
+              <h6 className={`caption ${s.name}`}>Title</h6>
 
               <input
                 required
-                className={`${s.input} ${
+                className={`landing-input ${s.input} ${
                   !validatedFields.title.valid ? s.input_validity_invalid : ''
                 }`}
                 placeholder='Title'
@@ -122,7 +120,7 @@ function Support({ addNotification }) {
 
               <textarea
                 required
-                className={`${s.input} ${s.input_type_message} ${
+                className={`landing-input ${s.input} ${s.input_type_message} ${
                   !validatedFields.message.valid ? s.input_validity_invalid : ''
                 }`}
                 placeholder='Please text your message to support here'
@@ -144,10 +142,9 @@ function Support({ addNotification }) {
           {/* // ? кнопка submit */}
           <button
             disabled={!isFormValid}
-            className={
-              s.submit +
-              ` ${!isFormValid ? s.submit_validity_invalid : 'button'}`
-            }
+            className={`landing-input ${s.submit} ${
+              !isFormValid ? s.submit_validity_invalid : 'button'
+            }`}
             type='submit'
           >
             {currentTextSubmitButton}

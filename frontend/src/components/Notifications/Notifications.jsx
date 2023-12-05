@@ -34,13 +34,13 @@ function Notifications({ notifications, setNotifications }) {
 
             <div className={s.info}>
               <div className={s.button}>
-                <h2 className={s.name}>{item.name}</h2>
+                <h2 className={`title-second ${s.name}`}>{item.name}</h2>
                 <button
                   onClick={deleteNotification}
                   className={`button ${s.button_type_close}`}
                 />
               </div>
-              <p className={s.text}>{item.text}</p>
+              <p className={`caption ${s.text}`}>{item.text}</p>
             </div>
           </div>
         );

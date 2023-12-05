@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Helvetica W01 Light';
+  src: url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.eot');
+  src: url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.woff2')
+      format('woff2'),
+    url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.woff')
+      format('woff'),
+    url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.ttf')
+      format('truetype'),
+    url('https://db.onlinewebfonts.com/t/e89eb1cff9eb261b0d77a4dea27f1ef1.svg#Helvetica W01 Light')
+      format('svg');
+}

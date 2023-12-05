@@ -415,7 +415,7 @@ function Profile({ addNotification, setUser }) {
 
               {/* // ? Id */}
               <div className={s.info}>
-                <h6 className={`${s.name} caption`}>Id</h6>
+                <h6 className={`${s.name} caption`}>User Id</h6>
 
                 <p
                   className={`copy ${s.text}`}
@@ -426,6 +426,22 @@ function Profile({ addNotification, setUser }) {
                   {userData._id}
                 </p>
               </div>
+
+              {/* // ? Company Id */}
+              {!!userData.companyId && (
+                <div className={s.info}>
+                  <h6 className={`${s.name} caption`}>Company Id</h6>
+
+                  <p
+                    className={`copy ${s.text}`}
+                    onClick={() => {
+                      copy(userData.companyId);
+                    }}
+                  >
+                    {userData.companyId}
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* // ? input поля */}

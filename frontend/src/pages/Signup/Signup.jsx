@@ -116,7 +116,7 @@ function Signup({ addNotification, setTemporaryInfo }) {
         onChange={handleFieldChange}
         error={currentError}
         isValid={isFormValid}
-        link={paths.login}
+        link={paths.signin}
         linkText={'Login'}
         inputs={[
           {
