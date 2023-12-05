@@ -98,6 +98,7 @@ const MESSAGE = {
       SHAREHOLDER: 'Shareholder has been created',
       USER: 'User has been created',
       MAIL: 'Code was successfully send to your email address',
+      SYSTEM_MAIL: 'Mail was successfully send',
       SUPPORT_MAIL: 'Mail was successfully send',
       ADMIN: 'Admin has been created',
       COMPANY: 'Company has been created',

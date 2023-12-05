@@ -267,4 +267,12 @@ Validator.mail = celebrate({
   }),
 });
 
+Validator.mailToCommunicate = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(VALID_VALUES.TEXT.LENGTH.MIN),
+    email: Joi.string().required().min(VALID_VALUES.EMAIL.LENGTH.MIN),
+    message: Joi.string().required().min(VALID_VALUES.MAIL.MESSAGE.LENGTH.MIN),
+  }),
+});
+
 module.exports = Validator;

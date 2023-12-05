@@ -11,6 +11,7 @@ const Company = require('./company');
 // * controllers
 // ? auth
 const { auth } = require('../controllers/auth');
+const { support } = require('../controllers/support');
 
 // ? middlewares
 const jwtCheck = require('../middlewares/Auth');
@@ -23,6 +24,12 @@ const { SERVER_SETTING } = require('../utils/constants');
 const { NotFound } = require('../utils/NotFound');
 
 router.use(`/${SERVER_SETTING.URL}/v1/auth`, Auth); // ? Auth
+
+router.post(
+  `/${SERVER_SETTING.URL}/v1/support/mailToCommunicate`,
+  Validator.mailToCommunicate,
+  support.sendMailByEmail,
+);
 
 router.use(jwtCheck); // ? check cookie
 
