@@ -77,7 +77,7 @@ function Footer({ page, addNotification }) {
 
     for (const link in paths.policies) {
       _links.push(
-        <li>
+        <li key={link}>
           <NavLink
             key={link}
             to={paths.policies[link]}

@@ -114,7 +114,7 @@ function App() {
             // показываем пользователю уведомление
             addNotification({
               name: 'Сервер 500',
-              type: 'error',
+              ok: false,
               text: err.message,
             });
         });
@@ -136,7 +136,7 @@ function App() {
             // показываем пользователю уведомление
             addNotification({
               name: 'Сервер 500',
-              type: 'error',
+              ok: false,
               text: err.message,
             });
         })
