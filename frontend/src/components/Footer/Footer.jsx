@@ -50,10 +50,7 @@ function Footer({ page, addNotification }) {
       setIsActive(false);
     }
     // показываем ли form
-    if (
-      activeFormFooterRoutes.includes(page) ||
-      PATTERN_PAGE_USER_ID.test(page.toLowerCase())
-    ) {
+    if (activeFormFooterRoutes.includes(page)) {
       setFormActive(true);
     } else {
       setFormActive(false);
@@ -79,6 +76,9 @@ function Footer({ page, addNotification }) {
       _links.push(
         <li key={link}>
           <NavLink
+            onClick={() => {
+              window.scroll(0, 0);
+            }}
             key={link}
             to={paths.policies[link]}
             className={`link caption ${s.text}`}

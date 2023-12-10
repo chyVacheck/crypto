@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 28px;
-  padding: 110px 0 60px;
+  padding: 100px 0 60px;
   background-color: var(--bg-lending);
   justify-content: center;
   font-family: var(--ff-lending);
@@ -72,7 +72,7 @@
 
 @media screen and (max-width: 544px) {
   .columns {
-    padding: 25px 35px 20px;
+    padding: 25px 25px 20px;
     grid-template-columns: 1fr;
     gap: 14px;
   }

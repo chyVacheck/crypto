@@ -6,7 +6,8 @@ import s from './Logo.module.css';
 
 // * assets
 // ? images
-import logo from './../../assets/images/Logo.svg';
+// _ icons
+import logo from './../../assets/images/icons/logo.ico';
 
 // * utils
 // ? constants

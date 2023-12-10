@@ -11,7 +11,7 @@ import SignForm from './../../components/SignForm/SignForm';
 
 // ? utils
 // * constants
-import { paths, VALIDATION } from './../../utils/constants';
+import { paths } from './../../utils/constants';
 // * utils
 import { checkValidity, checkAnswerFromServer } from './../../utils/utils';
 // * Api

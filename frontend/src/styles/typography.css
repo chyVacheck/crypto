@@ -1,6 +1,7 @@
 /* ? titles */
 
 .title-main {
+  font-family: var(--ff-lending);
   font-size: 55px;
   font-style: normal;
   font-weight: 600;

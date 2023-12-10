@@ -1,6 +1,5 @@
 // ! modules
 import { useState, useRef, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // ? styles
 import s from './Profile.module.css';
@@ -10,14 +9,14 @@ import mainApi from './../../Api/MainApi';
 
 // ? assets
 // * images
-//   icons
+// _ icons
 import passportImage from './../../assets/images/passport_type_color.png';
 import proofOfAddressImage from './../../assets/images/location_type_color.png';
 import selfieWithIdImage from './../../assets/images/selfie_type_color.png';
 
 // ? components
-import Document from '../../components/Document/Document';
-import Logo from '../../components/Logo/Logo';
+import File from '../../components/File/File';
+import Input from '../../components/Input/Input';
 import Popup from './../../components/Popup/Popup';
 
 // ? contexts
@@ -30,7 +29,6 @@ import { VALIDATION, paths } from '../../utils/constants';
 import { checkValidity, copy } from '../../utils/utils';
 
 function Profile({ addNotification, setUser }) {
-  const navigate = useNavigate();
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =
@@ -48,6 +46,8 @@ function Profile({ addNotification, setUser }) {
   const [isFormValid, setIsFormValid] = useState(false);
   // * измененная ли форма
   const [hasFormAnotherData, setFormAnotherData] = useState(false);
+  // * загружены ли документы
+  const [isFilesDownloaded, setFilesDownloaded] = useState(false);
 
   // * открыт ли popup
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -59,14 +59,6 @@ function Profile({ addNotification, setUser }) {
     title: null,
     type: null,
   });
-
-  // Passport Uploaded
-  const [isPassportUploaded, setPassportUploaded] = useState(false);
-  // Proof Of Address
-  const [isProofOfAddressUploaded, setProofOfAddressUploaded] = useState(false);
-  // Selfie With ID Or Passport Uploaded
-  const [isSelfieWithIDOrPassportUploaded, setSelfieWithIDOrPassUploaded] =
-    useState(false);
 
   // is open or close
   const [isDropdownTypeOfUserOpen, setDropdownTypeOfUserOpen] = useState(false);
@@ -119,21 +111,18 @@ function Profile({ addNotification, setUser }) {
               url: imageUrl,
               type: data['Content-Type'],
             };
-            setPassportUploaded(true);
             break;
           case 'proofOfAddress':
             _newUserData.proofOfAddress = {
               url: imageUrl,
               type: data['Content-Type'],
             };
-            setProofOfAddressUploaded(true);
             break;
           case 'selfieWithIDOrPassport':
             _newUserData.selfieWithIDOrPassport = {
               url: imageUrl,
               type: data['Content-Type'],
             };
-            setSelfieWithIDOrPassUploaded(true);
             break;
 
           default:
@@ -226,7 +215,7 @@ function Profile({ addNotification, setUser }) {
         setIsFormValid(false);
       })
       .finally(() => {
-        setCurrentTextSubmitButton('Saving data');
+        setCurrentTextSubmitButton('Save data');
         setIsFormValid(false);
       });
   }
@@ -238,27 +227,16 @@ function Profile({ addNotification, setUser }) {
       .deleteUserFile(typeOfFile)
       .then((res) => {
         addNotification({
-          name: 'Update user data',
+          name: `Delete file`,
           ok: true,
           text: res.message,
         });
 
-        switch (typeOfFile) {
-          case 'passport':
-            setPassportUploaded(false);
-            break;
+        const _newUserData = userData;
 
-          case 'proofOfAddress':
-            setProofOfAddressUploaded(false);
-            break;
+        delete _newUserData[typeOfFile];
 
-          case 'selfieWithIDOrPassport':
-            setSelfieWithIDOrPassUploaded(false);
-            break;
-
-          default:
-            break;
-        }
+        setUser(_newUserData);
       })
       .catch((err) => {
         // устанавливаем ошибку
@@ -270,26 +248,24 @@ function Profile({ addNotification, setUser }) {
       });
   }
 
-  async function handleLogout(e) {
-    e.preventDefault();
-
+  async function _getFileData(contentType, typeOfFile) {
     await mainApi
-      .logOut()
-      .then((res) => {
-        addNotification({
-          name: 'Logout',
-          ok: true,
-          text: res.message,
-        });
-        navigate(paths.main);
+      .getUserFile({
+        'Content-Type': contentType,
+        typeOfFile: typeOfFile,
+      })
+      .then(async (res) => {
+        const blob = await res.blob();
+        const imageUrl = URL.createObjectURL(blob);
+
+        const _newUserData = userData;
+
+        _newUserData[typeOfFile].url = imageUrl;
+
+        setUser(_newUserData);
       })
       .catch((err) => {
-        // устанавливаем ошибку
-        addNotification({
-          name: 'Logout',
-          ok: false,
-          text: err.message,
-        });
+        console.log(err);
       });
   }
 
@@ -300,102 +276,38 @@ function Profile({ addNotification, setUser }) {
     secondNameRef.current.value = userData.secondName;
     phoneRef.current.value = userData.phone;
     typeOfUserRef.current.value = userData.typeOfUser;
-  }, [userData]);
+  }, [userData, isFilesDownloaded]);
 
   useEffect(() => {
-    // ? passport
-    if (userData.passport && !userData.passport.url) {
-      mainApi
-        .getUserFile({
-          'Content-Type': userData.passport.type,
-          typeOfFile: 'passport',
-        })
-        .then(async (res) => {
-          const blob = await res.blob();
-          const imageUrl = URL.createObjectURL(blob);
+    async function _fetchData() {
+      // ? passport
+      if (userData.passport && !userData.passport.url)
+        await _getFileData(userData.passport.type, 'passport');
 
-          const _newUserData = userData;
+      // ? proof of address
+      if (userData.proofOfAddress && !userData.proofOfAddress.url)
+        await _getFileData(userData.proofOfAddress.type, 'proofOfAddress');
 
-          _newUserData.passport.url = imageUrl;
+      // ? selfie with ID or Passport
+      if (
+        userData.selfieWithIDOrPassport &&
+        !userData.selfieWithIDOrPassport.url
+      )
+        await _getFileData(
+          userData.selfieWithIDOrPassport.type,
+          'selfieWithIDOrPassport',
+        );
 
-          setUser(_newUserData);
-          setPassportUploaded(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      setFilesDownloaded(true);
     }
 
-    // ? proof of address
-    if (userData.proofOfAddress && !userData.proofOfAddress.url) {
-      mainApi
-        .getUserFile({
-          'Content-Type': userData.proofOfAddress.type,
-          typeOfFile: 'proofOfAddress',
-        })
-        .then(async (res) => {
-          const blob = await res.blob();
-          const imageUrl = URL.createObjectURL(blob);
-
-          const _newUserData = userData;
-
-          _newUserData.proofOfAddress.url = imageUrl;
-
-          setUser(_newUserData);
-          setProofOfAddressUploaded(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-
-    // ? selfie with ID or Passport
-    if (
-      userData.selfieWithIDOrPassport &&
-      !userData.selfieWithIDOrPassport.url
-    ) {
-      mainApi
-        .getUserFile({
-          'Content-Type': userData.selfieWithIDOrPassport.type,
-          typeOfFile: 'selfieWithIDOrPassport',
-        })
-        .then(async (res) => {
-          const blob = await res.blob();
-          const imageUrl = URL.createObjectURL(blob);
-
-          const _newUserData = userData;
-
-          _newUserData.selfieWithIDOrPassport.url = imageUrl;
-
-          setUser(_newUserData);
-          setSelfieWithIDOrPassUploaded(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    _fetchData();
   }, [setUser, userData]);
 
   return (
     <>
       <section className={s.main}>
         <article className={s.container}>
-          <div className={s.header}>
-            <div className={s['logo-and-button']}>
-              <Logo />
-
-              <button
-                type='button'
-                onClick={handleLogout}
-                className={`button subhead ${s.logout}`}
-              >
-                Log out
-              </button>
-            </div>
-
-            <h1 className={s.title}>Profile</h1>
-          </div>
-
           <form onSubmit={handleSubmit} className={s.form}>
             {/* // ? поля для просмотра */}
             <div className={s.infos}>
@@ -447,80 +359,46 @@ function Profile({ addNotification, setUser }) {
             {/* // ? input поля */}
             <div className={`${s.fields} ${s.fields_type_horizontal}`}>
               {/* // ? name */}
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Name</h6>
-
-                <input
-                  required
-                  className={`${s.input} ${
-                    !validatedFields.name.valid ? s.input_validity_invalid : ''
-                  }`}
-                  placeholder='John'
-                  id='name'
-                  type='text'
-                  minLength={VALIDATION.NAME.MIN}
-                  maxLength={VALIDATION.NAME.MAX}
-                  ref={nameRef}
-                  onChange={handleFieldChange}
-                ></input>
-
-                {/* // ? сообщение о ошибке */}
-                <p className={`${s['error-message']} detail`}>
-                  {validatedFields.name.error}
-                </p>
-              </div>
+              <Input
+                name={'Name'}
+                id='name'
+                placeholder={'John'}
+                minLength={VALIDATION.NAME.MIN}
+                maxLength={VALIDATION.NAME.MAX}
+                customRef={nameRef}
+                onChange={handleFieldChange}
+                isValid={validatedFields.name.valid}
+                textError={validatedFields.name.error}
+              ></Input>
 
               {/* // ? second name */}
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Second Name</h6>
-
-                <input
-                  required
-                  className={`${s.input} ${
-                    !validatedFields.secondName.valid
-                      ? s.input_validity_invalid
-                      : ''
-                  }`}
-                  placeholder='Stone'
-                  id='secondName'
-                  type='text'
-                  minLength={VALIDATION.NAME.MIN}
-                  maxLength={VALIDATION.NAME.MAX}
-                  ref={secondNameRef}
-                  onChange={handleFieldChange}
-                ></input>
-
-                {/* // ? сообщение о ошибке */}
-                <p className={`${s['error-message']} detail`}>
-                  {validatedFields.secondName.error}
-                </p>
-              </div>
+              <Input
+                name={'Second Name'}
+                id='secondName'
+                placeholder={'Stone'}
+                minLength={VALIDATION.NAME.MIN}
+                maxLength={VALIDATION.NAME.MAX}
+                customRef={secondNameRef}
+                onChange={handleFieldChange}
+                isValid={validatedFields.secondName.valid}
+                textError={validatedFields.secondName.error}
+              ></Input>
             </div>
 
             {/* // ? input поля */}
             <div className={`${s.fields} ${s.fields_type_horizontal}`}>
               {/* // ? phone */}
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Phone number</h6>
-
-                <input
-                  required
-                  className={`${s.input} ${
-                    !validatedFields.phone.valid ? s.input_validity_invalid : ''
-                  }`}
-                  placeholder='123-456-7890'
-                  type='tel'
-                  pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                  id='phone'
-                  ref={phoneRef}
-                  onChange={handleFieldChange}
-                ></input>
-
-                {/* // ? сообщение о ошибке */}
-                <p className={`${s['error-message']} detail`}>
-                  {validatedFields.phone.error}
-                </p>
-              </div>
+              <Input
+                name={'Phone number'}
+                id='phone'
+                type='tel'
+                pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
+                placeholder={'123-456-7890'}
+                customRef={phoneRef}
+                onChange={handleFieldChange}
+                isValid={validatedFields.phone.valid}
+                textError={validatedFields.phone.error}
+              ></Input>
 
               {/* // ? type of user */}
               <div className={s.field}>
@@ -602,72 +480,72 @@ function Profile({ addNotification, setUser }) {
               </div>
             </div>
 
-            <div
-              className={`${s.infos} ${s.infos_type_documents} ${s.infos_border_top}`}
-            >
-              {/* // ? passport */}
-              <Document
-                openFile={openFile}
-                handleDelete={deleteFileOnServer}
-                handleSubmit={uploadFileToServer}
-                isActive={userData.passport && !!userData.passport.url}
-                _isFileUpload={isPassportUploaded}
-                title={'passport'}
-                icon={{
-                  url: userData.passport && userData.passport.url,
-                  src: passportImage,
-                  alt: 'passport',
-                }}
-                typeOfFile={'passport'}
-                expansionOfFile={userData.passport && userData.passport.type}
-              />
+            {/* // ? files */}
+            {isFilesDownloaded && (
+              <div
+                className={`${s.infos} ${s.infos_type_documents} ${s.infos_border_top}`}
+              >
+                {/* // ? Passport */}
+                <File
+                  handleDelete={deleteFileOnServer}
+                  handleSubmit={uploadFileToServer}
+                  openFile={openFile}
+                  isActive={userData.passport && !!userData.passport.url}
+                  title={'passport'}
+                  icon={{
+                    url: userData.passport && userData.passport.url,
+                    src: passportImage,
+                    alt: 'passport',
+                  }}
+                  typeOfFile={'passport'}
+                  expansionOfFile={userData.passport && userData.passport.type}
+                />
 
-              {/* // ? proof of Address */}
-              <Document
-                openFile={openFile}
-                handleDelete={deleteFileOnServer}
-                handleSubmit={uploadFileToServer}
-                isActive={
-                  userData.proofOfAddress && !!userData.proofOfAddress.url
-                }
-                _isFileUpload={isProofOfAddressUploaded}
-                title={'Proof of address'}
-                icon={{
-                  url: userData.proofOfAddress && userData.proofOfAddress.url,
-                  src: proofOfAddressImage,
-                  alt: 'Proof of address',
-                }}
-                typeOfFile={'proofOfAddress'}
-                expansionOfFile={
-                  userData.proofOfAddress && userData.proofOfAddress.type
-                }
-              />
+                {/* // ? proof of Address */}
+                <File
+                  handleDelete={deleteFileOnServer}
+                  handleSubmit={uploadFileToServer}
+                  openFile={openFile}
+                  isActive={
+                    userData.proofOfAddress && !!userData.proofOfAddress.url
+                  }
+                  title={'Proof of address'}
+                  icon={{
+                    url: userData.proofOfAddress && userData.proofOfAddress.url,
+                    src: proofOfAddressImage,
+                    alt: 'Proof of address',
+                  }}
+                  typeOfFile={'proofOfAddress'}
+                  expansionOfFile={
+                    userData.proofOfAddress && userData.proofOfAddress.type
+                  }
+                />
 
-              {/* // ? Selfie With ID Or Passport */}
-              <Document
-                openFile={openFile}
-                handleDelete={deleteFileOnServer}
-                handleSubmit={uploadFileToServer}
-                isActive={
-                  userData.selfieWithIDOrPassport &&
-                  !!userData.selfieWithIDOrPassport.url
-                }
-                _isFileUpload={isSelfieWithIDOrPassportUploaded}
-                title={'Selfie with id'}
-                icon={{
-                  url:
+                {/* // ? Selfie With ID Or Passport */}
+                <File
+                  handleDelete={deleteFileOnServer}
+                  handleSubmit={uploadFileToServer}
+                  openFile={openFile}
+                  isActive={
                     userData.selfieWithIDOrPassport &&
-                    userData.selfieWithIDOrPassport.url,
-                  src: selfieWithIdImage,
-                  alt: 'Selfie with id',
-                }}
-                typeOfFile={'selfieWithIDOrPassport'}
-                expansionOfFile={
-                  userData.selfieWithIDOrPassport &&
-                  userData.selfieWithIDOrPassport.type
-                }
-              />
-            </div>
+                    !!userData.selfieWithIDOrPassport.url
+                  }
+                  title={'Selfie with id'}
+                  icon={{
+                    url:
+                      userData.selfieWithIDOrPassport &&
+                      userData.selfieWithIDOrPassport.url,
+                    src: selfieWithIdImage,
+                    alt: 'Selfie with id',
+                  }}
+                  typeOfFile={'selfieWithIDOrPassport'}
+                  expansionOfFile={
+                    userData.selfieWithIDOrPassport &&
+                    userData.selfieWithIDOrPassport.type
+                  }
+                />
+              </div>
+            )}
 
             {/* // ? кнопка submit */}
             {hasFormAnotherData && (

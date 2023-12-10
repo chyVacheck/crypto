@@ -1,8 +1,13 @@
 // ? style
 import s from './Notifications.module.css';
 
-// ? utils
-// * constants
+// * assets
+// ? images
+import unsuccessfulIcon from './../../assets/images/unsuccessful.svg';
+import successfulIcon from './../../assets/images/successful.svg';
+
+// * utils
+// ? constants
 import { STATUS } from '../../utils/constants';
 
 function Notifications({ notifications, setNotifications }) {
@@ -11,8 +16,8 @@ function Notifications({ notifications, setNotifications }) {
     const _notifications = document.getElementById('notifications');
 
     if (_notifications) {
-      if (74 - window.scrollY < 14) _notifications.style.top = '14px';
-      else _notifications.style.top = `${70 - window.scrollY}px`;
+      if (107.5 - window.scrollY < 14) _notifications.style.top = '8.5px';
+      else _notifications.style.top = `${107.5 - window.scrollY}px`;
     }
   };
 
@@ -30,7 +35,11 @@ function Notifications({ notifications, setNotifications }) {
 
         return (
           <div key={index} className={s.notification}>
-            <div className={`${s.icon} ${item.ok && s.icon_type_successful}`} />
+            <img
+              src={item.ok ? successfulIcon : unsuccessfulIcon}
+              alt={item.ok ? 'ok' : 'error'}
+              className={s.icon}
+            />
 
             <div className={s.info}>
               <div className={s.button}>

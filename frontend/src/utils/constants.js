@@ -12,6 +12,7 @@ export const paths = {
   main: `${DEFAULT_URL}main`,
   about: `${DEFAULT_URL}about`,
   services: `${DEFAULT_URL}services`,
+  contact: `${DEFAULT_URL}contact`,
   admin: {
     main: `${DEFAULT_URL}admin/main`,
     signin: `${DEFAULT_URL}admin/signin`,
@@ -35,12 +36,42 @@ export const paths = {
   user: {
     profile: `${DEFAULT_URL}profile`,
   },
+  dashboard: `${DEFAULT_URL}dashboard`,
+  exchange: `${DEFAULT_URL}exchange`,
   verifyEmail: `${DEFAULT_URL}verifyEmail`,
 };
 
-export const LINK_REPOSITORY = 'https://github.com/chyVacheck/crypto';
-
 export const PATTERN_PAGE_USER_ID = /^\/admin\/users(\/[a-zA-Z0-9]*)?$/;
+
+export const PATTERN_PAGE_COMPANY_ID = /^\/company(\/[a-zA-Z0-9]*)?$/;
+
+export const activeHeaderRoutes = [
+  paths.admin.main,
+  paths.admin.users,
+  paths.admin.create,
+  paths.main,
+  paths.about,
+  paths.services,
+  paths.contact,
+  paths.user.profile,
+  paths.support,
+  paths.company.create,
+  paths.policies.amlPolicy,
+  paths.policies.cookiesPolicy,
+  paths.policies.privacyPolicy,
+  paths.policies.termsConditions,
+];
+
+export const activeLandingHeaderRoutes = [
+  paths.main,
+  paths.about,
+  paths.services,
+  paths.contact,
+  paths.policies.amlPolicy,
+  paths.policies.cookiesPolicy,
+  paths.policies.privacyPolicy,
+  paths.policies.termsConditions,
+];
 
 export const activeFooterRoutes = [
   paths.admin.main,
@@ -48,6 +79,7 @@ export const activeFooterRoutes = [
   paths.main,
   paths.about,
   paths.services,
+  paths.contact,
   paths.user.profile,
   paths.support,
   paths.company.create,
@@ -61,6 +93,7 @@ export const activeFormFooterRoutes = [
   paths.main,
   paths.about,
   paths.services,
+  paths.contact,
   paths.policies.amlPolicy,
   paths.policies.cookiesPolicy,
   paths.policies.privacyPolicy,
@@ -89,6 +122,18 @@ export const VALIDATION = {
     MAX: 20,
   },
 };
+
+export const LEGAL_FORM_VALUES = [
+  'Limited Liability Company',
+  'Self Employed',
+  'Individual trader',
+  'General Partnership',
+  'Limited partnership',
+  'Society',
+  'Government LLC',
+  'Foundation',
+  'Other',
+];
 
 export const STATUS = {
   SIMPLE: configSite.status,

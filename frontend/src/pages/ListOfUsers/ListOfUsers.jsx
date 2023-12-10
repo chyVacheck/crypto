@@ -8,7 +8,6 @@ import s from './ListOfUsers.module.css';
 import mainApi from './../../Api/MainApi';
 
 // ? components
-import Logo from '../../components/Logo/Logo';
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 // ? utils
@@ -55,17 +54,11 @@ function ListOfUsers({ addNotification }) {
           text: err.message,
         });
       });
-  }, [addNotification]);
+  }, []);
 
   return (
     <section className={s.main}>
       <article className={s.container}>
-        <div className={s.header}>
-          <Logo />
-
-          <h1 className={s.title}>Users Data</h1>
-        </div>
-
         {/* Search input */}
         <SearchForm
           onSubmit={handleSearch}

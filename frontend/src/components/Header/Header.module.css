@@ -1,0 +1,228 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 50px 0;
+  background-color: var(--bg-lending-secondary);
+  height: var(--height-header);
+  z-index: 2;
+  box-sizing: border-box;
+  width: 100%;
+  top: 0;
+  position: sticky;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width-app);
+  padding: 30px 0;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  color: var(--fg-primary);
+  margin: 0;
+}
+
+.navigation {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+}
+
+.navigation__Link {
+  color: var(--fg-primary);
+  border-bottom: 1px solid transparent;
+  position: relative;
+  z-index: 3;
+}
+
+.navigation__Link_active_active {
+  color: var(--fg-link);
+  border-bottom: 1px solid var(--border-link-active);
+}
+
+.list {
+  position: relative;
+}
+
+.list .navigation__Link_active_active {
+  position: relative;
+  border-bottom: 1px solid transparent;
+}
+
+.button_active_active {
+  color: var(--fg-link);
+}
+
+.list-popup {
+  list-style: none;
+  position: absolute;
+  padding: 14px 21px;
+  top: 38px;
+  border-radius: 7px;
+  background-color: var(--bg-lending-other);
+  margin: 0;
+  opacity: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  transition: opacity 0.4s ease;
+}
+
+.list-popup .navigation__Link {
+  z-index: -1;
+}
+
+.list-popup_open_open .navigation__Link {
+  z-index: 4;
+}
+
+.list-popup_open_open {
+  opacity: 1;
+  z-index: 4;
+}
+
+.list-popup_type_policy {
+  min-width: 220px;
+  left: -21px;
+}
+
+.logout {
+  background: var(--bg-danger);
+  color: var(--fg-primary);
+  border-radius: 7px;
+  padding: 3.5px 10px;
+}
+
+.navigation-burger {
+  list-style: none;
+  width: 60%;
+  height: 100vh;
+  margin: 0;
+  position: fixed;
+  top: -100vh;
+  right: 0;
+  padding: var(--height-header) 5% 10%;
+  box-sizing: border-box;
+  z-index: 3;
+  background-color: var(--bg-lending-other);
+  border: none;
+  border-left: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 8%;
+  align-items: center;
+  transition: top 0.5s ease;
+}
+
+.navigation-burger .list-popup {
+  background-color: var(--bg-lending-secondary);
+}
+
+.navigation-burger_open_open {
+  top: 0;
+}
+
+.burger-button {
+  width: 38px;
+  height: 38px;
+  padding: 5px;
+  box-sizing: border-box;
+  background: none;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.burger-button_open_open {
+}
+
+.burger-button_place_menu {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+}
+
+.burger-button__line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bg-burger-line);
+  transition: all 0.1s ease;
+}
+
+.burger-button_open_open .burger-button__line_place_top {
+  transform: translateY(13px) rotate(45deg);
+}
+
+.burger-button_open_open .burger-button__line_place_middle {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.burger-button_open_open .burger-button__line_place_bottom {
+  transform: translateY(-13px) rotate(-45deg);
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .logo-link {
+    gap: 15px;
+  }
+  .navigation {
+    display: none;
+  }
+  .burger-button {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .main {
+    padding: 0 30px 0;
+  }
+  .logo-link {
+    gap: 25px;
+  }
+  .navigation {
+    display: none;
+  }
+  .burger-button {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    padding: 4px;
+  }
+  .navigation-burger {
+    width: 100%;
+  }
+  .burger-button_place_menu {
+    right: 30px;
+  }
+  .burger-button_open_open .burger-button__line_place_top {
+    transform: translateY(12px) rotate(45deg);
+  }
+  .burger-button_open_open .burger-button__line_place_bottom {
+    transform: translateY(-12px) rotate(-45deg);
+  }
+  .list-popup {
+    padding: 7px 14px;
+    left: calc(-124px + 50%);
+  }
+}

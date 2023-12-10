@@ -5,7 +5,7 @@
   color: var(--fg-primary);
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto min-content;
+  grid-template-rows: var(--height-header) auto min-content;
   grid-template-columns: 100%;
   justify-content: center;
   background-color: var(--bg-primary);

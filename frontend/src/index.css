@@ -10,13 +10,12 @@
 @import url(./styles/link.css);
 @import url(./styles/typography.css);
 
-body {
-  font-family: monospace;
-}
-
 #root {
+  /* ? height */
+  --height-header: 98px;
+
   /* ? font family */
-  --ff-primary: monospace;
+  --ff-primary: 'Helvetica W01 Light', sans-serif;
   --ff-lending: 'Helvetica W01 Light', sans-serif;
 
   /* ? foreground */
@@ -35,14 +34,17 @@ body {
   /* ? borders */
   --border-color: #424242;
   --border-error: #ee3465;
+  --border-link-active: #ff9b00;
   --border-input-focus: #ff9b00;
   --border-input-enabled: #ff9b00;
+  --border-color-active: #ff9b00;
 
   /* ? backgrounds */
 
   --bg-enabled: #ff9b00;
   --bg-danger: #ee3465;
   --bg-disabled: #f8f8f8;
+  --bg-burger-line: #fff;
   /* --bg-primary: #202020; */
   --bg-primary: #191b1f;
   --bg-popup: rgba(0, 0, 0, 0.85);
@@ -69,9 +71,6 @@ body {
 }
 
 #root {
-  /* ? height */
-  --height-header: 74px;
-
   /* ? max-width */
   --max-width-app: 1280px;
 
@@ -96,15 +95,4 @@ body {
 
   --button-component-color-active: #fff;
   --button-component-color-unactive: #a0a0a0;
-}
-
-/* ? scrollbar  */
-body::-webkit-scrollbar {
-  width: 10px;
-}
-body::-webkit-scrollbar-track {
-  background-color: #202020;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #8b8b8b;
 }

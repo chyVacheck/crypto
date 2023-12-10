@@ -1,7 +1,7 @@
 .main {
   margin: 0;
   position: fixed;
-  top: 74px;
+  top: 107.5px;
   right: calc((100% - var(--max-width-app)) / 2);
   width: max-content;
   transition: all 0.4s ease;
@@ -26,15 +26,10 @@
 }
 
 .icon {
-  --current-icon: url(./../../assets/images/unsuccessful.svg);
-  width: 45px;
-  height: 45px;
+  width: 100%;
+  height: 100%;
   background-size: contain;
   background-image: var(--current-icon);
-}
-
-.icon_type_successful {
-  --current-icon: url(./../../assets/images/successful.svg);
 }
 
 .info {
@@ -57,10 +52,11 @@
 
 .button_type_close {
   background: none;
-  width: 16px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   background-image: url(./../../assets/images/button-saved.svg);
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .text {
@@ -85,5 +81,8 @@
   .main {
     right: 25px;
     width: calc(100% - 50px);
+  }
+  .notification {
+    grid-template-columns: 35px auto;
   }
 }

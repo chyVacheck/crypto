@@ -1,0 +1,240 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block {
+  width: 100%;
+  background-color: var(--bg-lending);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.block_type_title {
+  background-image: url(https://static.wixstatic.com/media/02fd0f_37bcfead20e84126933e4eaa9285b73f~mv2.jpg/v1/fill/w_843,h_727,al_l,q_85,enc_auto/02fd0f_37bcfead20e84126933e4eaa9285b73f~mv2.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 70px 0 10px;
+}
+
+.block_type_about {
+  padding: 50px 0 30px;
+}
+
+.block_type_title {
+  background-image: url(https://static.wixstatic.com/media/02fd0f_37bcfead20e84126933e4eaa9285b73f~mv2.jpg/v1/fill/w_843,h_727,al_l,q_85,enc_auto/02fd0f_37bcfead20e84126933e4eaa9285b73f~mv2.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 70px 0 10px;
+}
+
+.block_type_animals {
+  background-image: url(https://static.wixstatic.com/media/02fd0f_a2a4492d35674514a8dead5494f2ddbc~mv2.png/v1/fill/w_1456,h_561,al_t,q_90,usm_0.66_1.00_0.01,enc_auto/02fd0f_a2a4492d35674514a8dead5494f2ddbc~mv2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 561px;
+  background-color: var(--bg-lending-secondary);
+}
+
+.block_type_parallax {
+  background-image: url(./../../assets/images/background_main_page_end.jpeg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 515px;
+}
+
+.container {
+  max-width: var(--max-width-app);
+}
+
+.container_type_title {
+  max-width: 910px;
+}
+
+.container_type_about {
+  max-width: 980px;
+}
+
+.container_type_animals {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 740px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.texts {
+  max-width: 910px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 80px;
+  margin: 0;
+  padding-bottom: 14px;
+  border-bottom: 6px solid var(--border-color-active);
+}
+
+.text {
+  margin: 0;
+}
+
+.text_type_about {
+  font-size: 33px;
+}
+
+.image {
+  background-size: cover;
+  background-image: url(https://static.wixstatic.com/media/02fd0f_11cde98015d24cb9bdf63807b859563d~mv2.png/v1/fill/w_600,h_381,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/coins.png);
+  width: 600px;
+  height: 381px;
+  margin: 50px auto 0;
+}
+
+.subtitle {
+  margin: 0 0 10px 0;
+  color: var(--fg-subtitle);
+}
+
+.cryptos {
+  margin: 40px 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 21px;
+}
+
+.crypto {
+  width: 100%;
+  background-color: var(--bg-lending-secondary);
+  padding: 35px 10px 15px;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.crypto.show {
+  opacity: 1;
+}
+
+.crypto_bg_other {
+  background-color: var(--bg-lending-other);
+}
+
+.crypto__image {
+  width: 163px;
+  height: 163px;
+}
+
+.crypto__title {
+  font-size: 26px;
+  color: var(--fg-subtitle);
+}
+
+.crypto__text {
+  text-align: center;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+
+.big-title {
+  font-size: 46px;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 1s, transform 1s;
+}
+
+.big-title.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.bigger-title {
+  font-size: 46px;
+  width: min-content;
+  text-align: center;
+  font-size: 80px;
+  font-weight: 900;
+  transform: scale(0);
+  transition: all 1s ease-in-out;
+}
+
+.bigger-title.show {
+  transform: scale(1);
+}
+
+@media screen and (max-width: 544px) {
+  .block_type_parallax {
+    min-height: 216px;
+    height: 100%;
+    background-attachment: scroll;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+    font-size: 46px;
+  }
+  .image {
+    width: 280px;
+    height: 178px;
+  }
+  .block_type_title {
+    padding: 20px 24px 20px;
+  }
+  .block_type_about {
+    padding: 36px 0 20px;
+  }
+  .cryptos {
+    flex-direction: column;
+  }
+  .crypto {
+    padding: 20px 10px 50px;
+  }
+  .crypto__title {
+    margin: 10px 0;
+  }
+  .texts {
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+  .bigger-title {
+    font-size: 50px;
+  }
+  .block_type_animals {
+    background-position-y: top;
+    background-size: contain;
+  }
+  .container_type_animals {
+    flex-direction: column;
+    justify-content: end;
+    gap: 20px;
+    padding: 0 37px 57px;
+  }
+  .column {
+    gap: 0px;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+}

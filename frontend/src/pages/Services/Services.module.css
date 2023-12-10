@@ -22,7 +22,7 @@
 }
 
 .container-with-title {
-  padding: 110px 0 60px;
+  padding: 100px 0 60px;
   display: flex;
   flex-direction: column;
   gap: 21px;

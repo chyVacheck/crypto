@@ -9,8 +9,8 @@ import s from './App.module.css';
 import mainApi from '../Api/MainApi';
 
 // * components
-// ? footer
 import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 import ProtectedRoute from '../components/ProtectedRoute/ProtectedRoute';
 import Notifications from './../components/Notifications/Notifications';
 
@@ -24,6 +24,8 @@ import About from './../pages/About/About';
 import AMLPolicy from './../pages/AMLPolicy/AMLPolicy';
 // CompanyProfile
 import CompanyProfile from '../pages/CompanyProfile/CompanyProfile';
+// Contact
+import Contact from '../pages/Contact/Contact';
 // CookiesPolicy
 import CookiesPolicy from '../pages/CookiesPolicy/CookiesPolicy';
 // CreateAdmin
@@ -34,6 +36,8 @@ import CreateCompany from '../pages/CreateCompany/CreateCompany';
 import ListOfUsers from '../pages/ListOfUsers/ListOfUsers';
 // Login
 import Login from '../pages/Login/Login';
+// Main
+import Main from '../pages/Main/Main';
 // PageNotFound
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
 // PrivacyPolicy
@@ -88,7 +92,7 @@ function App() {
   const [notifications, setNotifications] = useState([
     // {
     //   name: 'Тест', // any text
-    //   type: 'successfully', // successfully, error
+    //   ok: true, // true, false
     //   text: 'Вы протестированы', // any text
     // },
   ]);
@@ -97,13 +101,14 @@ function App() {
 
   // check Cookies
   useEffect(() => {
+    let _isUser = false;
     async function fetchData() {
       await mainApi
         .getUserInfo()
-        .then((res) => {
+        .then(async (res) => {
           setUserLogin(true);
+          _isUser = true;
           setCurrentUser(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           if (STATUS.DEV)
@@ -119,30 +124,29 @@ function App() {
             });
         });
 
-      // если после первого запроса пользователь не вошел в акк, то пробуем зайти, под админом
-      await mainApi
-        .getAdminInfo()
-        .then((res) => {
-          setUserLogin(false);
-          setAdminLogin(true);
-          setCurrentUser(res.data);
-        })
-        .catch((err) => {
-          if (STATUS.DEV)
-            console.log(
-              `Запрос на сервер с целью проверки токена администратора выдал: [${err.message}]`,
-            );
-          if (err.message === 'Failed to fetch')
-            // показываем пользователю уведомление
-            addNotification({
-              name: 'Сервер 500',
-              ok: false,
-              text: err.message,
-            });
-        })
-        .finally(() => {
-          setCookiesChecked(true);
-        });
+      if (!_isUser) {
+        await mainApi
+          .getAdminInfo()
+          .then((res) => {
+            setUserLogin(false);
+            setAdminLogin(true);
+            setCurrentUser(res.data);
+          })
+          .catch((err) => {
+            if (STATUS.DEV)
+              console.log(
+                `Запрос на сервер с целью проверки токена администратора выдал: [${err.message}]`,
+              );
+            if (err.message === 'Failed to fetch')
+              // показываем пользователю уведомление
+              addNotification({
+                name: 'Сервер 500',
+                ok: false,
+                text: err.message,
+              });
+          });
+      }
+      setCookiesChecked(true);
     }
 
     fetchData();
@@ -159,16 +163,27 @@ function App() {
       <section className={s.main}>
         {isCookiesChecked ? (
           <>
+            <Header
+              isUserLogin={isUserLogin}
+              setUserLogin={setUserLogin}
+              isAdminLogin={isAdminLogin}
+              setAdminLogin={setAdminLogin}
+              page={page}
+              addNotification={addNotification}
+            />
             <main>
               <Routes>
                 {/* MAIN */}
-                <Route path={paths.main} element={<p>main</p>} />
+                <Route path={paths.main} element={<Main />} />
 
                 {/* ABOUT */}
                 <Route path={paths.about} element={<About />} />
 
                 {/* SERVICES */}
                 <Route path={paths.services} element={<Services />} />
+
+                {/* CONTACT */}
+                <Route path={paths.contact} element={<Contact />} />
 
                 {/* PRIVACY POLICY */}
                 <Route
@@ -200,9 +215,10 @@ function App() {
                     <ProtectedRoute
                       isActive={!isUserLogin}
                       page={page}
-                      to={paths.main}
+                      to={paths.user.profile}
                     >
                       <Login
+                        setCurrentUser={setCurrentUser}
                         addNotification={addNotification}
                         setLogin={setUserLogin}
                       />
@@ -320,9 +336,10 @@ function App() {
                     <ProtectedRoute
                       isActive={!isAdminLogin}
                       page={page}
-                      to={paths.admin.main}
+                      to={paths.admin.users}
                     >
                       <Login
+                        setCurrentUser={setCurrentUser}
                         addNotification={addNotification}
                         setLogin={setAdminLogin}
                         isLoginUser={false}
