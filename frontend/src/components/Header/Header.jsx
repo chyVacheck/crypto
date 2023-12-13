@@ -344,7 +344,7 @@ function Header({
                           info.isActive ? s.navigation__Link_active_active : ''
                         }`;
                       }}
-                      to={paths.dashboard}
+                      to={paths.user.dashboard}
                     >
                       Dashboard
                     </NavLink>
@@ -357,7 +357,7 @@ function Header({
                           info.isActive ? s.navigation__Link_active_active : ''
                         }`;
                       }}
-                      to={paths.exchange}
+                      to={paths.user.exchange}
                     >
                       Exchange
                     </NavLink>
@@ -676,7 +676,7 @@ function Header({
                           info.isActive ? s.navigation__Link_active_active : ''
                         }`;
                       }}
-                      to={paths.dashboard}
+                      to={paths.user.dashboard}
                     >
                       Dashboard
                     </NavLink>
@@ -692,7 +692,7 @@ function Header({
                           info.isActive ? s.navigation__Link_active_active : ''
                         }`;
                       }}
-                      to={paths.exchange}
+                      to={paths.user.exchange}
                     >
                       Exchange
                     </NavLink>

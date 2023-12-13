@@ -698,3 +698,55 @@
   ```
 
 ---
+
+- _POST_ `api/v1/support/mailToCommunicate`
+
+  ```json
+  {
+    "name": "test_title",
+    "email": "test_email",
+    "message": "test_message"
+  }
+  ```
+
+  Answer
+
+  ```json
+  {
+    "message": "Mail was successfully send"
+  }
+  ```
+
+  ***
+
+## Price
+
+- _GET_ `/api/v1/price/:ids/:vs_currencies`
+
+  ```json
+  no body in this request
+  ```
+
+  Answer
+
+  ```json
+  {
+    "ethereum": {
+      "usd": 2213.5,
+      "eur": 2051.69,
+      "bnb": 8.832229
+    },
+    "avalanche-2": {
+      "usd": 39.16,
+      "eur": 36.3,
+      "bnb": 0.1562593
+    },
+    "bitcoin": {
+      "usd": 41749,
+      "eur": 38697,
+      "bnb": 166.586
+    }
+  }
+  ```
+
+---

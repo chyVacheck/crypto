@@ -5,6 +5,7 @@ const router = require('express').Router();
 const Auth = require('./auth');
 const Admin = require('./admin');
 const User = require('./user');
+const Price = require('./price');
 const Support = require('./support');
 const Company = require('./company');
 
@@ -46,6 +47,8 @@ router.use(`/${SERVER_SETTING.URL}/v1/user`, User); // ? User
 router.use(`/${SERVER_SETTING.URL}/v1/company`, Company); // ? Company
 
 router.use(`/${SERVER_SETTING.URL}/v1/support`, Support); // ? Support
+
+router.use(`/${SERVER_SETTING.URL}/v1/price`, Price); // ? Price
 
 router.use(`*`, NotFound); // ? error 404 for another routers
 

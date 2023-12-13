@@ -160,35 +160,58 @@ Validator.patchUserData = celebrate({
 
 Validator.createCompany = celebrate({
   body: Joi.object().keys({
+    name: Joi.string().required(),
     registrationNumber: Joi.string().required(),
-    shareholder: Joi.object()
-      .required()
+    legalAddress: Joi.string(),
+    city: Joi.string(),
+    zipCode: Joi.number(),
+    legalForm: Joi.string().valid(...VALID_VALUES.LEGAL_FORM.VALUES),
+    countryOfRegistration: Joi.string(),
+    VAT: Joi.number()
+      .min(VALID_VALUES.VAT_NUMBER.LENGTH.MIN)
+      .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX),
+    registrationDate: Joi.string(),
+    bankAccount: Joi.object()
       .keys({
-        typeOfShareholder: Joi.string()
+        bankName: Joi.string(),
+        bankCode: Joi.string(),
+        IBAN: Joi.string(),
+        accountHolderName: Joi.string(),
+      })
+      .min(1),
+    shareholders: Joi.array()
+      .items(
+        Joi.object()
           .required()
-          .valid(...VALID_VALUES.SHARE_HOLDER.VALUES),
-        data: Joi.when('typeOfShareholder', {
-          is: 'company',
-          then: Joi.object({
-            name: Joi.string(),
-            registrationNumber: Joi.string().required(),
-            legalForm: Joi.string(),
-            legalAddress: Joi.string(),
-            city: Joi.string(),
-            zipCode: Joi.string(),
-            countryOfRegistration: Joi.string(),
-            VAT: Joi.string(),
-            registrationDate: Joi.string(),
+          .keys({
+            typeOfShareholder: Joi.string()
+              .required()
+              .valid(...VALID_VALUES.SHARE_HOLDER.VALUES),
+            percentageOfOwnership: Joi.number().min(0).max(100),
+            data: Joi.when('typeOfShareholder', {
+              is: 'company',
+              then: Joi.object({
+                name: Joi.string(),
+                registrationNumber: Joi.string().required(),
+                legalForm: Joi.string(),
+                legalAddress: Joi.string(),
+                city: Joi.string(),
+                zipCode: Joi.string(),
+                countryOfRegistration: Joi.string(),
+                VAT: Joi.string(),
+                registrationDate: Joi.string(),
+              }),
+              otherwise: Joi.object({
+                fullName: Joi.string(),
+                equityShare: Joi.string(),
+                contactEmail: Joi.string(),
+                jobTitle: Joi.string(),
+                phoneNumber: Joi.string(),
+              }).min(1),
+            }).required(),
           }),
-          otherwise: Joi.object({
-            fullName: Joi.string().required(),
-            equityShare: Joi.string(),
-            contactEmail: Joi.string(),
-            jobTitle: Joi.string(),
-            phoneNumber: Joi.string(),
-          }),
-        }).required(),
-      }),
+      )
+      .max(10),
   }),
 });
 
@@ -272,6 +295,13 @@ Validator.mailToCommunicate = celebrate({
     name: Joi.string().required().min(VALID_VALUES.TEXT.LENGTH.MIN),
     email: Joi.string().required().min(VALID_VALUES.EMAIL.LENGTH.MIN),
     message: Joi.string().required().min(VALID_VALUES.MAIL.MESSAGE.LENGTH.MIN),
+  }),
+});
+
+Validator.getPrices = celebrate({
+  params: Joi.object().keys({
+    ids: Joi.string().required(),
+    vs_currencies: Joi.string().required(),
   }),
 });
 

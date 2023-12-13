@@ -24,16 +24,17 @@ class MainApi {
       return res;
     }
 
-    // ? ошибки
-    // 429 лимит запросов
-    if (res.status === 429) {
-      const err = {
-        message: res.statusText,
-        status: 429,
-      };
-      // возвращаем ошибку
-      return Promise.reject(err);
-    }
+    // // ? ошибки
+    // // 429 лимит запросов
+    // if (res.status === 429) {
+    //   const err = {
+    //     message: res.statusText,
+    //     status: 429,
+    //   };
+    //   // возвращаем ошибку
+    //   return Promise.reject(err);
+    // }
+
     // остальные ошибки
     const error = res.json();
     return error.then((errorObj) =>
@@ -156,6 +157,21 @@ class MainApi {
         headers: this._headers,
       },
       'get admin info',
+    );
+  }
+
+  /* получение файла пользователя по его id
+    userId = 655608239736cf4d57ee5299
+  */
+  getPrice(ids = 'all', vs_currencies = 'all') {
+    return this._request(
+      `${this._address}/price/${ids}/${vs_currencies}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `get price of currencies`,
     );
   }
 

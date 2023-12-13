@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 100px 50px 50px;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: var(--max-width-app);
+  display: flex;
+  flex-direction: column;
+}
+
+.priceTable {
+  width: 100%;
+  background-color: var(--bg-lending-secondary);
+  box-sizing: border-box;
+  padding: 14px 21px;
+  border-radius: 21px;
+  border-spacing: 0;
+}
+
+.priceTable__title {
+  font-size: 16px;
+  line-height: 18px;
+  padding: 0;
+  text-align: left;
+  border-bottom: 2px solid var(--border-color);
+  color: var(--fg-subtitle);
+}
+
+.priceTable__price {
+  padding: 0;
+}

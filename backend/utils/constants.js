@@ -18,6 +18,7 @@ const {
   EMAIL_COMPANY_EMAIL = config.ALL_EMAILS.COMPANY.EMAIL,
   EMAIL_COMPANY_PASS = config.ALL_EMAILS.COMPANY.PASS,
   STATUS_DEV = config.STATUS_DEV,
+  API_COINGECKO_URL = config.API_COINGECKO_URL,
 } = process.env;
 
 const DEV = STATUS_DEV === 'true';
@@ -30,13 +31,46 @@ const SERVER_SETTING = {
   JWT_SECRET: JWT_SECRET,
 };
 
+const API_COINGECKO = {
+  BASE_URL: API_COINGECKO_URL,
+  IDS: {
+    STRING:
+      'bitcoin,ethereum,binancecoin,tether,solana,cardano,ripple,polkadot,usd-coin,dogecoin,avalanche-2,terra-luna-2,chainlink,algorand',
+    ARRAY: [
+      'bitcoin',
+      'ethereum',
+      'binancecoin',
+      'tether',
+      'solana',
+      'cardano',
+      'ripple',
+      'polkadot',
+      'usd-coin',
+      'dogecoin',
+      'avalanche-2',
+      'terra-luna-2',
+      'chainlink',
+      'algorand',
+    ],
+  },
+  VS_CURRENCIES: {
+    STRING: 'usd,eur,bnb',
+    ARRAY: ['usd', 'eur', 'bnb'],
+  },
+};
+
 // ? для ответов на запросы
 const MESSAGE = {
   ERROR: {
+    TOO_MANY_REQUESTS: {
+      SIMPLE: 'Too many requests, try later',
+    },
     UPDATE_REQUEST: {
       SIMPLE: 'The request has already been accepted',
     },
     BAD_REQUEST: {
+      PERCENT_TO_MUCH:
+        "The total number of percentages of the company's shares must not exceed 100",
       FILE_BAD_TYPE: 'File must be another type',
       FILE_TOO_HEAVY: 'File is too large',
       FILE_NOT_UPLOAD: 'File was not uploaded',
@@ -132,6 +166,7 @@ const STATUS = {
     FORBIDDEN: 403,
     NOT_FOUND: 404,
     CONFLICT: 409,
+    TOO_MANY_REQUESTS: 429,
     SERVER: 500,
   },
   INFO: {
@@ -288,4 +323,5 @@ module.exports = {
   EMAILS,
   isThisURL,
   DEV,
+  API_COINGECKO,
 };

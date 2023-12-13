@@ -32,6 +32,8 @@ import CookiesPolicy from '../pages/CookiesPolicy/CookiesPolicy';
 import CreateAdmin from '../pages/CreateAdmin/CreateAdmin';
 // CreateCompany
 import CreateCompany from '../pages/CreateCompany/CreateCompany';
+// Dashboard
+import Dashboard from '../pages/Dashboard/Dashboard';
 // ListOfUsers
 import ListOfUsers from '../pages/ListOfUsers/ListOfUsers';
 // Login
@@ -275,6 +277,20 @@ function App() {
                         addNotification={addNotification}
                         setUser={setCurrentUser}
                       />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* DASHBOARD */}
+                <Route
+                  path={paths.user.dashboard}
+                  element={
+                    <ProtectedRoute
+                      isActive={isUserLogin}
+                      page={page}
+                      to={paths.signin}
+                    >
+                      <Dashboard addNotification={addNotification} />
                     </ProtectedRoute>
                   }
                 />

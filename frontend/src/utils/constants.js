@@ -35,9 +35,9 @@ export const paths = {
   support: `${DEFAULT_URL}support`,
   user: {
     profile: `${DEFAULT_URL}profile`,
+    dashboard: `${DEFAULT_URL}dashboard`,
+    exchange: `${DEFAULT_URL}exchange`,
   },
-  dashboard: `${DEFAULT_URL}dashboard`,
-  exchange: `${DEFAULT_URL}exchange`,
   verifyEmail: `${DEFAULT_URL}verifyEmail`,
 };
 
@@ -54,6 +54,8 @@ export const activeHeaderRoutes = [
   paths.services,
   paths.contact,
   paths.user.profile,
+  paths.user.dashboard,
+  paths.user.exchange,
   paths.support,
   paths.company.create,
   paths.policies.amlPolicy,
@@ -81,6 +83,8 @@ export const activeFooterRoutes = [
   paths.services,
   paths.contact,
   paths.user.profile,
+  paths.user.dashboard,
+  paths.user.exchange,
   paths.support,
   paths.company.create,
   paths.policies.amlPolicy,

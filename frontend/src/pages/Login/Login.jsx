@@ -6,18 +6,22 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 
 // * components
-// SignForm
 import SignForm from './../../components/SignForm/SignForm';
 
 // ? utils
 // * constants
-import { paths, VALIDATION } from './../../utils/constants';
+import { STATUS, paths, VALIDATION } from './../../utils/constants';
 // * utils
 import { checkValidity, checkAnswerFromServer } from './../../utils/utils';
 // * Api
 import mainApi from './../../Api/MainApi';
 
-function Login({ addNotification, setLogin, isLoginUser = true }) {
+function Login({
+  setCurrentUser,
+  addNotification,
+  setLogin,
+  isLoginUser = true,
+}) {
   // ? текст ошибки
   const [currentError, setCurrentError] = useState('');
   // ? текст кнопки submit
@@ -69,7 +73,7 @@ function Login({ addNotification, setLogin, isLoginUser = true }) {
       };
       mainApi
         .authorization(user)
-        .then((res) => {
+        .then(async (res) => {
           // устанавливаем "вход" в систему
           setLogin(true);
 
@@ -78,6 +82,26 @@ function Login({ addNotification, setLogin, isLoginUser = true }) {
             ok: true,
             text: res.message,
           });
+
+          await mainApi
+            .getUserInfo()
+            .then(async (res) => {
+              setCurrentUser(res.data);
+            })
+            .catch((err) => {
+              if (STATUS.DEV)
+                console.log(
+                  `Запрос на сервер с целью получения данных пользователя выдал: [${err.message}]`,
+                );
+              if (err.message === 'Failed to fetch')
+                // показываем пользователю уведомление
+                addNotification({
+                  name: 'Сервер 500',
+                  ok: false,
+                  text: err.message,
+                });
+            });
+
           navigate(paths.main);
         })
         .catch((err) => {
@@ -110,7 +134,7 @@ function Login({ addNotification, setLogin, isLoginUser = true }) {
             ok: true,
             text: res.message,
           });
-          navigate(paths.admin.main);
+          navigate(paths.admin.users);
         })
         .catch((err) => {
           // устанавливаем ошибку
