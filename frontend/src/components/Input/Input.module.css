@@ -26,7 +26,7 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-
+  appearance: textfield;
   outline: none;
   color: var(--fg-primary);
   background-color: var(--bg-input);
@@ -38,8 +38,16 @@
   border-color: var(--border-error);
 }
 
-.error {
+.detail {
   margin: 0 0 0 15px;
   height: 12px;
+  color: var(--fg-secondary);
+}
+
+.detail_type_required {
+  color: var(--fg-detail);
+}
+
+.detail_type_error {
   color: var(--fg-error);
 }

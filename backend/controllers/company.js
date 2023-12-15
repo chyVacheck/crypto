@@ -82,7 +82,7 @@ class Companies {
       }
 
       // проверка shareholder
-      if (!companyData.shareholder.includes(shareholderId)) {
+      if (!companyData.shareholders.includes(shareholderId)) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
@@ -112,7 +112,7 @@ class Companies {
       }
 
       // проверка shareholder
-      if (!companyData.shareholder.includes(shareholderId)) {
+      if (!companyData.shareholders.includes(shareholderId)) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
@@ -146,41 +146,60 @@ class Companies {
       return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.MUST_BE_USER));
     }
 
-    //
-    await company.find().then((arrayCompany) => {
-      for (const oneCompany of arrayCompany) {
-        if (oneCompany.owners.includes(_id)) {
-          return next(
-            new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.ONLY_ONE_COMPANY),
-          );
-        }
+    const arrayCompany = await company.find();
+
+    // проверка на то что у пользователя еще нет компании
+    for (const oneCompany of arrayCompany) {
+      if (oneCompany.owners.includes(_id)) {
+        return next(
+          new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.ONLY_ONE_COMPANY),
+        );
       }
-    });
+    }
 
     user.findByIdAndUpdate(_id, { typeOfUser: 'Legal entity' }).catch(next);
 
-    const shareholderId = await shareholder
-      .create({
-        typeOfShareholder: req.body.shareholder.typeOfShareholder,
-        [req.body.shareholder.typeOfShareholder]: req.body.shareholder.data,
-      })
-      .then((shareholderData) => shareholderData._id)
-      .catch((err) => {
-        if (err.name === 'ValidationError') {
-          return next(new BadRequestError(MESSAGE.ERROR.INCORRECT_DATA.SIMPLE));
-        } else if (err.code === 11000) {
-          return next(new ConflictError(MESSAGE.ERROR.DUPLICATE.SIMPLE));
-        } else {
-          return next(err);
-        }
-      });
-
     const data = req.body;
+    const shareholdersId = [];
+    let percentageOfOwnership = 0;
+
+    if (!!data.shareholders) {
+      for (const shareholderData of data.shareholders) {
+        percentageOfOwnership += shareholderData.percentageOfOwnership;
+
+        if (percentageOfOwnership > 100) {
+          return next(
+            new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.PERCENT_TO_MUCH),
+          );
+        }
+
+        await shareholder
+          .create({
+            percentageOfOwnership: shareholderData.percentageOfOwnership,
+            typeOfShareholder: shareholderData.typeOfShareholder,
+            [shareholderData.typeOfShareholder]: shareholderData.data,
+          })
+          .then((newShareholderData) => {
+            shareholdersId.push(newShareholderData._id);
+          })
+          .catch((err) => {
+            if (err.name === 'ValidationError') {
+              return next(
+                new BadRequestError(MESSAGE.ERROR.INCORRECT_DATA.SIMPLE),
+              );
+            } else if (err.code === 11000) {
+              return next(new ConflictError(MESSAGE.ERROR.DUPLICATE.SIMPLE));
+            } else {
+              return next(err);
+            }
+          });
+      }
+    }
 
     delete data.shareholder;
 
     data.owners = [_id];
-    data.shareholder = [shareholderId];
+    data.shareholders = shareholdersId;
     // создание компании
     await company
       .create(data)
@@ -230,7 +249,9 @@ class Companies {
         // проверка на уникальность registrationNumber
         for (const index in shareholderCompanies) {
           if (
-            companyData.shareholder.includes(shareholderCompanies[index]._id) &&
+            companyData.shareholders.includes(
+              shareholderCompanies[index]._id,
+            ) &&
             shareholderCompanies[index].company.registrationNumber ===
               registrationNumber
           ) {
@@ -247,7 +268,7 @@ class Companies {
         })
         .then((shareholderData) => shareholderData._id);
 
-      companyData.shareholder.push(shareholderId); // Добавляем id инвестора в массив shareholder
+      companyData.shareholders.push(shareholderId); // Добавляем id инвестора в массив shareholder
 
       await companyData.save(); // Сохраняем изменения в базе данных
 
@@ -375,7 +396,7 @@ class Companies {
       }
 
       // проверка shareholder
-      if (!companyData.shareholder.includes(shareholderId)) {
+      if (!companyData.shareholders.includes(shareholderId)) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
@@ -456,7 +477,7 @@ class Companies {
       }
 
       // проверка shareholder
-      if (!companyData.shareholder.includes(shareholderId)) {
+      if (!companyData.shareholders.includes(shareholderId)) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
@@ -499,12 +520,12 @@ class Companies {
       }
 
       // проверка shareholder
-      if (!companyData.shareholder.includes(shareholderId)) {
+      if (!companyData.shareholders.includes(shareholderId)) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
-      // проверка количества shareholder
-      if (companyData.shareholder.length === 1) {
+      // проверка количества shareholders
+      if (companyData.shareholders.length === 1) {
         return next(
           new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.TOO_FEW_SHAREHOLDER),
         );
@@ -514,7 +535,7 @@ class Companies {
         .findByIdAndDelete(shareholderId)
         .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER))
         .then(async () => {
-          companyData.shareholder = companyData.shareholder.filter(
+          companyData.shareholders = companyData.shareholders.filter(
             (item) => item.toString() !== shareholderId,
           );
 

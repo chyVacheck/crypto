@@ -39,7 +39,7 @@ const companySchema = new mongoose.Schema(
       type: String,
     },
     VAT: {
-      type: Number,
+      type: String,
       minlength: VALID_VALUES.VAT_NUMBER.LENGTH.MIN,
       maxlength: VALID_VALUES.VAT_NUMBER.LENGTH.MAX,
     },
@@ -72,7 +72,7 @@ const companySchema = new mongoose.Schema(
         type: String,
       },
     },
-    shareholder: [
+    shareholders: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'shareholder',

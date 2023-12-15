@@ -301,19 +301,6 @@ function Header({
                       Profile
                     </NavLink>
                   </li>
-                  {/* // ? support */}
-                  <li>
-                    <NavLink
-                      className={(info) => {
-                        return `link landing-paragraph ${s.navigation__Link} ${
-                          info.isActive ? s.navigation__Link_active_active : ''
-                        }`;
-                      }}
-                      to={paths.support}
-                    >
-                      Support
-                    </NavLink>
-                  </li>
                   {/* // ? company */}
                   {!!userData.companyId && (
                     <li>
@@ -360,6 +347,19 @@ function Header({
                       to={paths.user.exchange}
                     >
                       Exchange
+                    </NavLink>
+                  </li>
+                  {/* // ? support */}
+                  <li>
+                    <NavLink
+                      className={(info) => {
+                        return `link landing-paragraph ${s.navigation__Link} ${
+                          info.isActive ? s.navigation__Link_active_active : ''
+                        }`;
+                      }}
+                      to={paths.support}
+                    >
+                      Support
                     </NavLink>
                   </li>
                 </>

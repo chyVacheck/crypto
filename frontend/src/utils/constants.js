@@ -41,6 +41,29 @@ export const paths = {
   verifyEmail: `${DEFAULT_URL}verifyEmail`,
 };
 
+export const shareholder = {
+  typeOfShareholder: 'company',
+  percentageOfOwnership: null,
+  // ? individual
+  fullName: null,
+  contactEmail: null,
+  jobTitle: null,
+  phoneNumber: null,
+  // ? company
+  name: null,
+  registrationNumber: null,
+  legalForm: null,
+  legalAddress: null,
+  city: null,
+  zipCode: null,
+  countryOfRegistration: null,
+  VAT: null,
+  registrationDate: null,
+};
+
+export const TYPE_OF_USER = ['Individual', 'Legal entity'];
+export const TYPE_OF_SHAREHOLDERS = ['individual', 'company'];
+
 export const PATTERN_PAGE_USER_ID = /^\/admin\/users(\/[a-zA-Z0-9]*)?$/;
 
 export const PATTERN_PAGE_COMPANY_ID = /^\/company(\/[a-zA-Z0-9]*)?$/;
@@ -126,6 +149,8 @@ export const VALIDATION = {
     MAX: 20,
   },
 };
+
+export const MAX_COUNT_OF_SHAREHOLDERS = 10;
 
 export const LEGAL_FORM_VALUES = [
   'Limited Liability Company',

@@ -1,5 +1,5 @@
 // ! modules
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // ? styles
@@ -9,52 +9,95 @@ import s from './CreateCompany.module.css';
 import mainApi from './../../Api/MainApi';
 
 // ? components
-import Logo from '../../components/Logo/Logo';
+import Input from '../../components/Input/Input';
+import Shareholder from '../../components/Shareholder/Shareholder';
+
+// ? constants
+import COUNTRIES from './../../constants/COUNTRIES.json';
 
 // ? contexts
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // ? utils
 // * constants
-import { VALIDATION, paths } from '../../utils/constants';
+import {
+  VALIDATION,
+  LEGAL_FORM_VALUES,
+  paths,
+  MAX_COUNT_OF_SHAREHOLDERS,
+  shareholder,
+} from '../../utils/constants';
 // * utils
-import { checkValidity } from '../../utils/utils';
+import {
+  checkValidity,
+  checkValueIfNotUndefined,
+  toData,
+} from '../../utils/utils';
 
 function CreateCompany({ addNotification, setUser }) {
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
-  const [currentTextSubmitButton, setCurrentTextSubmitButton] =
-    useState('Register company');
+  const [currentTextSubmitButton, setCurrentTextSubmitButton] = useState(
+    'Add info of company',
+  );
 
   // * валидация полей
   const [validatedFields, setValidatedFields] = useState({
+    // * company
+    // ? business
+    name: { valid: true, error: null },
+    country: { valid: true, error: null },
+    registrationDateOfCompany: { valid: true, error: null },
     registrationNumber: { valid: true, error: null },
-    shareholder: { valid: true, error: null },
-    shareholderRegistrationNumber: { valid: true, error: null },
-    shareholderFullName: { valid: true, error: null },
+    legalForm: { valid: true, error: null },
+    VAT: { valid: true, error: null },
+    // ? address
+    legalAddress: { valid: true, error: null },
+    city: { valid: true, error: null },
+    zipCode: { valid: true, error: null },
+    // ? bank
+    bankName: { valid: true, error: null },
+    bankCode: { valid: true, error: null },
+    iban: { valid: true, error: null },
+    accountHolderName: { valid: true, error: null },
   });
 
   // * валидация всей формы
   const [isFormValid, setIsFormValid] = useState(false);
-  // * измененная ли форма
-  const [hasFormAnotherData, setFormAnotherData] = useState(false);
+  const [textError, setTextError] = useState('');
+  const [isButtonAddShareholderValid, setIsButtonAddShareholderValid] =
+    useState(true);
 
-  // is open or close
-  const [isDropdownTypeOfUserOpen, setDropdownTypeOfUserOpen] = useState(false);
+  // is open/close pop-up tot chose country
+  const [isDropdownCountryOpen, setDropdownCountryOpen] = useState(false);
+  // is open/close pop-up tot chose Legal form
+  const [isDropdownLegalFormOpen, setDropdownLegalFormOpen] = useState(false);
+
+  // массив shareholder`ов
+  const [arrayShareholders, setArrayShareholders] = useState([]);
 
   // * Ref for every input
+  // * company
+  // ? business
+  const nameRef = useRef();
+  const countryOfRegistrationRef = useRef();
+  const [countryFullName, setCountryFullName] = useState(null);
+  const registrationDateOfCompanyRef = useRef();
   const registrationNumberRef = useRef();
-  const shareholderRef = useRef();
-
-  // company
-  const shareholderRegistrationNumberRef = useRef();
-
-  // individual
-  const shareholderFullNameRef = useRef();
+  const legalFormRef = useRef();
+  const VATRef = useRef();
+  // ? address
+  const legalAddressRef = useRef();
+  const cityRef = useRef();
+  const zipCodeRef = useRef();
+  // ? bank
+  const bankNameRef = useRef();
+  const bankCodeRef = useRef();
+  const ibanRef = useRef();
+  const accountHolderNameRef = useRef();
 
   // ? handle Change
   function handleFieldChange(event) {
-    setFormAnotherData(true);
     const isValid = event.target.checkValidity();
 
     // смена значение валидации
@@ -68,40 +111,103 @@ function CreateCompany({ addNotification, setUser }) {
 
   // ? handle submit form
   async function handleSubmit(e) {
-    setCurrentTextSubmitButton('Registering company...');
+    setCurrentTextSubmitButton('Add info of company...');
     e.preventDefault();
 
-    let _data = {};
+    let _shareholders = [];
 
-    switch (shareholderRef.current.value) {
-      case 'individual':
-        _data = {
-          fullName: shareholderFullNameRef.current.value,
+    if (arrayShareholders.length > 0) {
+      for (const shareholder of arrayShareholders) {
+        let _data = {};
+        let _shareholder = {
+          typeOfShareholder: shareholder.typeOfShareholder,
+          percentageOfOwnership: Number(shareholder.percentageOfOwnership),
         };
-        break;
-      case 'company':
-        _data = {
-          registrationNumber: shareholderRegistrationNumberRef.current.value,
-        };
-        break;
 
-      default:
-        break;
+        switch (shareholder.typeOfShareholder) {
+          case 'individual':
+            _data = {
+              fullName: checkValueIfNotUndefined(shareholder.fullName),
+              contactEmail: checkValueIfNotUndefined(shareholder.contactEmail),
+              jobTitle: checkValueIfNotUndefined(shareholder.jobTitle),
+              phoneNumber: checkValueIfNotUndefined(shareholder.phoneNumber),
+            };
+            break;
+          case 'company':
+            _data = {
+              name: checkValueIfNotUndefined(shareholder.name),
+              registrationNumber: checkValueIfNotUndefined(
+                shareholder.registrationNumber,
+              ),
+              legalForm: checkValueIfNotUndefined(shareholder.legalForm),
+              legalAddress: checkValueIfNotUndefined(shareholder.legalAddress),
+              city: checkValueIfNotUndefined(shareholder.city),
+              zipCode: checkValueIfNotUndefined(shareholder.zipCode),
+              countryOfRegistration: checkValueIfNotUndefined(
+                shareholder.countryOfRegistration,
+              ),
+              VAT: checkValueIfNotUndefined(shareholder.VAT),
+              registrationDate: checkValueIfNotUndefined(
+                shareholder.registrationDate,
+              ),
+            };
+            break;
+
+          default:
+            break;
+        }
+
+        _shareholder.data = _data;
+
+        _shareholders.push(_shareholder);
+      }
+    } else {
+      _shareholders = undefined;
     }
 
     const _company = {
-      registrationNumber: registrationNumberRef.current.value,
-      shareholder: {
-        typeOfShareholder: shareholderRef.current.value,
-        data: _data,
+      name: checkValueIfNotUndefined(nameRef.current.value),
+      countryOfRegistration: checkValueIfNotUndefined(
+        countryOfRegistrationRef.current.value,
+      ),
+      registrationDate: toData(
+        checkValueIfNotUndefined(registrationDateOfCompanyRef.current.value),
+      ),
+      registrationNumber: checkValueIfNotUndefined(
+        registrationNumberRef.current.value,
+      ),
+      legalForm: checkValueIfNotUndefined(legalFormRef.current.value),
+      VAT: checkValueIfNotUndefined(VATRef.current.value),
+      legalAddress: checkValueIfNotUndefined(legalAddressRef.current.value),
+      city: checkValueIfNotUndefined(cityRef.current.value),
+      zipCode: checkValueIfNotUndefined(zipCodeRef.current.value),
+      bankAccount: {
+        bankName: checkValueIfNotUndefined(bankNameRef.current.value),
+        bankCode: checkValueIfNotUndefined(bankCodeRef.current.value),
+        IBAN: checkValueIfNotUndefined(ibanRef.current.value),
+        accountHolderName: checkValueIfNotUndefined(
+          accountHolderNameRef.current.value,
+        ),
       },
+      shareholders: _shareholders,
     };
+
+    if (
+      !(
+        checkValueIfNotUndefined(bankNameRef.current.value) ||
+        checkValueIfNotUndefined(bankCodeRef.current.value) ||
+        checkValueIfNotUndefined(ibanRef.current.value) ||
+        checkValueIfNotUndefined(accountHolderNameRef.current.value)
+      )
+    ) {
+      delete _company.bankAccount;
+    }
 
     mainApi
       .createCompany(_company)
       .then((res) => {
         addNotification({
-          name: 'Register company',
+          name: 'Add info of company',
           ok: true,
           text: res.message,
         });
@@ -116,193 +222,347 @@ function CreateCompany({ addNotification, setUser }) {
       .catch((err) => {
         // устанавливаем ошибку
         addNotification({
-          name: 'Register company',
+          name: 'Add info of company',
           ok: false,
           text: err.message,
         });
         setIsFormValid(false);
       })
       .finally(() => {
-        setCurrentTextSubmitButton('Register company');
+        setCurrentTextSubmitButton('Add info of company');
         setIsFormValid(false);
       });
   }
 
-  const answers = ['individual', 'company'];
+  // ? handle Shareholder Change
+  function handleShareholderChange(index, name, value) {
+    const updatedShareholders = [...arrayShareholders];
+    updatedShareholders[index][name] = value;
+    setArrayShareholders(updatedShareholders);
+    const _form = document.getElementById('createCompany');
+    setIsFormValid(_form.checkValidity());
+
+    if (name === 'percentageOfOwnership') {
+      let percent = 0;
+
+      for (const shareholder of updatedShareholders) {
+        percent += Number(shareholder.percentageOfOwnership);
+      }
+
+      if (percent > 100) {
+        setTextError(
+          'Summery percentage of ownerships can not be more then 100',
+        );
+        setIsFormValid(false);
+      } else {
+        setTextError(null);
+      }
+    }
+  }
+
+  function removeShareholder(index) {
+    const updatedShareholders = [...arrayShareholders];
+    updatedShareholders.splice(index, 1);
+    setArrayShareholders(updatedShareholders);
+  }
+
+  // ? добавление формы нового акционера
+  function addShareholder() {
+    if (arrayShareholders.length === MAX_COUNT_OF_SHAREHOLDERS - 1) {
+      setIsButtonAddShareholderValid(false);
+    }
+    if (arrayShareholders.length < MAX_COUNT_OF_SHAREHOLDERS) {
+      setArrayShareholders([...arrayShareholders, shareholder]);
+      setIsFormValid(false);
+    }
+  }
 
   useEffect(() => {
-    shareholderRef.current.value = 'company';
+    countryOfRegistrationRef.current.value = null;
   }, []);
 
   return (
     <section className={s.main}>
       <article className={s.container}>
-        <div className={s.header}>
-          <Logo />
+        <form id='createCompany' onSubmit={handleSubmit} className={s.form}>
+          {/* // ! business */}
+          <h2 className={`landing-paragraph ${s.text}`}>Business</h2>
+          <div className={s.block}>
+            {/* // ? name */}
+            <Input
+              name={'Name of company'}
+              required
+              id='name'
+              placeholder='Coin Experts'
+              minLength={VALIDATION.NAME.MIN}
+              maxLength={VALIDATION.NAME.MAX}
+              customRef={nameRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.name.valid}
+              textError={validatedFields.name.error}
+            ></Input>
 
-          <h1 className={s.title}>Register company</h1>
-        </div>
-
-        <form onSubmit={handleSubmit} className={s.form}>
-          {/* // ? input поля */}
-          <div className={`${s.fields} ${s.fields_type_horizontal}`}>
             {/* // ? registrationNumber */}
+            <Input
+              name={'Registration number of company'}
+              required
+              id='registrationNumber'
+              placeholder='202005123456'
+              minLength={VALIDATION.REGISTRATION_NUMBER.MIN}
+              maxLength={VALIDATION.REGISTRATION_NUMBER.MAX}
+              customRef={registrationNumberRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.registrationNumber.valid}
+              textError={validatedFields.registrationNumber.error}
+            ></Input>
+
+            {/* // ? country of registration */}
             <div className={s.field}>
-              <h6 className={`${s.name} caption`}>Registration number</h6>
+              <h6 className={`${s.name} caption`}>Country of registration</h6>
 
               <input
-                required
-                className={`${s.input} ${
-                  !validatedFields.registrationNumber.valid
-                    ? s.input_validity_invalid
-                    : ''
-                }`}
-                placeholder='202005123456'
-                id='registrationNumber'
-                type='text'
-                minLength={VALIDATION.REGISTRATION_NUMBER.MIN}
-                maxLength={VALIDATION.REGISTRATION_NUMBER.MAX}
-                ref={registrationNumberRef}
-                onChange={handleFieldChange}
-              ></input>
-
-              {/* // ? сообщение о ошибке */}
-              <p className={`${s['error-message']} detail`}>
-                {validatedFields.registrationNumber.error}
-              </p>
-            </div>
-
-            {/* // ? shareholder */}
-            <div className={s.field}>
-              <h6 className={`${s.name} caption`}>Type of shareholder</h6>
-
-              <input
-                className={`${s.input} ${s.input_type_dropdown} ${
-                  !validatedFields.shareholder.valid
-                    ? s.input_validity_invalid
-                    : ''
-                }`}
+                className={`body ${s.dropdown}`}
                 placeholder={
-                  isDropdownTypeOfUserOpen
-                    ? 'click to close'
-                    : 'click to choose'
+                  isDropdownCountryOpen ? 'click to close' : 'click to choose'
                 }
-                id='shareholder'
+                id='country'
                 type='text'
-                ref={shareholderRef}
+                ref={countryOfRegistrationRef}
                 readOnly
                 onClick={() => {
-                  setDropdownTypeOfUserOpen(!isDropdownTypeOfUserOpen);
+                  setDropdownCountryOpen(!isDropdownCountryOpen);
                 }}
               ></input>
 
+              <p className={`detail ${s['answer__add-info']}`}>
+                {countryFullName}
+              </p>
+
               <div
                 className={`${s.answers} ${
-                  isDropdownTypeOfUserOpen && s.answer_state_open
+                  isDropdownCountryOpen && s.answers_state_open
                 }`}
               >
-                {answers.map((element, index) => {
+                {COUNTRIES.map((element, index) => {
                   const _isCurrent =
-                    element ===
-                    (shareholderRef.current
-                      ? shareholderRef.current.value
+                    `${element.flag} ${element.name.common}` ===
+                    (countryOfRegistrationRef.current
+                      ? countryOfRegistrationRef.current.value
                       : '');
 
                   return (
                     <div
-                      onClick={(event) => {
-                        // смена валидации формы
-                        shareholderRef.current.value = element;
-                        setDropdownTypeOfUserOpen(false);
-                        if (!_isCurrent) setFormAnotherData(true);
-                        setIsFormValid(
-                          event.target.closest('form').checkValidity() &&
-                            userData.typeOfUser !==
-                              shareholderRef.current.value,
-                        );
+                      onClick={() => {
+                        countryOfRegistrationRef.current.value = `${element.flag} ${element.name.common}`;
+                        setCountryFullName(element.name.official);
+                        setDropdownCountryOpen(false);
                       }}
                       key={index}
                       className={`${s.answer} ${
                         _isCurrent && s.answer_state_current
                       }`}
                     >
-                      <div>
-                        <h4 className={`body ${s.answer__text}`}>{element}</h4>
-                      </div>
+                      <h4 className={`body ${s.answer__text}`}>
+                        <span>{element.flag}</span> {element.name.common}
+                      </h4>
                     </div>
                   );
                 })}
               </div>
             </div>
+
+            {/* // ? registration date of company */}
+            <Input
+              name={'Registration date of company'}
+              id='registrationDateOfCompany'
+              placeholder='30.12.2000'
+              customRef={registrationDateOfCompanyRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.registrationDateOfCompany.valid}
+              textError={validatedFields.registrationDateOfCompany.error}
+            ></Input>
+
+            {/* // ? legal Form */}
+            <div className={s.field}>
+              <h6 className={`${s.name} caption`}>Legal Form</h6>
+
+              <input
+                className={`body ${s.dropdown}`}
+                placeholder={
+                  isDropdownLegalFormOpen ? 'click to close' : 'click to choose'
+                }
+                id='legalForm'
+                type='text'
+                ref={legalFormRef}
+                readOnly
+                onClick={() => {
+                  setDropdownLegalFormOpen(!isDropdownLegalFormOpen);
+                }}
+              ></input>
+
+              <div
+                className={`${s.answers} ${
+                  isDropdownLegalFormOpen && s.answers_state_open
+                }`}
+              >
+                {LEGAL_FORM_VALUES.map((element, index) => {
+                  const _isCurrent =
+                    element ===
+                    (legalFormRef.current ? legalFormRef.current.value : '');
+
+                  return (
+                    <div
+                      onClick={() => {
+                        legalFormRef.current.value = element;
+                        setDropdownLegalFormOpen(false);
+                      }}
+                      key={index}
+                      className={`${s.answer} ${
+                        _isCurrent && s.answer_state_current
+                      }`}
+                    >
+                      <h4 className={`body ${s.answer__text}`}>{element}</h4>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* // ? VAT */}
+            <Input
+              name={'VAT number'}
+              id='VAT'
+              placeholder='HE404228'
+              customRef={VATRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.VAT.valid}
+              textError={validatedFields.VAT.error}
+            ></Input>
           </div>
 
-          {/* // ? input поля */}
-          <div className={`${s.fields} ${s.fields_type_horizontal}`}>
-            {shareholderRef.current &&
-            shareholderRef.current.value === 'company' ? (
-              // ? registrationNumber
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Registration number</h6>
+          {/* // ! address */}
+          <h2 className={`landing-paragraph ${s.text}`}>Address</h2>
+          <div className={s.block}>
+            {/* // ? legal address */}
+            <Input
+              name={'Legal address'}
+              id='legalAddress'
+              placeholder='Walt street 10, office 404'
+              customRef={legalAddressRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.legalAddress.valid}
+              textError={validatedFields.legalAddress.error}
+            ></Input>
 
-                <input
-                  required
-                  className={`${s.input} ${
-                    !validatedFields.shareholderRegistrationNumber.valid
-                      ? s.input_validity_invalid
-                      : ''
-                  }`}
-                  placeholder='202005123456'
-                  id='shareholderRegistrationNumber'
-                  type='text'
-                  ref={shareholderRegistrationNumberRef}
-                  onChange={handleFieldChange}
-                ></input>
+            {/* // ? city */}
+            <Input
+              name={'City'}
+              id='city'
+              placeholder='Barselona'
+              customRef={cityRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.city.valid}
+              textError={validatedFields.city.error}
+            ></Input>
 
-                {/* // ? сообщение о ошибке */}
-                <p className={`${s['error-message']} detail`}>
-                  {validatedFields.shareholderRegistrationNumber.error}
-                </p>
-              </div>
-            ) : (
-              // ? fullName
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Full Name</h6>
-
-                <input
-                  required
-                  className={`${s.input} ${
-                    !validatedFields.shareholderFullName.valid
-                      ? s.input_validity_invalid
-                      : ''
-                  }`}
-                  placeholder='John Smit'
-                  id='shareholderName'
-                  type='text'
-                  ref={shareholderFullNameRef}
-                  onChange={handleFieldChange}
-                ></input>
-
-                {/* // ? сообщение о ошибке */}
-                <p className={`${s['error-message']} detail`}>
-                  {validatedFields.shareholderFullName.error}
-                </p>
-              </div>
-            )}
+            {/* // ? zip code */}
+            <Input
+              name={'Zip code'}
+              id='zipCode'
+              placeholder='228404'
+              customRef={zipCodeRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.zipCode.valid}
+              textError={validatedFields.zipCode.error}
+            ></Input>
           </div>
 
-          {/* // ? кнопка submit */}
-          {hasFormAnotherData && (
+          {/* // ! bank */}
+          <h2 className={`landing-paragraph ${s.text}`}>Bank account</h2>
+          <div className={`${s.block} ${s.block_columns_two}`}>
+            {/* // ? bank name */}
+            <Input
+              name={'Bank name'}
+              id='bankName'
+              placeholder='name of your bank'
+              customRef={bankNameRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.bankName.valid}
+              textError={validatedFields.bankName.error}
+            ></Input>
+
+            {/* // ? bank code */}
+            <Input
+              name={'Bank code'}
+              id='bankCode'
+              placeholder='0123456789'
+              customRef={bankCodeRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.bankCode.valid}
+              textError={validatedFields.bankCode.error}
+            ></Input>
+
+            {/* // ? IBAN */}
+            <Input
+              name={'IBAN'}
+              id='iban'
+              placeholder='228404'
+              customRef={ibanRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.iban.valid}
+              textError={validatedFields.iban.error}
+            ></Input>
+
+            {/* // ? accountHolderName */}
+            <Input
+              name={'Account holder name'}
+              id='accountHolderName'
+              placeholder='John Stone'
+              customRef={accountHolderNameRef}
+              onChange={handleFieldChange}
+              isValid={validatedFields.accountHolderName.valid}
+              textError={validatedFields.accountHolderName.error}
+            ></Input>
+          </div>
+
+          {/* // ! shareholders */}
+          <div className={s.shareholders}>
+            <h2 className={`landing-paragraph ${s.text}`}>Shareholders</h2>
             <button
-              disabled={!isFormValid}
-              className={
-                s.submit +
-                ` ${!isFormValid ? s.submit_validity_invalid : 'button'}`
-              }
-              type='submit'
+              disabled={!isButtonAddShareholderValid}
+              onClick={addShareholder}
+              type='button'
+              className={`button ${s.button}`}
             >
-              {currentTextSubmitButton}
+              Add shareholder
             </button>
-          )}
+          </div>
+
+          <div className={`${s.block} ${s.block_type_shareholders}`}>
+            {arrayShareholders.map((shareholder, index) => {
+              return (
+                <Shareholder
+                  key={index}
+                  data={shareholder}
+                  onChange={handleShareholderChange}
+                  removeShareholder={removeShareholder}
+                  index={index}
+                />
+              );
+            })}
+          </div>
+
+          {/* // ! error */}
+          <p className={`${s.text} ${s.text_type_error}`}>{textError}</p>
+
+          {/* // ! кнопка submit */}
+          <button
+            disabled={!isFormValid}
+            className={`button ${s.button} ${s.button_type_submit}`}
+            type='submit'
+          >
+            {currentTextSubmitButton}
+          </button>
         </form>
 
         <NavLink className={`link ${s.link}`} to={paths.user.profile}>

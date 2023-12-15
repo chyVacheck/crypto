@@ -1,0 +1,1125 @@
+[
+  {
+    "name": {
+      "common": "Afghanistan",
+      "official": "Islamic Republic of Afghanistan"
+    },
+    "flag": "🇦🇫"
+  },
+  {
+    "name": { "common": "Albania", "official": "Republic of Albania" },
+    "flag": "🇦🇱"
+  },
+  {
+    "name": {
+      "common": "Algeria",
+      "official": "People's Democratic Republic of Algeria"
+    },
+    "flag": "🇩🇿"
+  },
+  {
+    "name": { "common": "American Samoa", "official": "American Samoa" },
+    "flag": "🇦🇸"
+  },
+  {
+    "name": { "common": "Andorra", "official": "Principality of Andorra" },
+    "flag": "🇦🇩"
+  },
+  {
+    "name": { "common": "Angola", "official": "Republic of Angola" },
+    "flag": "🇦🇴"
+  },
+  { "name": { "common": "Anguilla", "official": "Anguilla" }, "flag": "🇦🇮" },
+  {
+    "name": { "common": "Antarctica", "official": "Antarctica" },
+    "flag": "🇦🇶"
+  },
+  {
+    "name": {
+      "common": "Antigua and Barbuda",
+      "official": "Antigua and Barbuda"
+    },
+    "flag": "🇦🇬"
+  },
+  {
+    "name": { "common": "Argentina", "official": "Argentine Republic" },
+    "flag": "🇦🇷"
+  },
+  {
+    "name": { "common": "Armenia", "official": "Republic of Armenia" },
+    "flag": "🇦🇲"
+  },
+  { "name": { "common": "Aruba", "official": "Aruba" }, "flag": "🇦🇼" },
+  {
+    "name": { "common": "Australia", "official": "Commonwealth of Australia" },
+    "flag": "🇦🇺"
+  },
+  {
+    "name": { "common": "Austria", "official": "Republic of Austria" },
+    "flag": "🇦🇹"
+  },
+  {
+    "name": { "common": "Azerbaijan", "official": "Republic of Azerbaijan" },
+    "flag": "🇦🇿"
+  },
+  {
+    "name": { "common": "Bahamas", "official": "Commonwealth of the Bahamas" },
+    "flag": "🇧🇸"
+  },
+  {
+    "name": { "common": "Bahrain", "official": "Kingdom of Bahrain" },
+    "flag": "🇧🇭"
+  },
+  {
+    "name": {
+      "common": "Bangladesh",
+      "official": "People's Republic of Bangladesh"
+    },
+    "flag": "🇧🇩"
+  },
+  { "name": { "common": "Barbados", "official": "Barbados" }, "flag": "🇧🇧" },
+  {
+    "name": { "common": "Belarus", "official": "Republic of Belarus" },
+    "flag": "🇧🇾"
+  },
+  {
+    "name": { "common": "Belgium", "official": "Kingdom of Belgium" },
+    "flag": "🇧🇪"
+  },
+  { "name": { "common": "Belize", "official": "Belize" }, "flag": "🇧🇿" },
+  {
+    "name": { "common": "Benin", "official": "Republic of Benin" },
+    "flag": "🇧🇯"
+  },
+  { "name": { "common": "Bermuda", "official": "Bermuda" }, "flag": "🇧🇲" },
+  {
+    "name": { "common": "Bhutan", "official": "Kingdom of Bhutan" },
+    "flag": "🇧🇹"
+  },
+  {
+    "name": {
+      "common": "Bolivia",
+      "official": "Plurinational State of Bolivia"
+    },
+    "flag": "🇧🇴"
+  },
+  {
+    "name": {
+      "common": "Bosnia and Herzegovina",
+      "official": "Bosnia and Herzegovina"
+    },
+    "flag": "🇧🇦"
+  },
+  {
+    "name": { "common": "Botswana", "official": "Republic of Botswana" },
+    "flag": "🇧🇼"
+  },
+  {
+    "name": { "common": "Bouvet Island", "official": "Bouvet Island" },
+    "flag": "🇧🇻"
+  },
+  {
+    "name": { "common": "Brazil", "official": "Federative Republic of Brazil" },
+    "flag": "🇧🇷"
+  },
+  {
+    "name": {
+      "common": "British Indian Ocean Territory",
+      "official": "British Indian Ocean Territory"
+    },
+    "flag": "🇮🇴"
+  },
+  {
+    "name": {
+      "common": "British Virgin Islands",
+      "official": "Virgin Islands"
+    },
+    "flag": "🇻🇬"
+  },
+  {
+    "name": {
+      "common": "Brunei",
+      "official": "Nation of Brunei, Abode of Peace"
+    },
+    "flag": "🇧🇳"
+  },
+  {
+    "name": { "common": "Bulgaria", "official": "Republic of Bulgaria" },
+    "flag": "🇧🇬"
+  },
+  {
+    "name": { "common": "Burkina Faso", "official": "Burkina Faso" },
+    "flag": "🇧🇫"
+  },
+  {
+    "name": { "common": "Burundi", "official": "Republic of Burundi" },
+    "flag": "🇧🇮"
+  },
+  {
+    "name": { "common": "Cambodia", "official": "Kingdom of Cambodia" },
+    "flag": "🇰🇭"
+  },
+  {
+    "name": { "common": "Cameroon", "official": "Republic of Cameroon" },
+    "flag": "🇨🇲"
+  },
+  { "name": { "common": "Canada", "official": "Canada" }, "flag": "🇨🇦" },
+  {
+    "name": { "common": "Cape Verde", "official": "Republic of Cabo Verde" },
+    "flag": "🇨🇻"
+  },
+  {
+    "name": {
+      "common": "Caribbean Netherlands",
+      "official": "Bonaire, Sint Eustatius and Saba"
+    },
+    "flag": "🇧🇶"
+  },
+  {
+    "name": { "common": "Cayman Islands", "official": "Cayman Islands" },
+    "flag": "🇰🇾"
+  },
+  {
+    "name": {
+      "common": "Central African Republic",
+      "official": "Central African Republic"
+    },
+    "flag": "🇨🇫"
+  },
+  {
+    "name": { "common": "Chad", "official": "Republic of Chad" },
+    "flag": "🇹🇩"
+  },
+  {
+    "name": { "common": "Chile", "official": "Republic of Chile" },
+    "flag": "🇨🇱"
+  },
+  {
+    "name": { "common": "China", "official": "People's Republic of China" },
+    "flag": "🇨🇳"
+  },
+  {
+    "name": {
+      "common": "Christmas Island",
+      "official": "Territory of Christmas Island"
+    },
+    "flag": "🇨🇽"
+  },
+  {
+    "name": {
+      "common": "Cocos (Keeling) Islands",
+      "official": "Territory of the Cocos (Keeling) Islands"
+    },
+    "flag": "🇨🇨"
+  },
+  {
+    "name": { "common": "Colombia", "official": "Republic of Colombia" },
+    "flag": "🇨🇴"
+  },
+  {
+    "name": { "common": "Comoros", "official": "Union of the Comoros" },
+    "flag": "🇰🇲"
+  },
+  {
+    "name": { "common": "Cook Islands", "official": "Cook Islands" },
+    "flag": "🇨🇰"
+  },
+  {
+    "name": { "common": "Costa Rica", "official": "Republic of Costa Rica" },
+    "flag": "🇨🇷"
+  },
+  {
+    "name": { "common": "Croatia", "official": "Republic of Croatia" },
+    "flag": "🇭🇷"
+  },
+  {
+    "name": { "common": "Cuba", "official": "Republic of Cuba" },
+    "flag": "🇨🇺"
+  },
+  {
+    "name": { "common": "Curaçao", "official": "Country of Curaçao" },
+    "flag": "🇨🇼"
+  },
+  {
+    "name": { "common": "Cyprus", "official": "Republic of Cyprus" },
+    "flag": "🇨🇾"
+  },
+  {
+    "name": { "common": "Czechia", "official": "Czech Republic" },
+    "flag": "🇨🇿"
+  },
+  {
+    "name": { "common": "Denmark", "official": "Kingdom of Denmark" },
+    "flag": "🇩🇰"
+  },
+  {
+    "name": { "common": "Djibouti", "official": "Republic of Djibouti" },
+    "flag": "🇩🇯"
+  },
+  {
+    "name": { "common": "Dominica", "official": "Commonwealth of Dominica" },
+    "flag": "🇩🇲"
+  },
+  {
+    "name": {
+      "common": "Dominican Republic",
+      "official": "Dominican Republic"
+    },
+    "flag": "🇩🇴"
+  },
+  {
+    "name": {
+      "common": "DR Congo",
+      "official": "Democratic Republic of the Congo"
+    },
+    "flag": "🇨🇩"
+  },
+  {
+    "name": { "common": "Ecuador", "official": "Republic of Ecuador" },
+    "flag": "🇪🇨"
+  },
+  {
+    "name": { "common": "Egypt", "official": "Arab Republic of Egypt" },
+    "flag": "🇪🇬"
+  },
+  {
+    "name": { "common": "El Salvador", "official": "Republic of El Salvador" },
+    "flag": "🇸🇻"
+  },
+  {
+    "name": {
+      "common": "Equatorial Guinea",
+      "official": "Republic of Equatorial Guinea"
+    },
+    "flag": "🇬🇶"
+  },
+  {
+    "name": { "common": "Eritrea", "official": "State of Eritrea" },
+    "flag": "🇪🇷"
+  },
+  {
+    "name": { "common": "Estonia", "official": "Republic of Estonia" },
+    "flag": "🇪🇪"
+  },
+  {
+    "name": { "common": "Eswatini", "official": "Kingdom of Eswatini" },
+    "flag": "🇸🇿"
+  },
+  {
+    "name": {
+      "common": "Ethiopia",
+      "official": "Federal Democratic Republic of Ethiopia"
+    },
+    "flag": "🇪🇹"
+  },
+  {
+    "name": { "common": "Falkland Islands", "official": "Falkland Islands" },
+    "flag": "🇫🇰"
+  },
+  {
+    "name": { "common": "Faroe Islands", "official": "Faroe Islands" },
+    "flag": "🇫🇴"
+  },
+  {
+    "name": { "common": "Fiji", "official": "Republic of Fiji" },
+    "flag": "🇫🇯"
+  },
+  {
+    "name": { "common": "Finland", "official": "Republic of Finland" },
+    "flag": "🇫🇮"
+  },
+  {
+    "name": { "common": "France", "official": "French Republic" },
+    "flag": "🇫🇷"
+  },
+  { "name": { "common": "French Guiana", "official": "Guiana" }, "flag": "🇬🇫" },
+  {
+    "name": { "common": "French Polynesia", "official": "French Polynesia" },
+    "flag": "🇵🇫"
+  },
+  {
+    "name": {
+      "common": "French Southern and Antarctic Lands",
+      "official": "Territory of the French Southern and Antarctic Lands"
+    },
+    "flag": "🇹🇫"
+  },
+  {
+    "name": { "common": "Gabon", "official": "Gabonese Republic" },
+    "flag": "🇬🇦"
+  },
+  {
+    "name": { "common": "Gambia", "official": "Republic of the Gambia" },
+    "flag": "🇬🇲"
+  },
+  { "name": { "common": "Georgia", "official": "Georgia" }, "flag": "🇬🇪" },
+  {
+    "name": { "common": "Germany", "official": "Federal Republic of Germany" },
+    "flag": "🇩🇪"
+  },
+  {
+    "name": { "common": "Ghana", "official": "Republic of Ghana" },
+    "flag": "🇬🇭"
+  },
+  { "name": { "common": "Gibraltar", "official": "Gibraltar" }, "flag": "🇬🇮" },
+  {
+    "name": { "common": "Greece", "official": "Hellenic Republic" },
+    "flag": "🇬🇷"
+  },
+  { "name": { "common": "Greenland", "official": "Greenland" }, "flag": "🇬🇱" },
+  { "name": { "common": "Grenada", "official": "Grenada" }, "flag": "🇬🇩" },
+  {
+    "name": { "common": "Guadeloupe", "official": "Guadeloupe" },
+    "flag": "🇬🇵"
+  },
+  { "name": { "common": "Guam", "official": "Guam" }, "flag": "🇬🇺" },
+  {
+    "name": { "common": "Guatemala", "official": "Republic of Guatemala" },
+    "flag": "🇬🇹"
+  },
+  {
+    "name": { "common": "Guernsey", "official": "Bailiwick of Guernsey" },
+    "flag": "🇬🇬"
+  },
+  {
+    "name": { "common": "Guinea", "official": "Republic of Guinea" },
+    "flag": "🇬🇳"
+  },
+  {
+    "name": {
+      "common": "Guinea-Bissau",
+      "official": "Republic of Guinea-Bissau"
+    },
+    "flag": "🇬🇼"
+  },
+  {
+    "name": {
+      "common": "Guyana",
+      "official": "Co-operative Republic of Guyana"
+    },
+    "flag": "🇬🇾"
+  },
+  {
+    "name": { "common": "Haiti", "official": "Republic of Haiti" },
+    "flag": "🇭🇹"
+  },
+  {
+    "name": {
+      "common": "Heard Island and McDonald Islands",
+      "official": "Heard Island and McDonald Islands"
+    },
+    "flag": "🇭🇲"
+  },
+  {
+    "name": { "common": "Honduras", "official": "Republic of Honduras" },
+    "flag": "🇭🇳"
+  },
+  {
+    "name": {
+      "common": "Hong Kong",
+      "official": "Hong Kong Special Administrative Region of the People's Republic of China"
+    },
+    "flag": "🇭🇰"
+  },
+  { "name": { "common": "Hungary", "official": "Hungary" }, "flag": "🇭🇺" },
+  { "name": { "common": "Iceland", "official": "Iceland" }, "flag": "🇮🇸" },
+  {
+    "name": { "common": "India", "official": "Republic of India" },
+    "flag": "🇮🇳"
+  },
+  {
+    "name": { "common": "Indonesia", "official": "Republic of Indonesia" },
+    "flag": "🇮🇩"
+  },
+  {
+    "name": { "common": "Iran", "official": "Islamic Republic of Iran" },
+    "flag": "🇮🇷"
+  },
+  {
+    "name": { "common": "Iraq", "official": "Republic of Iraq" },
+    "flag": "🇮🇶"
+  },
+  {
+    "name": { "common": "Ireland", "official": "Republic of Ireland" },
+    "flag": "🇮🇪"
+  },
+  {
+    "name": { "common": "Isle of Man", "official": "Isle of Man" },
+    "flag": "🇮🇲"
+  },
+  {
+    "name": { "common": "Israel", "official": "State of Israel" },
+    "flag": "🇮🇱"
+  },
+  {
+    "name": { "common": "Italy", "official": "Italian Republic" },
+    "flag": "🇮🇹"
+  },
+  {
+    "name": {
+      "common": "Ivory Coast",
+      "official": "Republic of Côte d'Ivoire"
+    },
+    "flag": "🇨🇮"
+  },
+  { "name": { "common": "Jamaica", "official": "Jamaica" }, "flag": "🇯🇲" },
+  { "name": { "common": "Japan", "official": "Japan" }, "flag": "🇯🇵" },
+  {
+    "name": { "common": "Jersey", "official": "Bailiwick of Jersey" },
+    "flag": "🇯🇪"
+  },
+  {
+    "name": { "common": "Jordan", "official": "Hashemite Kingdom of Jordan" },
+    "flag": "🇯🇴"
+  },
+  {
+    "name": { "common": "Kazakhstan", "official": "Republic of Kazakhstan" },
+    "flag": "🇰🇿"
+  },
+  {
+    "name": { "common": "Kenya", "official": "Republic of Kenya" },
+    "flag": "🇰🇪"
+  },
+  {
+    "name": {
+      "common": "Kiribati",
+      "official": "Independent and Sovereign Republic of Kiribati"
+    },
+    "flag": "🇰🇮"
+  },
+  {
+    "name": { "common": "Kosovo", "official": "Republic of Kosovo" },
+    "flag": "🇽🇰"
+  },
+  {
+    "name": { "common": "Kuwait", "official": "State of Kuwait" },
+    "flag": "🇰🇼"
+  },
+  {
+    "name": { "common": "Kyrgyzstan", "official": "Kyrgyz Republic" },
+    "flag": "🇰🇬"
+  },
+  {
+    "name": {
+      "common": "Laos",
+      "official": "Lao People's Democratic Republic"
+    },
+    "flag": "🇱🇦"
+  },
+  {
+    "name": { "common": "Latvia", "official": "Republic of Latvia" },
+    "flag": "🇱🇻"
+  },
+  {
+    "name": { "common": "Lebanon", "official": "Lebanese Republic" },
+    "flag": "🇱🇧"
+  },
+  {
+    "name": { "common": "Lesotho", "official": "Kingdom of Lesotho" },
+    "flag": "🇱🇸"
+  },
+  {
+    "name": { "common": "Liberia", "official": "Republic of Liberia" },
+    "flag": "🇱🇷"
+  },
+  { "name": { "common": "Libya", "official": "State of Libya" }, "flag": "🇱🇾" },
+  {
+    "name": {
+      "common": "Liechtenstein",
+      "official": "Principality of Liechtenstein"
+    },
+    "flag": "🇱🇮"
+  },
+  {
+    "name": { "common": "Lithuania", "official": "Republic of Lithuania" },
+    "flag": "🇱🇹"
+  },
+  {
+    "name": { "common": "Luxembourg", "official": "Grand Duchy of Luxembourg" },
+    "flag": "🇱🇺"
+  },
+  {
+    "name": {
+      "common": "Macau",
+      "official": "Macao Special Administrative Region of the People's Republic of China"
+    },
+    "flag": "🇲🇴"
+  },
+  {
+    "name": { "common": "Madagascar", "official": "Republic of Madagascar" },
+    "flag": "🇲🇬"
+  },
+  {
+    "name": { "common": "Malawi", "official": "Republic of Malawi" },
+    "flag": "🇲🇼"
+  },
+  { "name": { "common": "Malaysia", "official": "Malaysia" }, "flag": "🇲🇾" },
+  {
+    "name": { "common": "Maldives", "official": "Republic of the Maldives" },
+    "flag": "🇲🇻"
+  },
+  {
+    "name": { "common": "Mali", "official": "Republic of Mali" },
+    "flag": "🇲🇱"
+  },
+  {
+    "name": { "common": "Malta", "official": "Republic of Malta" },
+    "flag": "🇲🇹"
+  },
+  {
+    "name": {
+      "common": "Marshall Islands",
+      "official": "Republic of the Marshall Islands"
+    },
+    "flag": "🇲🇭"
+  },
+  {
+    "name": { "common": "Martinique", "official": "Martinique" },
+    "flag": "🇲🇶"
+  },
+  {
+    "name": {
+      "common": "Mauritania",
+      "official": "Islamic Republic of Mauritania"
+    },
+    "flag": "🇲🇷"
+  },
+  {
+    "name": { "common": "Mauritius", "official": "Republic of Mauritius" },
+    "flag": "🇲🇺"
+  },
+  {
+    "name": { "common": "Mayotte", "official": "Department of Mayotte" },
+    "flag": "🇾🇹"
+  },
+  {
+    "name": { "common": "Mexico", "official": "United Mexican States" },
+    "flag": "🇲🇽"
+  },
+  {
+    "name": {
+      "common": "Micronesia",
+      "official": "Federated States of Micronesia"
+    },
+    "flag": "🇫🇲"
+  },
+  {
+    "name": { "common": "Moldova", "official": "Republic of Moldova" },
+    "flag": "🇲🇩"
+  },
+  {
+    "name": { "common": "Monaco", "official": "Principality of Monaco" },
+    "flag": "🇲🇨"
+  },
+  { "name": { "common": "Mongolia", "official": "Mongolia" }, "flag": "🇲🇳" },
+  {
+    "name": { "common": "Montenegro", "official": "Montenegro" },
+    "flag": "🇲🇪"
+  },
+  {
+    "name": { "common": "Montserrat", "official": "Montserrat" },
+    "flag": "🇲🇸"
+  },
+  {
+    "name": { "common": "Morocco", "official": "Kingdom of Morocco" },
+    "flag": "🇲🇦"
+  },
+  {
+    "name": { "common": "Mozambique", "official": "Republic of Mozambique" },
+    "flag": "🇲🇿"
+  },
+  {
+    "name": {
+      "common": "Myanmar",
+      "official": "Republic of the Union of Myanmar"
+    },
+    "flag": "🇲🇲"
+  },
+  {
+    "name": { "common": "Namibia", "official": "Republic of Namibia" },
+    "flag": "🇳🇦"
+  },
+  {
+    "name": { "common": "Nauru", "official": "Republic of Nauru" },
+    "flag": "🇳🇷"
+  },
+  {
+    "name": {
+      "common": "Nepal",
+      "official": "Federal Democratic Republic of Nepal"
+    },
+    "flag": "🇳🇵"
+  },
+  {
+    "name": {
+      "common": "Netherlands",
+      "official": "Kingdom of the Netherlands"
+    },
+    "flag": "🇳🇱"
+  },
+  {
+    "name": { "common": "New Caledonia", "official": "New Caledonia" },
+    "flag": "🇳🇨"
+  },
+  {
+    "name": { "common": "New Zealand", "official": "New Zealand" },
+    "flag": "🇳🇿"
+  },
+  {
+    "name": { "common": "Nicaragua", "official": "Republic of Nicaragua" },
+    "flag": "🇳🇮"
+  },
+  {
+    "name": { "common": "Niger", "official": "Republic of Niger" },
+    "flag": "🇳🇪"
+  },
+  {
+    "name": { "common": "Nigeria", "official": "Federal Republic of Nigeria" },
+    "flag": "🇳🇬"
+  },
+  { "name": { "common": "Niue", "official": "Niue" }, "flag": "🇳🇺" },
+  {
+    "name": {
+      "common": "Norfolk Island",
+      "official": "Territory of Norfolk Island"
+    },
+    "flag": "🇳🇫"
+  },
+  {
+    "name": {
+      "common": "North Korea",
+      "official": "Democratic People's Republic of Korea"
+    },
+    "flag": "🇰🇵"
+  },
+  {
+    "name": {
+      "common": "North Macedonia",
+      "official": "Republic of North Macedonia"
+    },
+    "flag": "🇲🇰"
+  },
+  {
+    "name": {
+      "common": "Northern Mariana Islands",
+      "official": "Commonwealth of the Northern Mariana Islands"
+    },
+    "flag": "🇲🇵"
+  },
+  {
+    "name": { "common": "Norway", "official": "Kingdom of Norway" },
+    "flag": "🇳🇴"
+  },
+  {
+    "name": { "common": "Oman", "official": "Sultanate of Oman" },
+    "flag": "🇴🇲"
+  },
+  {
+    "name": {
+      "common": "Pakistan",
+      "official": "Islamic Republic of Pakistan"
+    },
+    "flag": "🇵🇰"
+  },
+  {
+    "name": { "common": "Palau", "official": "Republic of Palau" },
+    "flag": "🇵🇼"
+  },
+  {
+    "name": { "common": "Palestine", "official": "State of Palestine" },
+    "flag": "🇵🇸"
+  },
+  {
+    "name": { "common": "Panama", "official": "Republic of Panama" },
+    "flag": "🇵🇦"
+  },
+  {
+    "name": {
+      "common": "Papua New Guinea",
+      "official": "Independent State of Papua New Guinea"
+    },
+    "flag": "🇵🇬"
+  },
+  {
+    "name": { "common": "Paraguay", "official": "Republic of Paraguay" },
+    "flag": "🇵🇾"
+  },
+  {
+    "name": { "common": "Peru", "official": "Republic of Peru" },
+    "flag": "🇵🇪"
+  },
+  {
+    "name": {
+      "common": "Philippines",
+      "official": "Republic of the Philippines"
+    },
+    "flag": "🇵🇭"
+  },
+  {
+    "name": {
+      "common": "Pitcairn Islands",
+      "official": "Pitcairn Group of Islands"
+    },
+    "flag": "🇵🇳"
+  },
+  {
+    "name": { "common": "Poland", "official": "Republic of Poland" },
+    "flag": "🇵🇱"
+  },
+  {
+    "name": { "common": "Portugal", "official": "Portuguese Republic" },
+    "flag": "🇵🇹"
+  },
+  {
+    "name": {
+      "common": "Puerto Rico",
+      "official": "Commonwealth of Puerto Rico"
+    },
+    "flag": "🇵🇷"
+  },
+  { "name": { "common": "Qatar", "official": "State of Qatar" }, "flag": "🇶🇦" },
+  {
+    "name": {
+      "common": "Republic of the Congo",
+      "official": "Republic of the Congo"
+    },
+    "flag": "🇨🇬"
+  },
+  { "name": { "common": "Romania", "official": "Romania" }, "flag": "🇷🇴" },
+  {
+    "name": { "common": "Russia", "official": "Russian Federation" },
+    "flag": "🇷🇺"
+  },
+  {
+    "name": { "common": "Rwanda", "official": "Republic of Rwanda" },
+    "flag": "🇷🇼"
+  },
+  {
+    "name": { "common": "Réunion", "official": "Réunion Island" },
+    "flag": "🇷🇪"
+  },
+  {
+    "name": {
+      "common": "Saint Barthélemy",
+      "official": "Collectivity of Saint Barthélemy"
+    },
+    "flag": "🇧🇱"
+  },
+  {
+    "name": {
+      "common": "Saint Helena, Ascension and Tristan da Cunha",
+      "official": "Saint Helena, Ascension and Tristan da Cunha"
+    },
+    "flag": "🇸🇭"
+  },
+  {
+    "name": {
+      "common": "Saint Kitts and Nevis",
+      "official": "Federation of Saint Christopher and Nevis"
+    },
+    "flag": "🇰🇳"
+  },
+  {
+    "name": { "common": "Saint Lucia", "official": "Saint Lucia" },
+    "flag": "🇱🇨"
+  },
+  {
+    "name": { "common": "Saint Martin", "official": "Saint Martin" },
+    "flag": "🇲🇫"
+  },
+  {
+    "name": {
+      "common": "Saint Pierre and Miquelon",
+      "official": "Saint Pierre and Miquelon"
+    },
+    "flag": "🇵🇲"
+  },
+  {
+    "name": {
+      "common": "Saint Vincent and the Grenadines",
+      "official": "Saint Vincent and the Grenadines"
+    },
+    "flag": "🇻🇨"
+  },
+  {
+    "name": { "common": "Samoa", "official": "Independent State of Samoa" },
+    "flag": "🇼🇸"
+  },
+  {
+    "name": { "common": "San Marino", "official": "Republic of San Marino" },
+    "flag": "🇸🇲"
+  },
+  {
+    "name": { "common": "Saudi Arabia", "official": "Kingdom of Saudi Arabia" },
+    "flag": "🇸🇦"
+  },
+  {
+    "name": { "common": "Senegal", "official": "Republic of Senegal" },
+    "flag": "🇸🇳"
+  },
+  {
+    "name": { "common": "Serbia", "official": "Republic of Serbia" },
+    "flag": "🇷🇸"
+  },
+  {
+    "name": { "common": "Seychelles", "official": "Republic of Seychelles" },
+    "flag": "🇸🇨"
+  },
+  {
+    "name": {
+      "common": "Sierra Leone",
+      "official": "Republic of Sierra Leone"
+    },
+    "flag": "🇸🇱"
+  },
+  {
+    "name": { "common": "Singapore", "official": "Republic of Singapore" },
+    "flag": "🇸🇬"
+  },
+  {
+    "name": { "common": "Sint Maarten", "official": "Sint Maarten" },
+    "flag": "🇸🇽"
+  },
+  {
+    "name": { "common": "Slovakia", "official": "Slovak Republic" },
+    "flag": "🇸🇰"
+  },
+  {
+    "name": { "common": "Slovenia", "official": "Republic of Slovenia" },
+    "flag": "🇸🇮"
+  },
+  {
+    "name": { "common": "Solomon Islands", "official": "Solomon Islands" },
+    "flag": "🇸🇧"
+  },
+  {
+    "name": { "common": "Somalia", "official": "Federal Republic of Somalia" },
+    "flag": "🇸🇴"
+  },
+  {
+    "name": {
+      "common": "South Africa",
+      "official": "Republic of South Africa"
+    },
+    "flag": "🇿🇦"
+  },
+  {
+    "name": {
+      "common": "South Georgia",
+      "official": "South Georgia and the South Sandwich Islands"
+    },
+    "flag": "🇬🇸"
+  },
+  {
+    "name": { "common": "South Korea", "official": "Republic of Korea" },
+    "flag": "🇰🇷"
+  },
+  {
+    "name": { "common": "South Sudan", "official": "Republic of South Sudan" },
+    "flag": "🇸🇸"
+  },
+  {
+    "name": { "common": "Spain", "official": "Kingdom of Spain" },
+    "flag": "🇪🇸"
+  },
+  {
+    "name": {
+      "common": "Sri Lanka",
+      "official": "Democratic Socialist Republic of Sri Lanka"
+    },
+    "flag": "🇱🇰"
+  },
+  {
+    "name": { "common": "Sudan", "official": "Republic of the Sudan" },
+    "flag": "🇸🇩"
+  },
+  {
+    "name": { "common": "Suriname", "official": "Republic of Suriname" },
+    "flag": "🇸🇷"
+  },
+  {
+    "name": {
+      "common": "Svalbard and Jan Mayen",
+      "official": "Svalbard og Jan Mayen"
+    },
+    "flag": "🇸🇯"
+  },
+  {
+    "name": { "common": "Sweden", "official": "Kingdom of Sweden" },
+    "flag": "🇸🇪"
+  },
+  {
+    "name": { "common": "Switzerland", "official": "Swiss Confederation" },
+    "flag": "🇨🇭"
+  },
+  {
+    "name": { "common": "Syria", "official": "Syrian Arab Republic" },
+    "flag": "🇸🇾"
+  },
+  {
+    "name": {
+      "common": "São Tomé and Príncipe",
+      "official": "Democratic Republic of São Tomé and Príncipe"
+    },
+    "flag": "🇸🇹"
+  },
+  {
+    "name": { "common": "Taiwan", "official": "Republic of China (Taiwan)" },
+    "flag": "🇹🇼"
+  },
+  {
+    "name": { "common": "Tajikistan", "official": "Republic of Tajikistan" },
+    "flag": "🇹🇯"
+  },
+  {
+    "name": { "common": "Tanzania", "official": "United Republic of Tanzania" },
+    "flag": "🇹🇿"
+  },
+  {
+    "name": { "common": "Thailand", "official": "Kingdom of Thailand" },
+    "flag": "🇹🇭"
+  },
+  {
+    "name": {
+      "common": "Timor-Leste",
+      "official": "Democratic Republic of Timor-Leste"
+    },
+    "flag": "🇹🇱"
+  },
+  {
+    "name": { "common": "Togo", "official": "Togolese Republic" },
+    "flag": "🇹🇬"
+  },
+  { "name": { "common": "Tokelau", "official": "Tokelau" }, "flag": "🇹🇰" },
+  {
+    "name": { "common": "Tonga", "official": "Kingdom of Tonga" },
+    "flag": "🇹🇴"
+  },
+  {
+    "name": {
+      "common": "Trinidad and Tobago",
+      "official": "Republic of Trinidad and Tobago"
+    },
+    "flag": "🇹🇹"
+  },
+  {
+    "name": { "common": "Tunisia", "official": "Tunisian Republic" },
+    "flag": "🇹🇳"
+  },
+  {
+    "name": { "common": "Turkey", "official": "Republic of Turkey" },
+    "flag": "🇹🇷"
+  },
+  {
+    "name": { "common": "Turkmenistan", "official": "Turkmenistan" },
+    "flag": "🇹🇲"
+  },
+  {
+    "name": {
+      "common": "Turks and Caicos Islands",
+      "official": "Turks and Caicos Islands"
+    },
+    "flag": "🇹🇨"
+  },
+  { "name": { "common": "Tuvalu", "official": "Tuvalu" }, "flag": "🇹🇻" },
+  {
+    "name": { "common": "Uganda", "official": "Republic of Uganda" },
+    "flag": "🇺🇬"
+  },
+  { "name": { "common": "Ukraine", "official": "Ukraine" }, "flag": "🇺🇦" },
+  {
+    "name": {
+      "common": "United Arab Emirates",
+      "official": "United Arab Emirates"
+    },
+    "flag": "🇦🇪"
+  },
+  {
+    "name": {
+      "common": "United Kingdom",
+      "official": "United Kingdom of Great Britain and Northern Ireland"
+    },
+    "flag": "🇬🇧"
+  },
+  {
+    "name": {
+      "common": "United States",
+      "official": "United States of America"
+    },
+    "flag": "🇺🇸"
+  },
+  {
+    "name": {
+      "common": "United States Minor Outlying Islands",
+      "official": "United States Minor Outlying Islands"
+    },
+    "flag": "🇺🇲"
+  },
+  {
+    "name": {
+      "common": "United States Virgin Islands",
+      "official": "Virgin Islands of the United States"
+    },
+    "flag": "🇻🇮"
+  },
+  {
+    "name": { "common": "Uruguay", "official": "Oriental Republic of Uruguay" },
+    "flag": "🇺🇾"
+  },
+  {
+    "name": { "common": "Uzbekistan", "official": "Republic of Uzbekistan" },
+    "flag": "🇺🇿"
+  },
+  {
+    "name": { "common": "Vanuatu", "official": "Republic of Vanuatu" },
+    "flag": "🇻🇺"
+  },
+  {
+    "name": { "common": "Vatican City", "official": "Vatican City State" },
+    "flag": "🇻🇦"
+  },
+  {
+    "name": {
+      "common": "Venezuela",
+      "official": "Bolivarian Republic of Venezuela"
+    },
+    "flag": "🇻🇪"
+  },
+  {
+    "name": {
+      "common": "Vietnam",
+      "official": "Socialist Republic of Vietnam"
+    },
+    "flag": "🇻🇳"
+  },
+  {
+    "name": {
+      "common": "Wallis and Futuna",
+      "official": "Territory of the Wallis and Futuna Islands"
+    },
+    "flag": "🇼🇫"
+  },
+  {
+    "name": {
+      "common": "Western Sahara",
+      "official": "Sahrawi Arab Democratic Republic"
+    },
+    "flag": "🇪🇭"
+  },
+  {
+    "name": { "common": "Yemen", "official": "Republic of Yemen" },
+    "flag": "🇾🇪"
+  },
+  {
+    "name": { "common": "Zambia", "official": "Republic of Zambia" },
+    "flag": "🇿🇲"
+  },
+  {
+    "name": { "common": "Zimbabwe", "official": "Republic of Zimbabwe" },
+    "flag": "🇿🇼"
+  },
+  {
+    "name": { "common": "Åland Islands", "official": "Åland Islands" },
+    "flag": "🇦🇽"
+  }
+]

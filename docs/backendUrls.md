@@ -534,12 +534,15 @@
   ```json
   {
     "registrationNumber": "test_registration_number_2",
-    "shareholder": {
-      "typeOfShareholder": "company",
-      "data": {
-        "registrationNumber": "test_registration_number"
+    "shareholders": [
+      {
+        "percentageOfOwnership": 45, // от 0 до 100
+        "typeOfShareholder": "company",
+        "data": {
+          "registrationNumber": "test_registration_number"
+        }
       }
-    }
+    ]
   }
   ```
 

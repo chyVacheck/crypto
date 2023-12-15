@@ -1,5 +1,6 @@
 // ! modules
 import { useState, useRef, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // ? styles
 import s from './Profile.module.css';
@@ -7,14 +8,8 @@ import s from './Profile.module.css';
 // ? Api
 import mainApi from './../../Api/MainApi';
 
-// ? assets
-// * images
-// _ icons
-import passportImage from './../../assets/images/passport_type_color.png';
-import proofOfAddressImage from './../../assets/images/location_type_color.png';
-import selfieWithIdImage from './../../assets/images/selfie_type_color.png';
-
 // ? components
+// import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import File from '../../components/File/File';
 import Input from '../../components/Input/Input';
 import Popup from './../../components/Popup/Popup';
@@ -24,11 +19,13 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 // ? utils
 // * constants
-import { VALIDATION, paths } from '../../utils/constants';
+import { VALIDATION, paths /*, TYPE_OF_USER */ } from '../../utils/constants';
 // * utils
+// * constants
 import { checkValidity, copy } from '../../utils/utils';
 
 function Profile({ addNotification, setUser }) {
+  const navigate = useNavigate();
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =
@@ -60,14 +57,11 @@ function Profile({ addNotification, setUser }) {
     type: null,
   });
 
-  // is open or close
-  const [isDropdownTypeOfUserOpen, setDropdownTypeOfUserOpen] = useState(false);
-
   // * Ref for every input
   const nameRef = useRef();
   const secondNameRef = useRef();
   const phoneRef = useRef();
-  const typeOfUserRef = useRef();
+  // const typeOfUserRef = useRef();
 
   // ? handle Change
   function handleFieldChange(event) {
@@ -85,8 +79,8 @@ function Profile({ addNotification, setUser }) {
         isValid &&
         (userData.name !== nameRef.current.value ||
           userData.secondName !== secondNameRef.current.value ||
-          userData.phone !== phoneRef.current.value ||
-          userData.typeOfUser !== typeOfUserRef.current.value),
+          userData.phone !== phoneRef.current.value) /* ||
+          userData.typeOfUser !== typeOfUserRef.current.value), */,
     );
   }
 
@@ -105,29 +99,10 @@ function Profile({ addNotification, setUser }) {
 
         const _newUserData = userData;
 
-        switch (data.typeOfFile) {
-          case 'passport':
-            _newUserData.passport = {
-              url: imageUrl,
-              type: data['Content-Type'],
-            };
-            break;
-          case 'proofOfAddress':
-            _newUserData.proofOfAddress = {
-              url: imageUrl,
-              type: data['Content-Type'],
-            };
-            break;
-          case 'selfieWithIDOrPassport':
-            _newUserData.selfieWithIDOrPassport = {
-              url: imageUrl,
-              type: data['Content-Type'],
-            };
-            break;
-
-          default:
-            break;
-        }
+        _newUserData[data.typeOfFile] = {
+          url: imageUrl,
+          type: data['Content-Type'],
+        };
 
         setUser(_newUserData);
 
@@ -157,33 +132,34 @@ function Profile({ addNotification, setUser }) {
     setCurrentTextSubmitButton('Saving data...');
     e.preventDefault();
 
+    /*
     if (
       userData.typeOfUser !== typeOfUserRef.current.value &&
       typeOfUserRef.current.value === 'Juridical person'
     ) {
-      await mainApi.deleteCompanyById(userData.companyId).then(async (res) => {
-        addNotification({
-          name: 'Delete company',
-          ok: true,
-          text: res.message,
-        });
+    //   await mainApi.deleteCompanyById(userData.companyId).then(async (res) => {
+    //     addNotification({
+    //       name: 'Delete company',
+    //       ok: true,
+    //       text: res.message,
+    //     });
 
-        await mainApi
-          .updateUserData({
-            companyId: undefined,
-            typeOfUser: typeOfUserRef.current.value,
-          })
-          .then((answer) => {
-            Object.assign(userData, {
-              companyId: answer.data.companyId,
-              typeOfUser: answer.data.typeOfUser,
-            });
+    //     await mainApi
+    //       .updateUserData({
+    //         companyId: undefined,
+    //         typeOfUser: typeOfUserRef.current.value,
+    //       })
+    //       .then((answer) => {
+    //         Object.assign(userData, {
+    //           companyId: answer.data.companyId,
+    //           typeOfUser: answer.data.typeOfUser,
+    //         });
 
-            setUser(userData);
-          });
-      });
+    //         setUser(userData);
+    //       });
+    //   });
     }
-
+    */
     await mainApi
       .updateUserData({
         name: nameRef.current.value,
@@ -269,13 +245,11 @@ function Profile({ addNotification, setUser }) {
       });
   }
 
-  const answers = ['Juridical person', 'Legal entity'];
-
   useEffect(() => {
     nameRef.current.value = userData.name;
     secondNameRef.current.value = userData.secondName;
     phoneRef.current.value = userData.phone;
-    typeOfUserRef.current.value = userData.typeOfUser;
+    // typeOfUserRef.current.value = userData.typeOfUser;
   }, [userData, isFilesDownloaded]);
 
   useEffect(() => {
@@ -338,22 +312,6 @@ function Profile({ addNotification, setUser }) {
                   {userData._id}
                 </p>
               </div>
-
-              {/* // ? Company Id */}
-              {!!userData.companyId && (
-                <div className={s.info}>
-                  <h6 className={`${s.name} caption`}>Company Id</h6>
-
-                  <p
-                    className={`copy ${s.text}`}
-                    onClick={() => {
-                      copy(userData.companyId);
-                    }}
-                  >
-                    {userData.companyId}
-                  </p>
-                </div>
-              )}
             </div>
 
             {/* // ? input поля */}
@@ -392,92 +350,63 @@ function Profile({ addNotification, setUser }) {
                 name={'Phone number'}
                 id='phone'
                 type='tel'
-                pattern='[0-9]{3}-[0-9]{3}-[0-9]{4}'
-                placeholder={'123-456-7890'}
+                pattern='^\+\d{1,3}\d{5,}$'
+                placeholder={'+491234567890'}
                 customRef={phoneRef}
                 onChange={handleFieldChange}
                 isValid={validatedFields.phone.valid}
                 textError={validatedFields.phone.error}
               ></Input>
 
-              {/* // ? type of user */}
-              <div className={s.field}>
-                <h6 className={`${s.name} caption`}>Type of user</h6>
-
-                <input
-                  className={`${s.input} ${s.input_type_dropdown} ${
-                    !validatedFields.typeOfUserRef.valid
-                      ? s.input_validity_invalid
-                      : ''
-                  }`}
-                  placeholder={
-                    isDropdownTypeOfUserOpen
-                      ? 'click to close'
-                      : 'click to choose'
-                  }
-                  id='typeOfUserRef'
-                  type='text'
-                  ref={typeOfUserRef}
-                  readOnly
-                  onClick={() => {
-                    setDropdownTypeOfUserOpen(!isDropdownTypeOfUserOpen);
-                  }}
-                ></input>
-
-                <div
-                  className={`${s.answers} ${
-                    isDropdownTypeOfUserOpen && s.answer_state_open
-                  }`}
-                >
-                  {answers.map((element, index) => {
-                    const _isCurrent =
-                      element ===
-                      (typeOfUserRef.current
-                        ? typeOfUserRef.current.value
-                        : userData.typeOfUser);
-
-                    return (
-                      <div
-                        onClick={(event) => {
-                          // перенаправляем пользователя на создание компании
-                          if (
-                            userData.typeOfUser !== 'Legal entity' &&
-                            element === 'Legal entity'
-                          ) {
-                            window.location.href = paths.company.create;
-                            // ! navigate не перезагружает страницу из-за чего вылазит ошибка в виде
-                            // ! странного не прохода валидации сервером запроса на регистрацию компании
-                            // ! по этому используется
-                            // ! window.location.href = paths.company.create;
-                            // ! что бы происходило обновление страницы
-                            // navigate(paths.company.create);
-                          }
-
-                          // смена валидации формы
-                          typeOfUserRef.current.value = element;
-                          setDropdownTypeOfUserOpen(false);
-                          if (!_isCurrent) setFormAnotherData(true);
-                          setIsFormValid(
-                            event.target.closest('form').checkValidity() &&
-                              userData.typeOfUser !==
-                                typeOfUserRef.current.value,
-                          );
-                        }}
-                        key={index}
-                        className={`${s.answer} ${
-                          _isCurrent && s.answer_state_current
-                        }`}
-                      >
-                        <div>
-                          <h4 className={`body ${s.answer__text}`}>
-                            {element}
-                          </h4>
-                        </div>
-                      </div>
+              <button
+                className={`button ${s.button} ${s.button_type_company}`}
+                type='button'
+                onClick={() => {
+                  if (!!userData.companyId) {
+                    navigate(
+                      paths.company.profile.replace(
+                        ':companyId',
+                        userData.companyId,
+                      ),
                     );
-                  })}
-                </div>
-              </div>
+                  } else {
+                    window.location.href = paths.company.create;
+                    // navigate(paths.company.create);
+                  }
+                }}
+              >
+                {!!userData.companyId
+                  ? 'Change company data'
+                  : 'Add info about company'}
+              </button>
+
+              {/* // ? type of user */}
+              {/* <DropdownInput
+                id='typeOfUser'
+                name='Type of user'
+                nameForChangeFunction='typeOfUser'
+                customRef={typeOfUserRef}
+                onChoose={(event, _isCurrent, element) => {
+                  if (
+                    userData.typeOfUser !== 'Legal entity' &&
+                    element === 'Legal entity'
+                  ) {
+                    window.location.href = paths.company.create;
+                    // ! navigate не перезагружает страницу из-за чего вылазит ошибка в виде
+                    // ! странного не прохода валидации сервером запроса на регистрацию компании
+                    // ! по этому используется
+                    // ! window.location.href = paths.company.create;
+                    // ! что бы происходило обновление страницы
+                    // navigate(paths.company.create);
+                  }
+                  setIsFormValid(
+                    event.target.closest('form').checkValidity() &&
+                      userData.typeOfUser !== typeOfUserRef.current.value,
+                  );
+                  if (!_isCurrent) setFormAnotherData(true);
+                }}
+                listOfAnswers={TYPE_OF_USER}
+              ></DropdownInput> */}
             </div>
 
             {/* // ? files */}
@@ -491,10 +420,10 @@ function Profile({ addNotification, setUser }) {
                   handleSubmit={uploadFileToServer}
                   openFile={openFile}
                   isActive={userData.passport && !!userData.passport.url}
-                  title={'passport'}
+                  title={'Passport'}
                   icon={{
                     url: userData.passport && userData.passport.url,
-                    src: passportImage,
+
                     alt: 'passport',
                   }}
                   typeOfFile={'passport'}
@@ -512,7 +441,6 @@ function Profile({ addNotification, setUser }) {
                   title={'Proof of address'}
                   icon={{
                     url: userData.proofOfAddress && userData.proofOfAddress.url,
-                    src: proofOfAddressImage,
                     alt: 'Proof of address',
                   }}
                   typeOfFile={'proofOfAddress'}
@@ -535,7 +463,6 @@ function Profile({ addNotification, setUser }) {
                     url:
                       userData.selfieWithIDOrPassport &&
                       userData.selfieWithIDOrPassport.url,
-                    src: selfieWithIdImage,
                     alt: 'Selfie with id',
                   }}
                   typeOfFile={'selfieWithIDOrPassport'}
@@ -551,10 +478,7 @@ function Profile({ addNotification, setUser }) {
             {hasFormAnotherData && (
               <button
                 disabled={!isFormValid}
-                className={
-                  s.submit +
-                  ` ${!isFormValid ? s.submit_validity_invalid : 'button'}`
-                }
+                className={`button ${s.button} ${s.button_type_submit}`}
                 type='submit'
               >
                 {currentTextSubmitButton}

@@ -11,15 +11,16 @@ const shareholderSchema = new mongoose.Schema(
       enum: VALID_VALUES.SHARE_HOLDER.VALUES,
       required: true,
     },
+    percentageOfOwnership: {
+      type: Number,
+      require: true,
+    },
     individual: {
       // individual
       fullName: {
         type: String,
         maxlength: VALID_VALUES.TEXT.LENGTH.MAX,
         minlength: VALID_VALUES.TEXT.LENGTH.MIN,
-      },
-      equityShare: {
-        type: String,
       },
       contactEmail: {
         type: String,
@@ -82,7 +83,7 @@ const shareholderSchema = new mongoose.Schema(
         type: String,
       },
       VAT: {
-        type: Number,
+        type: String,
         minlength: VALID_VALUES.VAT_NUMBER.LENGTH.MIN,
         maxlength: VALID_VALUES.VAT_NUMBER.LENGTH.MAX,
       },

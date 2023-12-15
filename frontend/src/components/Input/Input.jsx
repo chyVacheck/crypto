@@ -3,6 +3,7 @@ import s from './Input.module.css';
 
 function Input({
   name,
+  nameForChangeFunction,
   required = false,
   id,
   placeholder,
@@ -10,6 +11,8 @@ function Input({
   pattern,
   minLength,
   maxLength,
+  min,
+  max,
   customRef,
   onChange,
   isValid,
@@ -20,6 +23,7 @@ function Input({
       <h6 className={`caption ${s.name}`}>{name}</h6>
 
       <input
+        name={nameForChangeFunction}
         required={required}
         className={`${s.input} ${isValid ? '' : s.input_validity_invalid}`}
         placeholder={placeholder}
@@ -28,12 +32,20 @@ function Input({
         pattern={pattern}
         minLength={minLength}
         maxLength={maxLength}
+        min={min}
+        max={max}
         ref={customRef}
         onChange={onChange}
       ></input>
 
-      {/* // ? сообщение о ошибке */}
-      <p className={`detail ${s.error}`}>{textError}</p>
+      {/* // ? информационное сообщение */}
+      <p
+        className={`detail ${s.detail} ${
+          !!required && s.detail_type_required
+        } ${!!textError && s.detail_type_error}`}
+      >
+        {!!textError ? textError : required && 'This field is required'}
+      </p>
     </div>
   );
 }

@@ -167,7 +167,7 @@ Validator.createCompany = celebrate({
     zipCode: Joi.number(),
     legalForm: Joi.string().valid(...VALID_VALUES.LEGAL_FORM.VALUES),
     countryOfRegistration: Joi.string(),
-    VAT: Joi.number()
+    VAT: Joi.string()
       .min(VALID_VALUES.VAT_NUMBER.LENGTH.MIN)
       .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX),
     registrationDate: Joi.string(),

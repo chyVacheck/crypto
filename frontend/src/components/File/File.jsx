@@ -7,6 +7,8 @@ import s from './File.module.css';
 // ? assets
 // * images
 import uploadImage from './../../assets/images/upload_type_color.png';
+// _ icons
+import successfulIcon from './../../assets/images/icons/successful.svg';
 
 function File({
   handleSubmit,
@@ -44,21 +46,14 @@ function File({
         onClick={uploadFileToServer}
         className={`button subhead ${s.button}`}
       >
-        Upload File
+        {isActive ? 'Change' : 'Upload'} file
       </button>
       <img
-        className={`${s.icon} ${isActive ? 'button' : ''}`}
-        alt={isActive ? icon.alt : 'upload document'}
-        src={isActive ? icon.src : uploadImage}
-        onClick={() => {
-          isActive &&
-            openFile({
-              type: expansionOfFile,
-              src: icon.url,
-              alt: icon.alt,
-              title: title,
-            });
-        }}
+        className={s.icon}
+        alt={`${icon.alt} ${
+          isActive ? 'successful is uploaded' : 'upload document'
+        }`}
+        src={isActive ? successfulIcon : uploadImage}
       />
       <input
         id='file-upload'
@@ -67,18 +62,37 @@ function File({
         alt='upload file'
         type='file'
       />
-      <h6 className={`${s.name} caption`}>{title}</h6>
-
+      <h6 className={`${s.name} caption`}>
+        {title}
+        {isActive ? '' : ' not uploaded yet'}
+      </h6>
       {isActive && (
-        <button
-          type='button'
-          onClick={(e) => {
-            handleDelete(e, typeOfFile);
-          }}
-          className={`button subhead ${s.button} ${s.button_type_delete}`}
-        >
-          Delete File
-        </button>
+        <div className={s.buttons}>
+          <button
+            type='button'
+            onClick={() => {
+              openFile({
+                type: expansionOfFile,
+                src: icon.url,
+                alt: icon.alt,
+                title: title,
+              });
+            }}
+            className={`button subhead ${s.button}`}
+          >
+            Watch file
+          </button>
+
+          <button
+            type='button'
+            onClick={(e) => {
+              handleDelete(e, typeOfFile);
+            }}
+            className={`button subhead ${s.button} ${s.button_type_delete}`}
+          >
+            Delete File
+          </button>
+        </div>
       )}
     </div>
   );

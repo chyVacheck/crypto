@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 50px;
+  padding: 100px 50px 50px;
   box-sizing: border-box;
   height: 100%;
 }
@@ -16,37 +16,66 @@
   gap: 30px 0;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.title {
-  margin: 0;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 29px;
-}
-
 .form {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px 0px;
+  gap: 14px 0px;
+}
+
+.block {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 14px 21px;
+}
+
+.block_type_shareholders {
+  grid-template-columns: 1fr;
+  gap: 21px;
+}
+
+.block_columns_two {
+  grid-template-columns: repeat(2, minmax(310px, 1fr));
+}
+
+.shareholders {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.button {
+  width: 100%;
+  max-width: 320px;
+  height: 45px;
+  border-radius: 7px;
+  padding: 0;
+  margin: 0 auto;
+  border: none;
+  transition: all 0.15s linear;
+  color: var(--fg-primary);
+  background-color: var(--bg-enabled);
+}
+
+.button_type_submit {
+  margin: 50px auto 0;
 }
 
 .text {
   margin: 0;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
+}
+
+.text_type_error {
+  height: 19px;
+  margin: 0 auto;
+  color: var(--fg-error);
 }
 
 .fields {
   display: flex;
   flex-direction: column;
   gap: 21px;
+  margin-top: 7px;
 }
 
 .fields_type_horizontal {
@@ -55,6 +84,7 @@
 
 .field {
   width: 100%;
+  min-height: 88px;
   display: flex;
   flex-direction: column;
   gap: 7px 0;
@@ -66,7 +96,7 @@
   color: var(--fg-secondary);
 }
 
-.input {
+.dropdown {
   min-width: 100%;
   height: 46px;
 
@@ -77,21 +107,24 @@
   border-radius: 8px;
   border: none;
 
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 16px;
-
   outline: none;
   color: var(--fg-primary);
   background-color: var(--bg-input);
   border: 1px solid var(--bg-input);
 }
 
+.dropdown:hover {
+  cursor: pointer;
+}
+
 .answers {
   border-radius: 8px;
   padding: 8px 0;
-  background: var(--bg-secondary);
+  background: var(--bg-input);
   width: 100%;
+
+  max-height: 500%;
+  overflow-y: auto;
 
   /* Low */
   box-shadow: 0px 0px 48px 0px rgba(0, 0, 0, 0.04),
@@ -103,11 +136,7 @@
   z-index: -1;
 }
 
-.input_type_dropdown:hover {
-  cursor: pointer;
-}
-
-.answer_state_open {
+.answers_state_open {
   opacity: 1;
   z-index: 1;
 }
@@ -137,41 +166,10 @@
   margin: 0;
 }
 
-/* ? input невалидный */
-.input_validity_invalid {
-  border-color: var(--border-error);
-}
-
-.error-message {
+.answer__add-info {
   margin: 0 0 0 15px;
   height: 12px;
-  color: var(--fg-error);
-}
-
-.submit {
-  width: 100%;
-  max-width: 396px;
-  height: 45px;
-
-  border-radius: 3px;
-  margin: auto auto 0;
-  padding: 0;
-
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-
-  border: none;
-  background-color: var(--bg-enabled);
-  margin-top: auto;
-  color: var(--fg-primary);
-  transition: all 0.15s linear;
-}
-
-/* ? форма невалидна */
-.submit_validity_invalid {
-  background-color: var(--bg-disabled);
-  color: var(--fg-disabled);
+  color: var(--fg-secondary);
 }
 
 .link {
@@ -179,14 +177,25 @@
   width: fit-content;
 }
 
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+}
+
+@media screen and (min-width: 544px) and (max-width: 1024px) {
+  .block {
+    grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+    gap: 21px;
+  }
+  .block_type_shareholders {
+    grid-template-columns: 1fr;
+    gap: 21px;
+  }
+}
+
 @media screen and (max-width: 544px) {
   .main {
     width: 100%;
     gap: 35px 0;
     padding: 56px 25px 30px;
-  }
-  .title {
-    text-align: center;
   }
   .fields {
     gap: 7px;
@@ -197,13 +206,15 @@
   .fields_type_horizontal {
     flex-direction: column;
   }
-  .submit {
+  .button {
     max-width: none;
   }
-}
-
-@media screen and (min-width: 544px) and (max-width: 1024px) {
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .block {
+    grid-template-columns: 1fr;
+    gap: 14px 21px;
+  }
+  .block_type_shareholders {
+    grid-template-columns: 1fr;
+    gap: 21px;
+  }
 }

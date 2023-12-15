@@ -38,7 +38,11 @@ function Dashboard({ addNotification }) {
 
   useEffect(() => {
     _getPrice();
-    setInterval(_getPrice, 20_000);
+    const _interval = setInterval(_getPrice, 20_000);
+
+    return () => {
+      clearInterval(_interval); // Очистка интервала при размонтировании компонента
+    };
   }, []);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 // ? styles
@@ -8,13 +8,6 @@ import s from './UserProfileById.module.css';
 
 // ? Api
 import mainApi from './../../Api/MainApi';
-
-// ? assets
-// * images
-//   icons
-import passportImage from './../../assets/images/passport_type_color.png';
-import proofOfAddressImage from './../../assets/images/location_type_color.png';
-import selfieWithIdImage from './../../assets/images/selfie_type_color.png';
 
 // ? components
 import File from '../../components/File/File';
@@ -469,7 +462,7 @@ function UserProfileById({ addNotification }) {
                   title={'passport'}
                   icon={{
                     url: userData.passport && userData.passport.url,
-                    src: passportImage,
+
                     alt: 'passport',
                   }}
                   typeOfFile={'passport'}
@@ -487,7 +480,7 @@ function UserProfileById({ addNotification }) {
                   title={'Proof of address'}
                   icon={{
                     url: userData.proofOfAddress && userData.proofOfAddress.url,
-                    src: proofOfAddressImage,
+
                     alt: 'Proof of address',
                   }}
                   typeOfFile={'proofOfAddress'}
@@ -510,7 +503,6 @@ function UserProfileById({ addNotification }) {
                     url:
                       userData.selfieWithIDOrPassport &&
                       userData.selfieWithIDOrPassport.url,
-                    src: selfieWithIdImage,
                     alt: 'Selfie with id',
                   }}
                   typeOfFile={'selfieWithIDOrPassport'}
@@ -526,10 +518,7 @@ function UserProfileById({ addNotification }) {
             {hasFormAnotherData && (
               <button
                 disabled={!isFormValid}
-                className={
-                  s.submit +
-                  ` ${!isFormValid ? s.submit_validity_invalid : 'button'}`
-                }
+                className={`button ${s.submit}`}
                 type='submit'
               >
                 {currentTextSubmitButton}

@@ -128,6 +128,10 @@ class MainApi {
   }
 
   /* получение файла пользователя по его id
+    data = {
+      'Content-Type': // ? тип файла
+      typeOfFile: '' // ? тип файла
+    },
     userId = 655608239736cf4d57ee5299
   */
   getUserFileById(data, userId) {
@@ -143,6 +147,26 @@ class MainApi {
         headers: _headers,
       },
       `get user file ${data.typeOfFile}`,
+      data.typeOfFile,
+    );
+  }
+
+  /* получение файла пользователя по его id
+    companyId = 655608239736cf4d57ee5299
+  */
+  getCompanyFileById(data, companyId) {
+    const _headers = this._headers;
+
+    _headers['Content-Type'] = data['Content-Type'];
+
+    return this._request(
+      `${this._address}/company/${companyId}/file/${data.typeOfFile}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: _headers,
+      },
+      `get company file ${data.typeOfFile}`,
       data.typeOfFile,
     );
   }
@@ -371,6 +395,25 @@ class MainApi {
     );
   }
 
+  /* положить файл компании по его Id
+    data = {
+      typeOfFile: "passport"
+      file: // ? file
+    },
+    companyId: 655608239736cf4d57ee5299,
+   */
+  putCompanyFileById(data, companyId) {
+    return this._request(
+      `${this._address}/company/${companyId}/file/${data.typeOfFile}`,
+      {
+        method: 'PUT',
+        credentials: this._credentials,
+        body: data.file,
+      },
+      `put company file ${data.typeOfFile}`,
+    );
+  }
+
   // ? PATCH
 
   /* обновление данных пользователя
@@ -411,6 +454,26 @@ class MainApi {
         body: JSON.stringify(user),
       },
       'update user data',
+    );
+  }
+
+  /* обновление данных компании
+    company = {
+      name: "new name"
+    }
+  */
+  updateCompanyDataById(company, companyId) {
+    let _headers = this._headers;
+    _headers['Content-Type'] = SETTINGS_API.contentType;
+    return this._request(
+      `${this._address}/company/${companyId}`,
+      {
+        method: 'PATCH',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify(company),
+      },
+      'update company data',
     );
   }
 
