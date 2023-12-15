@@ -63,6 +63,10 @@
   border-bottom: 1px solid transparent;
 }
 
+.button {
+  background: transparent;
+}
+
 .button_active_active {
   color: var(--fg-link);
 }
@@ -146,9 +150,6 @@
   display: none;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.burger-button_open_open {
 }
 
 .burger-button_place_menu {

@@ -113,8 +113,6 @@
 }
 
 .submit {
-  --current-bg: var(--bg-enabled);
-  --current-border: var(--border-input-enabled);
   width: 100%;
   max-width: 396px;
   height: 45px;
@@ -123,18 +121,8 @@
   margin: auto auto 0;
   padding: 0;
 
-  background-color: var(--current-bg);
   margin-top: auto;
-  color: var(--fg-primary);
   transition: all 0.15s linear;
-  border: 1px solid var(--current-border);
-}
-
-/* ? форма невалидна */
-.submit_validity_invalid {
-  --current-bg: var(--bg-disabled);
-  --current-border: var(--bg-disabled);
-  color: var(--fg-disabled);
 }
 
 @media screen and (max-width: 544px) {

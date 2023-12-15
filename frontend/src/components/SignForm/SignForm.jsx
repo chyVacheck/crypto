@@ -60,9 +60,7 @@ function SignForm({
         {/* // ? кнопка submit */}
         <button
           disabled={!isValid}
-          className={
-            s.submit + ` ${!isValid ? s.submit_validity_invalid : 'button'}`
-          }
+          className={`button ${s.submit}`}
           type='submit'
         >
           {submitButton.text}

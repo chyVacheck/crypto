@@ -54,7 +54,7 @@
   background: none;
   width: 15px;
   height: 15px;
-  background-image: url(./../../assets/images/button-saved.svg);
+  background-image: url(./../../assets/images/icons/cross.svg);
   background-size: contain;
   background-repeat: no-repeat;
 }

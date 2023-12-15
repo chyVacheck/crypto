@@ -126,9 +126,7 @@ function Support({ addNotification }) {
         {/* // ? кнопка submit */}
         <button
           disabled={!isFormValid}
-          className={`landing-input ${s.submit} ${
-            !isFormValid ? s.submit_validity_invalid : 'button'
-          }`}
+          className={`button ${s.submit}`}
           type='submit'
         >
           {currentTextSubmitButton}

@@ -1,4 +1,6 @@
 .button {
+  background-color: var(--bg-enabled);
+  color: var(--fg-enabled);
   cursor: pointer;
   border: none;
   padding: 0;
@@ -11,4 +13,18 @@
 
 .button:active {
   opacity: var(--opacity-active);
+}
+
+.button:disabled,
+.button_enabled_disabled {
+  background-color: var(--bg-disabled);
+  color: var(--fg-disabled);
+}
+
+.button_enabled_disabled:hover,
+.button_enabled_disabled:active,
+.button:disabled:hover,
+.button:disabled:active {
+  opacity: 1;
+  cursor: auto;
 }

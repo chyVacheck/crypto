@@ -3,8 +3,9 @@ import s from './Notifications.module.css';
 
 // * assets
 // ? images
-import unsuccessfulIcon from './../../assets/images/unsuccessful.svg';
-import successfulIcon from './../../assets/images/successful.svg';
+// _ icons
+import unsuccessfulIcon from './../../assets/images/icons/unsuccessful.svg';
+import successfulIcon from './../../assets/images/icons/successful.svg';
 
 // * utils
 // ? constants
