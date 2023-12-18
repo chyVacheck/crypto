@@ -116,6 +116,8 @@ const MESSAGE = {
     },
     DUPLICATE: {
       SIMPLE: 'You can not use these parameters, try other ones',
+      REGISTRATION_NUMBER:
+        'This registration number is already in use, enter a different one',
       MAIL: 'You have not yet completed your last registration',
       ADMIN: 'There are already Admin with this email',
       USER: 'There is already a user with this mail',

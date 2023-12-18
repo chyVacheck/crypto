@@ -13,9 +13,21 @@
   display: flex;
   justify-content: space-between;
   min-height: 40px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.index {
+.header__info {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.text {
+  margin: 0;
+}
+
+.value {
   color: var(--fg-secondary);
 }
 
@@ -25,22 +37,60 @@
   gap: 14px 21px;
 }
 
+.block_type_created {
+  display: flex;
+  max-width: fit-content;
+  justify-content: center;
+}
+
 .block_cells_more {
   grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
 }
 
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .button {
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+  transition: all 0.15s linear;
+}
+
+.button_type_submit {
+  height: 45px;
+  border-radius: 7px;
+}
+
+.button_type_delete {
   width: 40px;
   height: 40px;
-  box-sizing: border-box;
   padding: 5px;
   background-color: transparent;
-  transition: all 0.15s linear;
 }
 
 .button__icon {
   width: 100%;
   height: 100%;
+}
+
+.files {
+  display: flex;
+  gap: 21px;
+}
+
+@media screen and (max-width: 544px) {
+  .block {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  .button_type_delete {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+  }
 }
 
 @media screen and (min-width: 544px) and (max-width: 1024px) {

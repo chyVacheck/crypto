@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
 import { useState, useRef, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +23,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { VALIDATION, paths /*, TYPE_OF_USER */ } from '../../utils/constants';
 // * utils
 // * constants
-import { checkValidity, copy } from '../../utils/utils';
+import { checkValidity, checkValueIfNotNull, copy } from '../../utils/utils';
 
 function Profile({ addNotification, setUser }) {
   const navigate = useNavigate();
@@ -77,9 +78,10 @@ function Profile({ addNotification, setUser }) {
     setIsFormValid(
       event.target.closest('form').checkValidity() &&
         isValid &&
-        (userData.name !== nameRef.current.value ||
-          userData.secondName !== secondNameRef.current.value ||
-          userData.phone !== phoneRef.current.value) /* ||
+        (userData.name !== checkValueIfNotNull(nameRef.current.value) ||
+          userData.secondName !==
+            checkValueIfNotNull(secondNameRef.current.value) ||
+          userData.phone !== checkValueIfNotNull(phoneRef.current.value)) /* ||
           userData.typeOfUser !== typeOfUserRef.current.value), */,
     );
   }
@@ -160,11 +162,12 @@ function Profile({ addNotification, setUser }) {
     //   });
     }
     */
+
     await mainApi
       .updateUserData({
-        name: nameRef.current.value,
-        secondName: secondNameRef.current.value,
-        phone: phoneRef.current.value,
+        name: checkValueIfNotNull(nameRef.current.value),
+        secondName: checkValueIfNotNull(secondNameRef.current.value),
+        phone: checkValueIfNotNull(phoneRef.current.value),
       })
       .then((res) => {
         addNotification({
@@ -250,7 +253,7 @@ function Profile({ addNotification, setUser }) {
     secondNameRef.current.value = userData.secondName;
     phoneRef.current.value = userData.phone;
     // typeOfUserRef.current.value = userData.typeOfUser;
-  }, [userData, isFilesDownloaded]);
+  }, [userData]);
 
   useEffect(() => {
     async function _fetchData() {
@@ -276,7 +279,7 @@ function Profile({ addNotification, setUser }) {
     }
 
     _fetchData();
-  }, [setUser, userData]);
+  }, [setUser, userData, isFilesDownloaded, _getFileData]);
 
   return (
     <>
@@ -363,15 +366,12 @@ function Profile({ addNotification, setUser }) {
                 type='button'
                 onClick={() => {
                   if (!!userData.companyId) {
-                    navigate(
-                      paths.company.profile.replace(
-                        ':companyId',
-                        userData.companyId,
-                      ),
+                    window.location.href = paths.company.profile.replace(
+                      ':companyId',
+                      userData.companyId,
                     );
                   } else {
                     window.location.href = paths.company.create;
-                    // navigate(paths.company.create);
                   }
                 }}
               >
@@ -423,7 +423,6 @@ function Profile({ addNotification, setUser }) {
                   title={'Passport'}
                   icon={{
                     url: userData.passport && userData.passport.url,
-
                     alt: 'passport',
                   }}
                   typeOfFile={'passport'}

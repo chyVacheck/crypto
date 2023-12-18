@@ -9,6 +9,8 @@ import s from './CreateCompany.module.css';
 import mainApi from './../../Api/MainApi';
 
 // ? components
+import DateInput from '../../components/DateInput/DateInput';
+import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import Input from '../../components/Input/Input';
 import Shareholder from '../../components/Shareholder/Shareholder';
 
@@ -25,11 +27,12 @@ import {
   LEGAL_FORM_VALUES,
   paths,
   MAX_COUNT_OF_SHAREHOLDERS,
-  shareholder,
+  TEMPLATE_OF_SHAREHOLDER,
 } from '../../utils/constants';
 // * utils
 import {
   checkValidity,
+  checkValueIfNotNull,
   checkValueIfNotUndefined,
   toData,
 } from '../../utils/utils';
@@ -68,11 +71,6 @@ function CreateCompany({ addNotification, setUser }) {
   const [isButtonAddShareholderValid, setIsButtonAddShareholderValid] =
     useState(true);
 
-  // is open/close pop-up tot chose country
-  const [isDropdownCountryOpen, setDropdownCountryOpen] = useState(false);
-  // is open/close pop-up tot chose Legal form
-  const [isDropdownLegalFormOpen, setDropdownLegalFormOpen] = useState(false);
-
   // массив shareholder`ов
   const [arrayShareholders, setArrayShareholders] = useState([]);
 
@@ -81,7 +79,6 @@ function CreateCompany({ addNotification, setUser }) {
   // ? business
   const nameRef = useRef();
   const countryOfRegistrationRef = useRef();
-  const [countryFullName, setCountryFullName] = useState(null);
   const registrationDateOfCompanyRef = useRef();
   const registrationNumberRef = useRef();
   const legalFormRef = useRef();
@@ -234,13 +231,17 @@ function CreateCompany({ addNotification, setUser }) {
       });
   }
 
+  function handleChangeInput() {
+    const _form = document.getElementById('createCompany');
+    setIsFormValid(_form.checkValidity());
+  }
+
   // ? handle Shareholder Change
   function handleShareholderChange(index, name, value) {
     const updatedShareholders = [...arrayShareholders];
-    updatedShareholders[index][name] = value;
+    updatedShareholders[index][name] = checkValueIfNotNull(value);
+
     setArrayShareholders(updatedShareholders);
-    const _form = document.getElementById('createCompany');
-    setIsFormValid(_form.checkValidity());
 
     if (name === 'percentageOfOwnership') {
       let percent = 0;
@@ -258,6 +259,7 @@ function CreateCompany({ addNotification, setUser }) {
         setTextError(null);
       }
     }
+    handleChangeInput();
   }
 
   function removeShareholder(index) {
@@ -268,11 +270,13 @@ function CreateCompany({ addNotification, setUser }) {
 
   // ? добавление формы нового акционера
   function addShareholder() {
+    const _copy = Object.assign({}, TEMPLATE_OF_SHAREHOLDER);
+
     if (arrayShareholders.length === MAX_COUNT_OF_SHAREHOLDERS - 1) {
       setIsButtonAddShareholderValid(false);
     }
     if (arrayShareholders.length < MAX_COUNT_OF_SHAREHOLDERS) {
-      setArrayShareholders([...arrayShareholders, shareholder]);
+      setArrayShareholders([...arrayShareholders, _copy]);
       setIsFormValid(false);
     }
   }
@@ -317,122 +321,47 @@ function CreateCompany({ addNotification, setUser }) {
             ></Input>
 
             {/* // ? country of registration */}
-            <div className={s.field}>
-              <h6 className={`${s.name} caption`}>Country of registration</h6>
-
-              <input
-                className={`body ${s.dropdown}`}
-                placeholder={
-                  isDropdownCountryOpen ? 'click to close' : 'click to choose'
-                }
-                id='country'
-                type='text'
-                ref={countryOfRegistrationRef}
-                readOnly
-                onClick={() => {
-                  setDropdownCountryOpen(!isDropdownCountryOpen);
-                }}
-              ></input>
-
-              <p className={`detail ${s['answer__add-info']}`}>
-                {countryFullName}
-              </p>
-
-              <div
-                className={`${s.answers} ${
-                  isDropdownCountryOpen && s.answers_state_open
-                }`}
-              >
-                {COUNTRIES.map((element, index) => {
-                  const _isCurrent =
-                    `${element.flag} ${element.name.common}` ===
-                    (countryOfRegistrationRef.current
-                      ? countryOfRegistrationRef.current.value
-                      : '');
-
-                  return (
-                    <div
-                      onClick={() => {
-                        countryOfRegistrationRef.current.value = `${element.flag} ${element.name.common}`;
-                        setCountryFullName(element.name.official);
-                        setDropdownCountryOpen(false);
-                      }}
-                      key={index}
-                      className={`${s.answer} ${
-                        _isCurrent && s.answer_state_current
-                      }`}
-                    >
-                      <h4 className={`body ${s.answer__text}`}>
-                        <span>{element.flag}</span> {element.name.common}
-                      </h4>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <DropdownInput
+              name='Country of registration'
+              id='countryOfRegistration'
+              nameForChangeFunction={'countryOfRegistration'}
+              customRef={countryOfRegistrationRef}
+              onChoose={handleChangeInput}
+              options={{
+                isCountry: true,
+              }}
+              listOfAnswers={COUNTRIES}
+            ></DropdownInput>
 
             {/* // ? registration date of company */}
-            <Input
+            <DateInput
               name={'Registration date of company'}
               id='registrationDateOfCompany'
               placeholder='30.12.2000'
               customRef={registrationDateOfCompanyRef}
-              onChange={handleFieldChange}
+              onChoose={handleChangeInput}
               isValid={validatedFields.registrationDateOfCompany.valid}
               textError={validatedFields.registrationDateOfCompany.error}
-            ></Input>
+            ></DateInput>
 
             {/* // ? legal Form */}
-            <div className={s.field}>
-              <h6 className={`${s.name} caption`}>Legal Form</h6>
-
-              <input
-                className={`body ${s.dropdown}`}
-                placeholder={
-                  isDropdownLegalFormOpen ? 'click to close' : 'click to choose'
-                }
-                id='legalForm'
-                type='text'
-                ref={legalFormRef}
-                readOnly
-                onClick={() => {
-                  setDropdownLegalFormOpen(!isDropdownLegalFormOpen);
-                }}
-              ></input>
-
-              <div
-                className={`${s.answers} ${
-                  isDropdownLegalFormOpen && s.answers_state_open
-                }`}
-              >
-                {LEGAL_FORM_VALUES.map((element, index) => {
-                  const _isCurrent =
-                    element ===
-                    (legalFormRef.current ? legalFormRef.current.value : '');
-
-                  return (
-                    <div
-                      onClick={() => {
-                        legalFormRef.current.value = element;
-                        setDropdownLegalFormOpen(false);
-                      }}
-                      key={index}
-                      className={`${s.answer} ${
-                        _isCurrent && s.answer_state_current
-                      }`}
-                    >
-                      <h4 className={`body ${s.answer__text}`}>{element}</h4>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <DropdownInput
+              name='Legal Form'
+              id='legalForm'
+              nameForChangeFunction={'legalForm'}
+              customRef={legalFormRef}
+              onChoose={handleChangeInput}
+              listOfAnswers={LEGAL_FORM_VALUES}
+            ></DropdownInput>
 
             {/* // ? VAT */}
             <Input
               name={'VAT number'}
               id='VAT'
-              placeholder='HE404228'
+              placeholder='HE40422800717'
+              pattern='[A-Za-z]{2}\d{0,11}'
+              minLength={2}
+              maxLength={13}
               customRef={VATRef}
               onChange={handleFieldChange}
               isValid={validatedFields.VAT.valid}
@@ -469,7 +398,8 @@ function CreateCompany({ addNotification, setUser }) {
             <Input
               name={'Zip code'}
               id='zipCode'
-              placeholder='228404'
+              pattern={'[a-zA-Z0-9\\s\\-]{3,10}'}
+              placeholder='Ab-423'
               customRef={zipCodeRef}
               onChange={handleFieldChange}
               isValid={validatedFields.zipCode.valid}

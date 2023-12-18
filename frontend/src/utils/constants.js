@@ -5,6 +5,9 @@ import configSite from './../config/configSite.json';
 // ? год создания сайта
 export const YEAR = 2023;
 
+// ? текущий год
+export const CURRENT_YEAR = new Date().getFullYear();
+
 const DEFAULT_URL = configSite.default_url;
 
 // ? все пути
@@ -41,7 +44,7 @@ export const paths = {
   verifyEmail: `${DEFAULT_URL}verifyEmail`,
 };
 
-export const shareholder = {
+export const TEMPLATE_OF_SHAREHOLDER = {
   typeOfShareholder: 'company',
   percentageOfOwnership: null,
   // ? individual
@@ -110,6 +113,7 @@ export const activeFooterRoutes = [
   paths.user.exchange,
   paths.support,
   paths.company.create,
+  paths.company.profile,
   paths.policies.amlPolicy,
   paths.policies.cookiesPolicy,
   paths.policies.privacyPolicy,
@@ -147,6 +151,12 @@ export const VALIDATION = {
   REGISTRATION_NUMBER: {
     MIN: 1,
     MAX: 20,
+  },
+  DATE_OF_REGISTRATION: {
+    YEAR: {
+      MIN: 1800,
+      MAX: CURRENT_YEAR,
+    },
   },
 };
 

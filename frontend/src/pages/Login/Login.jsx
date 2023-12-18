@@ -102,7 +102,8 @@ function Login({
                 });
             });
 
-          navigate(paths.main);
+          window.location.href = paths.user.profile;
+          // navigate(paths.user.profile);
         })
         .catch((err) => {
           // устанавливаем ошибку

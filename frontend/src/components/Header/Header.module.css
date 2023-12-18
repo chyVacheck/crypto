@@ -64,7 +64,18 @@
 }
 
 .button {
+  border-radius: 7px;
+  padding: 3.5px 10px;
+}
+
+.policy-button {
   background: transparent;
+}
+
+.button_type_logout {
+  background: var(--bg-danger);
+  color: var(--fg-primary);
+  padding: 3.5px 10px;
 }
 
 .button_active_active {
@@ -103,13 +114,6 @@
 .list-popup_type_policy {
   min-width: 220px;
   left: -21px;
-}
-
-.logout {
-  background: var(--bg-danger);
-  color: var(--fg-primary);
-  border-radius: 7px;
-  padding: 3.5px 10px;
 }
 
 .navigation-burger {

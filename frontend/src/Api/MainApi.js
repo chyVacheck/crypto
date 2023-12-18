@@ -171,6 +171,43 @@ class MainApi {
     );
   }
 
+  /* получение файла акционера по его id
+    companyId = 655608239736cf4d57ee5299
+    shareholderId = 655608239736cf4d57ee5299
+  */
+  getShareholderFileByIdCompanyById(data, companyId, shareholderId) {
+    const _headers = this._headers;
+
+    _headers['Content-Type'] = data['Content-Type'];
+
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder/${shareholderId}/file/${data.typeOfFile}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: _headers,
+      },
+      `get shareholder file ${data.typeOfFile}`,
+      data.typeOfFile,
+    );
+  }
+
+  /* получение данных акционера по его id
+    companyId = 655608239736cf4d57ee5299
+    shareholderId = 655608239736cf4d57ee5299
+    */
+  getShareholderByIdCompanyById(companyId, shareholderId) {
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder/${shareholderId}`,
+      {
+        method: 'GET',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `get data of shareholder [${shareholderId}]`,
+    );
+  }
+
   // получение информации о администраторе
   getAdminInfo() {
     return this._request(
@@ -333,7 +370,7 @@ class MainApi {
     );
   }
 
-  /* создание нового администратора
+  /* создание компании
     company = {
       "registrationNumber": "test_registration_number_2",
       "shareholder": {
@@ -353,6 +390,33 @@ class MainApi {
         body: JSON.stringify(company),
       },
       'create company',
+    );
+  }
+
+  /* создание акционера
+    shareholder = {
+      "typeOfShareholder": "company",
+      "percentageOfOwnership": 0 // ? 0 - 100
+      "shareholder": {
+        "typeOfShareholder": "company",
+        "data": {
+          "registrationNumber": "test_registration_number"
+        }
+    }
+  */
+  createShareholderCompanyById(companyId, shareholder) {
+    const _headers = this._headers;
+
+    _headers['Content-Type'] = SETTINGS_API.contentType;
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder`,
+      {
+        method: 'POST',
+        credentials: this._credentials,
+        headers: _headers,
+        body: JSON.stringify(shareholder),
+      },
+      'create shareholder',
     );
   }
 
@@ -414,6 +478,26 @@ class MainApi {
     );
   }
 
+  /* положить файл акционера по его Id
+    data = {
+      typeOfFile: "passport"
+      file: // ? file
+    },
+    companyId: 655608239736cf4d57ee5299,
+    shareholderId: 655608239736cf4d57ee5299,
+  */
+  putShareholderFileByIdCompanyById(data, companyId, shareholderId) {
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder/${shareholderId}/file/${data.typeOfFile}`,
+      {
+        method: 'PUT',
+        credentials: this._credentials,
+        body: data.file,
+      },
+      `put shareholder file ${data.typeOfFile}`,
+    );
+  }
+
   // ? PATCH
 
   /* обновление данных пользователя
@@ -460,7 +544,8 @@ class MainApi {
   /* обновление данных компании
     company = {
       name: "new name"
-    }
+    },
+    companyId = 655608239736cf4d57ee5299
   */
   updateCompanyDataById(company, companyId) {
     let _headers = this._headers;
@@ -477,9 +562,31 @@ class MainApi {
     );
   }
 
+  /* обновление данных акционера
+    shareholder = {
+      name: "new name"
+    },
+    companyId = 655608239736cf4d57ee5299
+  */
+  updateShareholderByIdCompanyById(shareholder, companyId, shareholderId) {
+    let _headers = this._headers;
+    _headers['Content-Type'] = SETTINGS_API.contentType;
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder/${shareholderId}`,
+      {
+        method: 'PATCH',
+        credentials: this._credentials,
+        headers: this._headers,
+        body: JSON.stringify(shareholder),
+      },
+      'update company data',
+    );
+  }
+
   // ? DELETE
 
   /* удаление файла пользователя
+    typeOfFile = 'passport' // ? тип файла
    */
   deleteUserFile(typeOfFile) {
     return this._request(
@@ -494,6 +601,8 @@ class MainApi {
   }
 
   /* удаление файла пользователя по его id
+    typeOfFile = 'passport' // ? тип файла
+    userId = 655608239736cf4d57ee5299
    */
   deleteUserFileById(typeOfFile, userId) {
     return this._request(
@@ -507,7 +616,24 @@ class MainApi {
     );
   }
 
+  /* удаление файла компании по её id
+    typeOfFile = 'certificateOfIncorporation' // ? тип файла
+    companyId = 655608239736cf4d57ee5299
+   */
+  deleteCompanyFileById(typeOfFile, companyId) {
+    return this._request(
+      `${this._address}/company/${companyId}/file/${typeOfFile}`,
+      {
+        method: 'DELETE',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `delete company file ${typeOfFile}`,
+    );
+  }
+
   /* удаление компании по её id
+    companyId = 655608239736cf4d57ee5299
    */
   deleteCompanyById(companyId) {
     return this._request(
@@ -518,6 +644,22 @@ class MainApi {
         headers: this._headers,
       },
       `delete company`,
+    );
+  }
+
+  /* удаление акционера компании по его id и id компании
+    companyId = 655608239736cf4d57ee5299
+    shareholderId = 655608239736cf4d57ee5299
+  */
+  deleteShareholderByIdCompanyById(companyId, shareholderId) {
+    return this._request(
+      `${this._address}/company/${companyId}/shareholder/${shareholderId}`,
+      {
+        method: 'DELETE',
+        credentials: this._credentials,
+        headers: this._headers,
+      },
+      `delete shareholder [${shareholderId}]`,
     );
   }
 

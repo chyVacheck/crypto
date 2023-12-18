@@ -3,10 +3,10 @@
   position: fixed;
   top: 107.5px;
   right: calc((100% - var(--max-width-app)) / 2);
-  width: max-content;
+  width: fit-content;
   transition: all 0.4s ease;
   padding: 0;
-  gap: 7px;
+  gap: 17px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -74,6 +74,7 @@
 @media screen and (min-width: 544px) and (max-width: 1024px) {
   .main {
     right: 50px;
+    max-width: calc(100% - 100px);
   }
 }
 

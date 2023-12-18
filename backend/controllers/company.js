@@ -118,9 +118,11 @@ class Companies {
 
       const shareholderData = await shareholder
         .findById(shareholderId)
+        .select(`+company.${typeOfFile}.data`)
         .select(`+individual.${typeOfFile}.data`)
-        .select(`+company${typeOfFile}.data`)
         .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER));
+
+      console.log(shareholderData);
 
       res
         .set(
@@ -196,7 +198,7 @@ class Companies {
       }
     }
 
-    delete data.shareholder;
+    delete data.shareholders;
 
     data.owners = [_id];
     data.shareholders = shareholdersId;
@@ -222,22 +224,22 @@ class Companies {
   addShareholder = async (req, res, next) => {
     const { _id, isAdmin } = req.user;
     const { companyId } = req.params;
-    const { data, typeOfShareholder } = req.body;
+    const { data, typeOfShareholder, percentageOfOwnership } = req.body;
 
     try {
-      const companyData = await company
-        .findById(companyId)
-        .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.COMPANY));
+      const companyData = await company.findById(companyId).orFail(() => {
+        throw new NotFoundError(MESSAGE.ERROR.NOT_FOUND.COMPANY);
+      });
 
       // проверка доступа
       if (!companyData.owners.includes(_id) && !isAdmin) {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SIMPLE));
       }
 
-      const { registrationNumber } = data;
-
       // должен быть registrationNumber
       if (typeOfShareholder === 'company') {
+        const { registrationNumber } = data;
+
         if (!registrationNumber)
           return next(new BadRequestError(MESSAGE.ERROR.BAD_REQUEST.SIMPLE));
 
@@ -255,26 +257,51 @@ class Companies {
             shareholderCompanies[index].company.registrationNumber ===
               registrationNumber
           ) {
-            return next(new ConflictError(MESSAGE.ERROR.DUPLICATE.SIMPLE));
+            return next(
+              new ConflictError(MESSAGE.ERROR.DUPLICATE.REGISTRATION_NUMBER),
+            );
           }
         }
       }
 
+      let totalPercentageOfOwnership = percentageOfOwnership;
+
+      // проверка на суммарное количество процентов
+      for (const shareholderId of companyData.shareholders) {
+        await shareholder
+          .findById(shareholderId)
+          .orFail(() => {
+            throw new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER);
+          })
+          .then((findShareholderData) => {
+            totalPercentageOfOwnership +=
+              findShareholderData.percentageOfOwnership;
+
+            if (totalPercentageOfOwnership > 100) {
+              throw new BadRequestError(
+                MESSAGE.ERROR.BAD_REQUEST.PERCENT_TO_MUCH,
+              );
+            }
+          });
+      }
+
       // Создаем нового инвестора в зависимости от типа инвестора
-      const shareholderId = await shareholder
+      const shareholderData = await shareholder
         .create({
           typeOfShareholder,
+          percentageOfOwnership,
           [typeOfShareholder]: data,
         })
-        .then((shareholderData) => shareholderData._id);
+        .then((shareholderData) => shareholderData);
 
-      companyData.shareholders.push(shareholderId); // Добавляем id инвестора в массив shareholder
+      companyData.shareholders.push(shareholderData._id); // Добавляем id инвестора в массив shareholder
 
       await companyData.save(); // Сохраняем изменения в базе данных
 
-      res
-        .status(STATUS.INFO.OK)
-        .send({ message: MESSAGE.INFO.CREATED.SHAREHOLDER });
+      res.status(STATUS.INFO.OK).send({
+        message: MESSAGE.INFO.CREATED.SHAREHOLDER,
+        data: shareholderData,
+      });
     } catch (error) {
       if (error.name === 'ValidationError') {
         return next(new BadRequestError(MESSAGE.ERROR.INCORRECT_DATA.SIMPLE));
@@ -485,7 +512,36 @@ class Companies {
         .findById(shareholderId)
         .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER));
 
+      if (shareholderData.typeOfShareholder === 'company')
+        updateFields.registrationNumber =
+          shareholderData.company.registrationNumber;
+
+      let totalPercentageOfOwnership = updateFields.percentageOfOwnership;
+
+      // проверка на суммарное количество процентов
+      for (const _shareholderId of companyData.shareholders) {
+        await shareholder
+          .findById(_shareholderId)
+          .orFail(() => {
+            throw new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER);
+          })
+          .then((findShareholderData) => {
+            if (shareholderId !== findShareholderData._id.toString()) {
+              totalPercentageOfOwnership +=
+                findShareholderData.percentageOfOwnership;
+              console.log('add', findShareholderData.percentageOfOwnership);
+            }
+
+            if (totalPercentageOfOwnership > 100) {
+              throw new BadRequestError(
+                MESSAGE.ERROR.BAD_REQUEST.PERCENT_TO_MUCH,
+              );
+            }
+          });
+      }
+
       Object.assign(shareholderData, {
+        percentageOfOwnership: updateFields.percentageOfOwnership,
         [shareholderData.typeOfShareholder]: updateFields,
       }); // Обновляем только переданные поля
 
@@ -524,12 +580,13 @@ class Companies {
         return next(new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.SHAREHOLDER));
       }
 
+      // todo уточнить можно ли удалять последнего shareholder`а
       // проверка количества shareholders
-      if (companyData.shareholders.length === 1) {
-        return next(
-          new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.TOO_FEW_SHAREHOLDER),
-        );
-      }
+      // if (companyData.shareholders.length === 1) {
+      //   return next(
+      //     new ForbiddenError(MESSAGE.ERROR.FORBIDDEN.TOO_FEW_SHAREHOLDER),
+      //   );
+      // }
 
       await shareholder
         .findByIdAndDelete(shareholderId)
@@ -580,7 +637,7 @@ class Companies {
             );
           }
 
-          for (const shareholderId of companyData.shareholder) {
+          for (const shareholderId of companyData.shareholders) {
             await shareholder.findByIdAndDelete(shareholderId);
           }
 

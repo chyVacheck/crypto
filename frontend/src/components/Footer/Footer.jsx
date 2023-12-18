@@ -17,6 +17,7 @@ import {
   PATTERN_PAGE_USER_ID,
   paths,
   VALIDATION,
+  PATTERN_PAGE_COMPANY_ID,
 } from '../../utils/constants';
 // * utils
 import { checkValidity } from './../../utils/utils';
@@ -43,7 +44,8 @@ function Footer({ page, addNotification }) {
     // показываем ли footer
     if (
       activeFooterRoutes.includes(page) ||
-      PATTERN_PAGE_USER_ID.test(page.toLowerCase())
+      PATTERN_PAGE_USER_ID.test(page.toLowerCase()) ||
+      PATTERN_PAGE_COMPANY_ID.test(page.toLowerCase())
     ) {
       setIsActive(true);
     } else {

@@ -102,22 +102,21 @@ Validator.companyIdShareholderIdUpdate = celebrate({
   }),
   body: Joi.object()
     .keys({
+      percentageOfOwnership: Joi.number().min(0).max(100).allow(null),
       // company
       name: Joi.string(),
-      registrationNumber: Joi.string(),
-      legalForm: Joi.string(),
-      legalAddress: Joi.string(),
-      city: Joi.string(),
-      zipCode: Joi.string(),
-      countryOfRegistration: Joi.string(),
-      VAT: Joi.string(),
-      registrationDate: Joi.string(),
+      legalForm: Joi.string().allow(null),
+      legalAddress: Joi.string().allow(null),
+      city: Joi.string().allow(null),
+      zipCode: Joi.string().allow(null),
+      countryOfRegistration: Joi.string().allow(null),
+      VAT: Joi.string().allow(null),
+      registrationDate: Joi.string().allow(null),
       // individual
       fullName: Joi.string(),
-      equityShare: Joi.string(),
-      contactEmail: Joi.string(),
-      jobTitle: Joi.string(),
-      phoneNumber: Joi.string(),
+      contactEmail: Joi.string().allow(null),
+      jobTitle: Joi.string().allow(null),
+      phoneNumber: Joi.string().allow(null),
     })
     .min(1)
     .required(),
@@ -146,15 +145,14 @@ Validator.patchUserData = celebrate({
   body: Joi.object().keys({
     name: Joi.string()
       .min(VALID_VALUES.TEXT.LENGTH.MIN)
-      .max(VALID_VALUES.TEXT.LENGTH.MAX),
+      .max(VALID_VALUES.TEXT.LENGTH.MAX)
+      .allow(null),
     secondName: Joi.string()
       .min(VALID_VALUES.TEXT.LENGTH.MIN)
-      .max(VALID_VALUES.TEXT.LENGTH.MAX),
-    phone: Joi.string(),
-    password: Joi.string()
-      .min(VALID_VALUES.PASSWORD.LENGTH.MIN)
-      .max(VALID_VALUES.PASSWORD.LENGTH.MAX),
-    typeOfUser: Joi.string().valid(...VALID_VALUES.USER.TYPE.VALUES),
+      .max(VALID_VALUES.TEXT.LENGTH.MAX)
+      .allow(null),
+    phone: Joi.string().allow(null),
+    // typeOfUser: Joi.string().valid(...VALID_VALUES.USER.TYPE.VALUES),
   }),
 });
 
@@ -198,12 +196,13 @@ Validator.createCompany = celebrate({
                 city: Joi.string(),
                 zipCode: Joi.string(),
                 countryOfRegistration: Joi.string(),
-                VAT: Joi.string(),
+                VAT: Joi.string()
+                  .min(VALID_VALUES.VAT_NUMBER.LENGTH.MIN)
+                  .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX),
                 registrationDate: Joi.string(),
               }),
               otherwise: Joi.object({
                 fullName: Joi.string(),
-                equityShare: Joi.string(),
                 contactEmail: Joi.string(),
                 jobTitle: Joi.string(),
                 phoneNumber: Joi.string(),
@@ -223,6 +222,7 @@ Validator.addShareholder = celebrate({
     typeOfShareholder: Joi.string()
       .required()
       .valid(...VALID_VALUES.SHARE_HOLDER.VALUES),
+    percentageOfOwnership: Joi.number().min(0).max(100),
     data: Joi.when('typeOfShareholder', {
       is: 'company',
       then: Joi.object({
@@ -233,12 +233,13 @@ Validator.addShareholder = celebrate({
         city: Joi.string(),
         zipCode: Joi.string(),
         countryOfRegistration: Joi.string(),
-        VAT: Joi.string(),
+        VAT: Joi.string()
+          .min(VALID_VALUES.VAT_NUMBER.LENGTH.MIN)
+          .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX),
         registrationDate: Joi.string(),
       }),
       otherwise: Joi.object({
         fullName: Joi.string().required(),
-        equityShare: Joi.string(),
         contactEmail: Joi.string(),
         jobTitle: Joi.string(),
         phoneNumber: Joi.string(),
@@ -254,20 +255,23 @@ Validator.updateCompanyDataById = celebrate({
   body: Joi.object()
     .keys({
       name: Joi.string(),
-      legalAddress: Joi.string(),
-      city: Joi.string(),
-      zipCode: Joi.string(),
-      legalForm: Joi.string().valid(...VALID_VALUES.LEGAL_FORM.VALUES),
-      countryOfRegistration: Joi.string(),
-      VAT: Joi.number()
+      legalAddress: Joi.string().allow(null),
+      city: Joi.string().allow(null),
+      zipCode: Joi.string().allow(null),
+      legalForm: Joi.string()
+        .valid(...VALID_VALUES.LEGAL_FORM.VALUES)
+        .allow(null),
+      countryOfRegistration: Joi.string().allow(null),
+      VAT: Joi.string()
         .min(VALID_VALUES.VAT_NUMBER.LENGTH.MIN)
-        .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX),
-      registrationDate: Joi.date(),
+        .max(VALID_VALUES.VAT_NUMBER.LENGTH.MAX)
+        .allow(null),
+      registrationDate: Joi.date().allow(null),
       bankAccount: {
-        bankName: Joi.string(),
-        bankCode: Joi.string(),
-        IBAN: Joi.string(),
-        accountHolderName: Joi.string(),
+        bankName: Joi.string().allow(null),
+        bankCode: Joi.string().allow(null),
+        IBAN: Joi.string().allow(null),
+        accountHolderName: Joi.string().allow(null),
       },
     })
     .min(1)

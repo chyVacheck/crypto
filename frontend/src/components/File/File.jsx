@@ -83,15 +83,17 @@ function File({
             Watch file
           </button>
 
-          <button
-            type='button'
-            onClick={(e) => {
-              handleDelete(e, typeOfFile);
-            }}
-            className={`button subhead ${s.button} ${s.button_type_delete}`}
-          >
-            Delete File
-          </button>
+          {handleDelete && (
+            <button
+              type='button'
+              onClick={(e) => {
+                handleDelete(e, typeOfFile);
+              }}
+              className={`button subhead ${s.button} ${s.button_type_delete}`}
+            >
+              Delete File
+            </button>
+          )}
         </div>
       )}
     </div>

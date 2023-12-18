@@ -27,10 +27,22 @@
   color: var(--fg-primary);
   background-color: var(--bg-input);
   border: 1px solid var(--bg-input);
+  cursor: pointer;
 }
 
-.dropdown:hover {
+.input {
+  position: relative;
+}
+
+.delete {
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  position: absolute;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .answers {

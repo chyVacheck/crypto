@@ -165,12 +165,13 @@ function Header({
                       onClick={() => {
                         setListPolicyOpen(!isListPolicyOpen);
                       }}
-                      className={`button landing-paragraph ${s.button} ${
-                        page.includes('policies') && s.button_active_active
-                      }`}
+                      className={`button landing-paragraph ${
+                        s['policy-button']
+                      } ${page.includes('policies') && s.button_active_active}`}
                     >
                       Policy
                     </p>
+
                     <ul
                       className={`${s['list-popup']} ${
                         s['list-popup_type_policy']
@@ -272,15 +273,15 @@ function Header({
                   </li>
                   {/* // ? signin */}
                   <li>
-                    <NavLink
+                    <button
+                      className={`button landing-paragraph ${s.button} ${s.button_type_signin}`}
                       onClick={() => {
                         setListPolicyOpen(false);
+                        window.location.href = paths.signin;
                       }}
-                      className={`link landing-paragraph ${s.navigation__Link}`}
-                      to={paths.signin}
                     >
                       Signin
-                    </NavLink>
+                    </button>
                   </li>
                 </>
               )}
@@ -396,6 +397,7 @@ function Header({
                   </li>
                 </>
               )}
+
               {/* // ? no Landing button logout */}
               {!isLandingActive && (isUserLogin || isAdminLogin) && (
                 <>
@@ -405,7 +407,7 @@ function Header({
                       onClick={(e) => {
                         handleLogout(e);
                       }}
-                      className={`button landing-paragraph ${s.logout}`}
+                      className={`button landing-paragraph ${s.button} ${s.button_type_logout}`}
                     >
                       Logout
                     </button>
@@ -480,9 +482,9 @@ function Header({
                       onClick={() => {
                         setListPolicyOpen(!isListPolicyOpen);
                       }}
-                      className={`button landing-paragraph ${s.button} ${
-                        page.includes('policies') && s.button_active_active
-                      }`}
+                      className={`button landing-paragraph ${
+                        s['policy-button']
+                      } ${page.includes('policies') && s.button_active_active}`}
                     >
                       Policy
                     </p>
@@ -592,16 +594,15 @@ function Header({
                   </li>
                   {/* // ? signin */}
                   <li>
-                    <NavLink
+                    <button
+                      className={`button landing-paragraph ${s.button} ${s.button_type_signin}`}
                       onClick={() => {
-                        setBurgerOpen(false);
                         setListPolicyOpen(false);
+                        window.location.href = paths.signin;
                       }}
-                      className={`link landing-paragraph ${s.navigation__Link}`}
-                      to={paths.signin}
                     >
                       Signin
-                    </NavLink>
+                    </button>
                   </li>
                 </>
               )}
@@ -645,6 +646,10 @@ function Header({
                     <li>
                       <NavLink
                         onClick={() => {
+                          window.location.href = _generateCompanyLink(
+                            paths.company.profile,
+                            userData.companyId,
+                          );
                           setBurgerOpen(false);
                         }}
                         className={(info) => {
@@ -743,10 +748,9 @@ function Header({
                   <li>
                     <button
                       onClick={(e) => {
-                        setBurgerOpen(false);
                         handleLogout(e);
                       }}
-                      className={`button landing-paragraph ${s.logout}`}
+                      className={`button landing-paragraph ${s.button} ${s.button_type_logout}`}
                     >
                       Logout
                     </button>

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 // ? styles
@@ -9,6 +10,7 @@ import s from './CompanyProfile.module.css';
 import mainApi from './../../Api/MainApi';
 
 // ? components
+import DateInput from '../../components/DateInput/DateInput';
 import DropdownInput from '../../components/DropdownInput/DropdownInput';
 import File from '../../components/File/File';
 import Input from '../../components/Input/Input';
@@ -18,16 +20,13 @@ import Shareholder from './../../components/Shareholder/Shareholder';
 // ? constants
 import COUNTRIES from './../../constants/COUNTRIES.json';
 
-// ? contexts
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-
 // ? utils
 // * constants
 import {
   VALIDATION,
   LEGAL_FORM_VALUES,
   MAX_COUNT_OF_SHAREHOLDERS,
-  shareholder,
+  TEMPLATE_OF_SHAREHOLDER,
 } from '../../utils/constants';
 // * utils
 import {
@@ -40,8 +39,6 @@ import {
 
 function CompanyProfile({ addNotification }) {
   const { companyId } = useParams();
-
-  const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =
     useState('Save data');
@@ -89,6 +86,10 @@ function CompanyProfile({ addNotification }) {
     title: null,
     type: null,
   });
+
+  // загрузились ли все данные о акционерах
+  const [isDataOfShareholdersDownloaded, setDataOfShareholdersDownloaded] =
+    useState(false);
 
   const [arrayShareholders, setArrayShareholders] = useState([]);
 
@@ -167,36 +168,11 @@ function CompanyProfile({ addNotification }) {
     setPopupOpen(true);
   }
 
-  // ? handle Shareholder Change
-  function handleShareholderChange(index, name, value) {
-    const updatedShareholders = [...arrayShareholders];
-    updatedShareholders[index][name] = value;
-    setArrayShareholders(updatedShareholders);
-    const _form = document.getElementById('createCompany');
-    setIsFormValid(_form.checkValidity());
-
-    if (name === 'percentageOfOwnership') {
-      let percent = 0;
-
-      for (const shareholder of updatedShareholders) {
-        percent += Number(shareholder.percentageOfOwnership);
-      }
-
-      if (percent > 100) {
-        setTextError(
-          'Summery percentage of ownerships can not be more then 100',
-        );
-        setIsFormValid(false);
-      } else {
-        setTextError(null);
-      }
-    }
-  }
-
   function removeShareholder(index) {
     const updatedShareholders = [...arrayShareholders];
     updatedShareholders.splice(index, 1);
     setArrayShareholders(updatedShareholders);
+    return updatedShareholders;
   }
 
   // ? handle submit form
@@ -210,33 +186,22 @@ function CompanyProfile({ addNotification }) {
         countryOfRegistrationRef.current.value,
       ),
       registrationDate: toData(
-        checkValueIfNotUndefined(registrationDateOfCompanyRef.current.value),
+        checkValueIfNotNull(registrationDateOfCompanyRef.current.value),
       ),
-      legalForm: checkValueIfNotUndefined(legalFormRef.current.value),
-      VAT: checkValueIfNotUndefined(VATRef.current.value),
-      legalAddress: checkValueIfNotUndefined(legalAddressRef.current.value),
-      city: checkValueIfNotUndefined(cityRef.current.value),
-      zipCode: checkValueIfNotUndefined(zipCodeRef.current.value),
+      legalForm: checkValueIfNotNull(legalFormRef.current.value),
+      VAT: checkValueIfNotNull(VATRef.current.value),
+      legalAddress: checkValueIfNotNull(legalAddressRef.current.value),
+      city: checkValueIfNotNull(cityRef.current.value),
+      zipCode: checkValueIfNotNull(zipCodeRef.current.value),
       bankAccount: {
-        bankName: checkValueIfNotUndefined(bankNameRef.current.value),
-        bankCode: checkValueIfNotUndefined(bankCodeRef.current.value),
-        IBAN: checkValueIfNotUndefined(ibanRef.current.value),
-        accountHolderName: checkValueIfNotUndefined(
+        bankName: checkValueIfNotNull(bankNameRef.current.value),
+        bankCode: checkValueIfNotNull(bankCodeRef.current.value),
+        IBAN: checkValueIfNotNull(ibanRef.current.value),
+        accountHolderName: checkValueIfNotNull(
           accountHolderNameRef.current.value,
         ),
       },
     };
-
-    if (
-      !(
-        checkValueIfNotUndefined(bankNameRef.current.value) ||
-        checkValueIfNotUndefined(bankCodeRef.current.value) ||
-        checkValueIfNotUndefined(ibanRef.current.value) ||
-        checkValueIfNotUndefined(accountHolderNameRef.current.value)
-      )
-    ) {
-      delete _company.bankAccount;
-    }
 
     mainApi
       .updateCompanyDataById(_company, companyId)
@@ -261,35 +226,13 @@ function CompanyProfile({ addNotification }) {
       });
   }
 
-  async function deleteFileOnServer(e, typeOfFile) {
-    e.preventDefault();
-
-    await mainApi
-      .deleteUserFile(typeOfFile)
-      .then((res) => {
-        addNotification({
-          name: 'Update user data',
-          ok: true,
-          text: res.message,
-        });
-      })
-      .catch((err) => {
-        // устанавливаем ошибку
-        addNotification({
-          name: 'Update user data',
-          ok: false,
-          text: err.message,
-        });
-      });
-  }
-
   // ? добавление формы нового акционера
   function addShareholder() {
     if (arrayShareholders.length === MAX_COUNT_OF_SHAREHOLDERS - 1) {
       setIsButtonAddShareholderValid(false);
     }
     if (arrayShareholders.length < MAX_COUNT_OF_SHAREHOLDERS) {
-      setArrayShareholders([...arrayShareholders, shareholder]);
+      setArrayShareholders([...arrayShareholders, TEMPLATE_OF_SHAREHOLDER]);
       setIsFormValid(false);
     }
   }
@@ -297,6 +240,27 @@ function CompanyProfile({ addNotification }) {
   function handleChooseValueDropdownInput() {
     const _form = document.getElementById('updateDataCompany');
     setIsFormValid(_form.checkValidity());
+  }
+
+  // удаление акционера компании
+  async function handleShareholderDelete(shareholderId, index) {
+    mainApi
+      .deleteShareholderByIdCompanyById(companyId, shareholderId)
+      .then((res) => {
+        addNotification({
+          name: `Delete shareholder ${index + 1}`,
+          ok: true,
+          text: res.message,
+        });
+        removeShareholder(index);
+      })
+      .catch((err) => {
+        addNotification({
+          name: `Delete shareholder ${index + 1}`,
+          ok: true,
+          text: err.message,
+        });
+      });
   }
 
   async function _getFileData(contentType, typeOfFile) {
@@ -317,9 +281,113 @@ function CompanyProfile({ addNotification }) {
         _newCompanyData[typeOfFile].url = imageUrl;
 
         setCompanyData(_newCompanyData);
+
+        setFilesDownloaded(true);
       })
       .catch((err) => {
         console.log(err);
+      });
+  }
+
+  async function _fetchData() {
+    // ? certificateOfIncorporation
+    if (
+      !!companyData.certificateOfIncorporation &&
+      !companyData.certificateOfIncorporation.url
+    )
+      await _getFileData(
+        companyData.certificateOfIncorporation.type,
+        'certificateOfIncorporation',
+      );
+    setFilesDownloaded(true);
+  }
+
+  // создание нового акционера
+  async function handleShareholderCreate(shareholderData, index) {
+    mainApi
+      .createShareholderCompanyById(companyId, shareholderData)
+      .then((res) => {
+        addNotification({
+          name: 'Create shareholder',
+          ok: true,
+          text: res.message,
+        });
+
+        setArrayShareholders([...removeShareholder(index), res.data]);
+      })
+      .catch((err) => {
+        addNotification({
+          name: 'Create shareholder',
+          ok: false,
+          text: err.message,
+        });
+      });
+  }
+
+  // редактирование данных акционера
+  async function handleShareholderChange(shareholderData, shareholderId) {
+    mainApi
+      .updateShareholderByIdCompanyById(
+        shareholderData,
+        companyId,
+        shareholderId,
+      )
+      .then((res) => {
+        addNotification({
+          name: 'Update shareholder data',
+          ok: true,
+          text: res.message,
+        });
+      })
+      .catch((err) => {
+        addNotification({
+          name: 'Update shareholder data',
+          ok: false,
+          text: err.message,
+        });
+      });
+  }
+
+  async function uploadShareholderFileToServer(data, index, shareholderId) {
+    const file = new FormData();
+
+    file.append('file', data.file);
+    mainApi
+      .putShareholderFileByIdCompanyById(
+        {
+          file: file,
+          typeOfFile: data.typeOfFile,
+        },
+        companyId,
+        shareholderId,
+      )
+      .then(async (res) => {
+        const imageUrl = URL.createObjectURL(data.file);
+
+        arrayShareholders[index][arrayShareholders[index].typeOfShareholder][
+          data.typeOfFile
+        ] = {
+          url: imageUrl,
+          type: data['Content-Type'],
+          name: data.file.name,
+        };
+
+        console.log(369, arrayShareholders);
+
+        setArrayShareholders(arrayShareholders);
+
+        addNotification({
+          name: 'Upload file',
+          ok: true,
+          text: res.message,
+        });
+      })
+      .catch((err) => {
+        addNotification({
+          name: 'Upload file',
+          ok: false,
+          text: err.message,
+        });
       });
   }
 
@@ -329,8 +397,85 @@ function CompanyProfile({ addNotification }) {
   useEffect(() => {
     mainApi
       .getCompanyInfoById(companyId)
-      .then((_companyData) => {
-        setCompanyData(_companyData.data);
+      .then(async (_companyData) => {
+        const company = _companyData.data;
+        setCompanyData(company);
+
+        const _shareholders = [];
+
+        for (const shareholderId of company.shareholders) {
+          const shareholderData = await mainApi
+            .getShareholderByIdCompanyById(company._id, shareholderId)
+            .catch((err) => {
+              console.log(err);
+            });
+
+          // ? company
+          if (
+            !!shareholderData.data.company &&
+            shareholderData.data.company.certificateOfIncorporation
+          ) {
+            // certificateOfIncorporationFile
+            const certificateOfIncorporationFile =
+              await mainApi.getShareholderFileByIdCompanyById(
+                {
+                  'Content-Type':
+                    shareholderData.data.company.certificateOfIncorporation
+                      .type,
+                  typeOfFile: 'certificateOfIncorporation',
+                },
+                companyId,
+                shareholderId,
+              );
+            const blob = await certificateOfIncorporationFile.blob();
+            const imageUrl = URL.createObjectURL(blob);
+
+            shareholderData.data.company['certificateOfIncorporation'].url =
+              imageUrl;
+          }
+
+          // ? individual
+          if (!!shareholderData.data.individual) {
+            // passport
+            if (shareholderData.data.individual.passport) {
+              const passportFile =
+                await mainApi.getShareholderFileByIdCompanyById(
+                  {
+                    'Content-Type':
+                      shareholderData.data.individual.passport.type,
+                    typeOfFile: 'passport',
+                  },
+                  companyId,
+                  shareholderId,
+                );
+              const blob = await passportFile.blob();
+              const imageUrl = URL.createObjectURL(blob);
+
+              shareholderData.data.individual['passport'].url = imageUrl;
+            }
+            // proofOfAddress
+            if (shareholderData.data.individual.proofOfAddress) {
+              const proofOfAddressFile =
+                await mainApi.getShareholderFileByIdCompanyById(
+                  {
+                    'Content-Type':
+                      shareholderData.data.individual.proofOfAddress.type,
+                    typeOfFile: 'proofOfAddress',
+                  },
+                  companyId,
+                  shareholderId,
+                );
+              const blob = await proofOfAddressFile.blob();
+              const imageUrl = URL.createObjectURL(blob);
+
+              shareholderData.data.individual['proofOfAddress'].url = imageUrl;
+            }
+          }
+
+          _shareholders.push(shareholderData.data);
+        }
+        setDataOfShareholdersDownloaded(true);
+        setArrayShareholders(_shareholders);
       })
       .catch((err) => {
         console.log(err);
@@ -338,22 +483,8 @@ function CompanyProfile({ addNotification }) {
       .finally(() => {});
   }, [companyId]);
 
-  // загружаем файлы компании
+  // загрузка файлов компании
   useEffect(() => {
-    async function _fetchData() {
-      // ? passport
-      if (
-        companyData.certificateOfIncorporation &&
-        !companyData.certificateOfIncorporation.url
-      )
-        await _getFileData(
-          companyData.certificateOfIncorporation.type,
-          'certificateOfIncorporation',
-        );
-
-      setFilesDownloaded(true);
-    }
-
     _fetchData();
   }, [companyData.certificateOfIncorporation]);
 
@@ -385,15 +516,21 @@ function CompanyProfile({ addNotification }) {
 
     // ? bank
     if (!!bankNameRef.current)
-      bankNameRef.current.value = checkValueIfNotNull(companyData.bankName);
+      bankNameRef.current.value = !!companyData.bankAccount
+        ? checkValueIfNotNull(companyData.bankAccount.bankName)
+        : null;
     if (!!bankCodeRef.current)
-      bankCodeRef.current.value = checkValueIfNotNull(companyData.bankCode);
+      bankCodeRef.current.value = !!companyData.bankAccount
+        ? checkValueIfNotNull(companyData.bankAccount.bankCode)
+        : null;
     if (!!ibanRef.current)
-      ibanRef.current.value = checkValueIfNotNull(companyData.IBAN);
+      ibanRef.current.value = !!companyData.bankAccount
+        ? checkValueIfNotNull(companyData.bankAccount.IBAN)
+        : null;
     if (!!accountHolderNameRef.current)
-      accountHolderNameRef.current.value = checkValueIfNotNull(
-        companyData.accountHolderName,
-      );
+      accountHolderNameRef.current.value = !!companyData.bankAccount
+        ? checkValueIfNotNull(companyData.bankAccount.accountHolderName)
+        : null;
   }, [companyData]);
 
   return (
@@ -469,7 +606,7 @@ function CompanyProfile({ addNotification }) {
                   ></DropdownInput>
 
                   {/* // ? registration date of company */}
-                  <Input
+                  <DateInput
                     name={'Registration date of company'}
                     id='registrationDateOfCompany'
                     placeholder='30.12.2000'
@@ -477,7 +614,8 @@ function CompanyProfile({ addNotification }) {
                     onChange={handleFieldChange}
                     isValid={validatedFields.registrationDateOfCompany.valid}
                     textError={validatedFields.registrationDateOfCompany.error}
-                  ></Input>
+                    handleChooseValue={handleChooseValueDropdownInput}
+                  ></DateInput>
 
                   {/* // ? legal Form */}
                   <DropdownInput
@@ -485,7 +623,7 @@ function CompanyProfile({ addNotification }) {
                     id='legalForm'
                     nameForChangeFunction={'legalForm'}
                     customRef={legalFormRef}
-                    onChoose={() => {}}
+                    onChoose={handleChooseValueDropdownInput}
                     listOfAnswers={LEGAL_FORM_VALUES}
                   ></DropdownInput>
 
@@ -493,7 +631,10 @@ function CompanyProfile({ addNotification }) {
                   <Input
                     name={'VAT number'}
                     id='VAT'
-                    placeholder='HE404228'
+                    placeholder='HE40422800717'
+                    pattern='[A-Za-z]{2}\d{0,11}'
+                    minLength={2}
+                    maxLength={13}
                     customRef={VATRef}
                     onChange={handleFieldChange}
                     isValid={validatedFields.VAT.valid}
@@ -530,7 +671,10 @@ function CompanyProfile({ addNotification }) {
                   <Input
                     name={'Zip code'}
                     id='zipCode'
-                    placeholder='228404'
+                    minLength={3}
+                    maxLength={10}
+                    pattern={'[a-zA-Z0-9\\s\\-]{3,10}'}
+                    placeholder='Ab-423'
                     customRef={zipCodeRef}
                     onChange={handleFieldChange}
                     isValid={validatedFields.zipCode.valid}
@@ -606,7 +750,7 @@ function CompanyProfile({ addNotification }) {
                     {/* // ? certificate of incorporation */}
                     <File
                       openFile={openFile}
-                      handleDelete={deleteFileOnServer}
+                      handleDelete={false}
                       handleSubmit={uploadFileToServer}
                       isActive={
                         companyData.certificateOfIncorporation &&
@@ -630,31 +774,44 @@ function CompanyProfile({ addNotification }) {
               </form>
 
               {/* // ! shareholders */}
-              <div className={s.shareholders}>
-                <h2 className={`landing-paragraph ${s.text}`}>Shareholders</h2>
-                <button
-                  disabled={!isButtonAddShareholderValid}
-                  onClick={addShareholder}
-                  type='button'
-                  className={`button ${s.button}`}
-                >
-                  Add shareholder
-                </button>
-              </div>
-
-              <div className={`${s.block} ${s.block_type_shareholders}`}>
-                {arrayShareholders.map((shareholder, index) => {
-                  return (
-                    <Shareholder
-                      key={index}
-                      data={shareholder}
-                      onChange={handleShareholderChange}
-                      removeShareholder={removeShareholder}
-                      index={index}
-                    />
-                  );
-                })}
-              </div>
+              {isDataOfShareholdersDownloaded && (
+                <div className={s.shareholders}>
+                  <h2 className={`landing-paragraph ${s.text}`}>
+                    Shareholders
+                  </h2>
+                  <div className={`${s.block} ${s.block_type_shareholders}`}>
+                    {arrayShareholders.map((shareholder, index) => {
+                      return (
+                        <Shareholder
+                          key={index}
+                          uploadFileToServer={uploadShareholderFileToServer}
+                          openFile={openFile}
+                          data={shareholder}
+                          removeShareholder={removeShareholder}
+                          index={index}
+                          handleShareholderDelete={handleShareholderDelete}
+                          companyId={companyId}
+                          handleSubmit={
+                            !!shareholder._id
+                              ? handleShareholderChange
+                              : handleShareholderCreate
+                          }
+                        />
+                      );
+                    })}
+                  </div>
+                  {arrayShareholders.length < 10 && (
+                    <button
+                      disabled={!isButtonAddShareholderValid}
+                      onClick={addShareholder}
+                      type='button'
+                      className={`button ${s.button}`}
+                    >
+                      Add shareholder
+                    </button>
+                  )}
+                </div>
+              )}
             </article>
           </section>
           {currenFile && isPopupOpen && (
