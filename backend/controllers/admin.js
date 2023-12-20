@@ -165,7 +165,6 @@ class Admins {
         if (err.name === 'ValidationError') {
           next(new BadRequestError(MESSAGE.ERROR.INCORRECT_DATA.SIMPLE));
         } else if (err.code === 11000) {
-          console.log(err);
           next(new ConflictError(MESSAGE.ERROR.DUPLICATE.SIMPLE));
         } else {
           next(err);

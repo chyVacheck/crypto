@@ -54,8 +54,8 @@ const API_COINGECKO = {
     ],
   },
   VS_CURRENCIES: {
-    STRING: 'usd,eur,bnb',
-    ARRAY: ['usd', 'eur', 'bnb'],
+    STRING: 'usd,eur',
+    ARRAY: ['usd', 'eur'],
   },
 };
 

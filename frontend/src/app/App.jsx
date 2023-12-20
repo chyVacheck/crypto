@@ -61,7 +61,7 @@ import VerifyEmail from '../pages/VerifyEmail/VerifyEmail';
 
 // * utils
 // ? constants
-import { STATUS, paths } from '../utils/constants';
+import { STATUS, paths, TEST_USERS } from '../utils/constants';
 
 // ! app
 function App() {
@@ -101,6 +101,14 @@ function App() {
 
   // * useEffects
 
+  // ! DEV
+  useEffect(() => {
+    const _canvas = Array.from(document.getElementsByTagName('canvas'))[0];
+    if (_canvas) {
+      _canvas.style['z-index'] = -1000;
+    }
+  }, []);
+
   // check Cookies
   useEffect(() => {
     let _isUser = false;
@@ -110,6 +118,47 @@ function App() {
         .then(async (res) => {
           setUserLogin(true);
           _isUser = true;
+          res.data.transactions = [];
+          res.data.currency = {};
+          res.data.wallets = [
+            {
+              _id: '746217360847ad5f36ab2284',
+              currency: {
+                algorand: 0,
+                'avalanche-2': 0,
+                binancecoin: 0,
+                bitcoin: 0,
+                cardano: 0,
+                chainlink: 0,
+                dogecoin: 0,
+                ethereum: 0,
+                polkadot: 0,
+                ripple: 0,
+                solana: 0,
+                'terra-luna-2': 0,
+                tether: 0,
+                'usd-coin': 0,
+              },
+            },
+            {
+              _id: '747237370857cf5f36ab4048',
+              currency: {
+                usd: 0,
+                eur: 0,
+              },
+            },
+          ];
+
+          for (const _user of TEST_USERS) {
+            console.log(_user);
+
+            if (res.data._id === _user._id) {
+              res.data.currency = _user.currency;
+              res.data.transactions = _user.transactions;
+              res.data.wallets = _user.wallets;
+              break;
+            }
+          }
           setCurrentUser(res.data);
         })
         .catch((err) => {

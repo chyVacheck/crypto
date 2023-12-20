@@ -1,0 +1,116 @@
+[
+  {
+    "_id": "655608239736cf4d57ee5299",
+    "wallets": [
+      {
+        "_id": "746217360847ad5f36ab2284",
+        "currency": {
+          "algorand": 0,
+          "avalanche-2": 0,
+          "binancecoin": 0,
+          "bitcoin": 0,
+          "cardano": 0,
+          "chainlink": 0,
+          "dogecoin": 0,
+          "ethereum": 0.89493467,
+          "polkadot": 0,
+          "ripple": 0,
+          "solana": 0,
+          "terra-luna-2": 0,
+          "tether": 0,
+          "usd-coin": 0
+        }
+      },
+      {
+        "_id": "747237370857cf5f36ab4048",
+        "currency": {
+          "usd": 290.118,
+          "eur": 0
+        }
+      }
+    ],
+    "transactions": [
+      {
+        "_id": "746217360847ad5f36ab7307",
+        "data": "2023-08-03T10:07:34.704Z",
+        "received": {
+          "currency": "bitcoin",
+          "value": 0.01
+        },
+        "given": {
+          "currency": "usd",
+          "value": 290.118
+        }
+      },
+      {
+        "_id": "746217360847ad5f36ab7404",
+        "data": "2023-08-03T06:37:56.467Z",
+        "received": {
+          "currency": "eur",
+          "value": 1500
+        },
+        "given": {
+          "currency": "ethereum",
+          "value": 0.89493467
+        }
+      }
+    ]
+  },
+  {
+    "_id": "656caa837750a16b1d9ccef7",
+    "wallets": [
+      {
+        "_id": "746217360847ad5f36ab2284",
+        "currency": {
+          "algorand": 0,
+          "avalanche-2": 0,
+          "binancecoin": 0,
+          "bitcoin": 0,
+          "cardano": 0,
+          "chainlink": 0,
+          "dogecoin": 0,
+          "ethereum": 0.89493467,
+          "polkadot": 0,
+          "ripple": 0,
+          "solana": 0,
+          "terra-luna-2": 0,
+          "tether": 0,
+          "usd-coin": 0
+        }
+      },
+      {
+        "_id": "747237370857cf5f36ab4048",
+        "currency": {
+          "usd": 290.118,
+          "eur": 0
+        }
+      }
+    ],
+    "transactions": [
+      {
+        "_id": "746217360847ad5f36ab7307",
+        "data": "2023-08-03T10:07:34.704Z",
+        "received": {
+          "currency": "bitcoin",
+          "value": 0.01
+        },
+        "given": {
+          "currency": "usd",
+          "value": 290.118
+        }
+      },
+      {
+        "_id": "746217360847ad5f36ab7404",
+        "data": "2023-08-03T06:37:56.467Z",
+        "received": {
+          "currency": "eur",
+          "value": 1500
+        },
+        "given": {
+          "currency": "ethereum",
+          "value": 0.89493467
+        }
+      }
+    ]
+  }
+]

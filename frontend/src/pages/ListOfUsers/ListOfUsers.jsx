@@ -9,9 +9,6 @@ import mainApi from './../../Api/MainApi';
 
 // ? components
 import SearchForm from '../../components/SearchForm/SearchForm';
-
-// ? utils
-// * constants
 import ListItemUser from '../../components/ListItemUser/ListItemUser';
 
 function ListOfUsers({ addNotification }) {

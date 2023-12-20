@@ -15,22 +15,26 @@
   gap: 14px;
 }
 
-.data {
+.currencies {
   display: flex;
-  justify-content: space-between;
-  gap: 7px;
+  flex-wrap: wrap;
+  gap: 7px 21px;
 }
 
 .text {
   margin: 0;
 }
 
-.value {
-  color: var(--fg-secondary);
+.currency {
+  min-width: max-content;
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
 }
 
-.link {
-  text-align: end;
+.value {
+  color: var(--fg-secondary);
 }
 
 @media screen and (max-width: 544px) {

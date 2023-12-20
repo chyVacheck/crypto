@@ -1,4 +1,5 @@
 // ! configs
+import configTestUsers from './../config/configTestUsers.json';
 import configApi from './../config/configApi.json';
 import configSite from './../config/configSite.json';
 
@@ -9,6 +10,8 @@ export const YEAR = 2023;
 export const CURRENT_YEAR = new Date().getFullYear();
 
 const DEFAULT_URL = configSite.default_url;
+
+export const TEST_USERS = configTestUsers;
 
 // ? все пути
 export const paths = {
@@ -157,6 +160,9 @@ export const VALIDATION = {
       MIN: 1800,
       MAX: CURRENT_YEAR,
     },
+  },
+  PRICE: {
+    TO_PRECISION: 10,
   },
 };
 

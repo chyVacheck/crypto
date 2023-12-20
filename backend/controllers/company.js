@@ -122,8 +122,6 @@ class Companies {
         .select(`+individual.${typeOfFile}.data`)
         .orFail(() => new NotFoundError(MESSAGE.ERROR.NOT_FOUND.SHAREHOLDER));
 
-      console.log(shareholderData);
-
       res
         .set(
           'Content-Type',
@@ -529,7 +527,6 @@ class Companies {
             if (shareholderId !== findShareholderData._id.toString()) {
               totalPercentageOfOwnership +=
                 findShareholderData.percentageOfOwnership;
-              console.log('add', findShareholderData.percentageOfOwnership);
             }
 
             if (totalPercentageOfOwnership > 100) {

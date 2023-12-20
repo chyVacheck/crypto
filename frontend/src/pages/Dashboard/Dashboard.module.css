@@ -5,6 +5,7 @@
   box-sizing: border-box;
   height: 100%;
   padding: 100px 50px 50px;
+  gap: 50px;
 }
 
 .container {
@@ -13,26 +14,58 @@
   max-width: var(--max-width-app);
   display: flex;
   flex-direction: column;
+  gap: 21px;
+}
+
+.wallets {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  padding: 0 0 7px 21px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info {
+  margin: 0 0 0 21px;
+  color: var(--fg-secondary);
+}
+
+.value {
+  color: var(--fg-secondary);
 }
 
 .priceTable {
   width: 100%;
-  background-color: var(--bg-lending-secondary);
+  border: 1px solid var(--border-color);
   box-sizing: border-box;
-  padding: 14px 21px;
+  padding: 21px 28px;
   border-radius: 21px;
   border-spacing: 0;
+  table-layout: fixed;
 }
 
 .priceTable__title {
-  font-size: 16px;
   line-height: 18px;
-  padding: 0;
+  padding: 0 14px 14px 0;
   text-align: left;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   color: var(--fg-subtitle);
 }
 
 .priceTable__price {
-  padding: 0;
+  text-align: left;
+  width: 70px;
+  padding: 7px 0 0;
+}
+
+@media screen and (max-width: 544px) {
+  .main {
+    padding: 100px 25px 50px;
+  }
+  .priceTable__title {
+    padding: 0 7px 7px 0;
+  }
 }
