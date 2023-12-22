@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["Authorised", "IBAN"]
+  "cSpell.customDictionaries": {
+    "custom-dictionary-folder-crypto": {
+      "name": "custom-dictionary-folder-crypto",
+      "path": "${workspaceFolder:crypto}/.cspell/custom-dictionary-folder-crypto.txt",
+      "addWords": true,
+      "scope": "folder"
+    }
+  }
 }

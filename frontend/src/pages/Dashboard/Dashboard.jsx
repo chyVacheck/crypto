@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
 import { useState, useEffect, useContext } from 'react';
 
@@ -5,20 +6,20 @@ import { useState, useEffect, useContext } from 'react';
 import s from './Dashboard.module.css';
 
 // ? Api
-import mainApi from './../../Api/MainApi';
+import mainApi from '../../Api/MainApi';
 
 // ? contexts
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-// ? components
-import ListItemTransaction from './../../components/ListItemTransaction/ListItemTransaction';
-import ListItemWallet from './../../components/ListItemWallet/ListItemWallet.jsx';
-
 // ? utils
 // * constants
 import { VALIDATION } from '../../utils/constants';
+// * utils
+import { copy } from '../../utils/utils';
 
 function Dashboard({ addNotification }) {
+  const CURRENCY_ALWAYS_SHOW = ['bitcoin', 'ethereum', 'usd', 'eur'];
+
   const userData = useContext(CurrentUserContext);
 
   // ? useState`s
@@ -42,7 +43,7 @@ function Dashboard({ addNotification }) {
 
         setAllPrices(_answer);
         setPricesLoad(true);
-        setTimeToUpdate(20);
+        setTimeToUpdate(60);
       })
       .catch((err) => {
         // устанавливаем ошибку
@@ -57,7 +58,7 @@ function Dashboard({ addNotification }) {
   // ? useEffect`s
   useEffect(() => {
     _getPrice();
-    const _interval = setInterval(_getPrice, 20_000);
+    const _interval = setInterval(_getPrice, 60_000);
 
     return () => {
       clearInterval(_interval); // Очистка интервала при размонтировании компонента
@@ -88,29 +89,163 @@ function Dashboard({ addNotification }) {
 
   return (
     <section className={s.main}>
-      {/* // ? кошельки пользователя */}
-      <article className={s.container}>
-        <h3 className={`title-second ${s.title}`}>Wallets</h3>
-        {userData.wallets.map((wallet, index) => {
-          return (
-            <ListItemWallet
-              key={`w_${index}_${wallet._id}`}
-              data={wallet}
-              index={index}
-            />
-          );
-        })}
-      </article>
+      {/* // * кошельки пользователя + транзакции */}
+      <article className={`${s.container} ${s.container_type_tables}`}>
+        {/* // ? кошельки пользователя */}
+        <div>
+          <h3 className={`title-second ${s.title}`}>Wallets</h3>
+          <table className={s.table}>
+            <thead>
+              <tr>
+                <th className={`subhead ${s.table__title}`}>Name</th>
+                <th className={`subhead ${s.table__title}`}>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Мапим данные для каждой криптовалюты */}
+              {userData.wallets.map((wallet, index) => {
+                return (
+                  <>
+                    {index > 0 && (
+                      <tr>
+                        <td className={s.line} />
+                        <td className={s.line} />
+                      </tr>
+                    )}
 
-      {/* // ? транзакции */}
-      <article className={s.container}>
-        <h3 className={`title-second ${s.title}`}>Transactions</h3>
-        {userData.transactions.map((tr, index) => {
-          return <ListItemTransaction key={tr._id} data={tr} index={index} />;
-        })}
-        {userData.transactions.length < 1 && (
-          <p className={`${s.info}`}>User don't have any transactions yet</p>
-        )}
+                    <tr>
+                      <td
+                        onClick={() => {
+                          copy(wallet._id);
+                        }}
+                        className={`caption ${s.table__price}`}
+                      >
+                        id:{' '}
+                        <span className={`copy ${s.value}`}>{wallet._id}</span>
+                      </td>
+                      <td />
+                    </tr>
+
+                    {Object.keys(wallet.currency).map((currency, _index) => {
+                      const _isShow =
+                        wallet.currency[currency] > 0 ||
+                        CURRENCY_ALWAYS_SHOW.includes(currency);
+
+                      return (
+                        _isShow && (
+                          <tr key={`tr_${wallet._id}_${index}_${_index}`}>
+                            <td
+                              className={`caption ${s.table__price}`}
+                              key={`td_1_${wallet._id}_${index}`}
+                            >
+                              {currency}
+                            </td>
+                            <td
+                              className={`caption ${s.table__price}`}
+                              key={`td_2_${wallet._id}_${index}`}
+                            >
+                              {wallet.currency[currency]}
+                            </td>
+                          </tr>
+                        )
+                      );
+                    })}
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        {/* // ? транзакции */}
+        <div>
+          <h3 className={`title-second ${s.title}`}>Transactions</h3>
+          <table className={s.table}>
+            <thead>
+              <tr>
+                {/* <th className={`subhead ${s.table__title}`}>Id</th>
+              <th className={`subhead ${s.table__title}`}>Received</th>
+              <th className={`subhead ${s.table__title}`}>Given</th>
+              <th className={`subhead ${s.table__title}`}>Time</th> */}
+
+                <th className={`subhead ${s.table__title}`}>Name</th>
+                <th className={`subhead ${s.table__title}`}>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Мапим данные для каждой криптовалюты */}
+              {userData.transactions.map((tr, index) => {
+                const date = new Date(tr.data);
+
+                const time = `${date.getFullYear()}/${
+                  date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+                }/${
+                  date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+                } ${
+                  date.getHours() < 10 ? `0${date.getHours()}` : date.getHours()
+                }:${
+                  date.getMinutes() < 10
+                    ? `0${date.getMinutes()}`
+                    : date.getMinutes()
+                }:${
+                  date.getSeconds() < 10
+                    ? `0${date.getSeconds()}`
+                    : date.getSeconds()
+                }`;
+
+                return (
+                  <>
+                    {index > 0 && (
+                      <tr>
+                        <td className={s.line} />
+                        <td className={s.line} />
+                      </tr>
+                    )}
+                    {/* // ? id */}
+                    <tr key={`tr_1_${tr._id}_${index}`}>
+                      <td
+                        onClick={() => {
+                          copy(tr._id);
+                        }}
+                        className={`caption ${s.table__price}`}
+                      >
+                        id: <span className={`copy ${s.value}`}>{tr._id}</span>
+                      </td>
+                      <td />
+                    </tr>
+                    {/* // ? received */}
+                    <tr key={`tr_2_${tr._id}_${index}`}>
+                      <td className={`caption ${s.table__price}`}>received</td>
+                      <td
+                        className={`caption copy ${s.value} ${s.table__price}`}
+                      >
+                        {tr.received.value} {tr.received.currency}
+                      </td>
+                    </tr>
+                    {/* // ? given */}
+                    <tr key={`tr_3_${tr._id}_${index}`}>
+                      <td className={`caption ${s.table__price}`}>given</td>
+                      <td
+                        className={`caption copy ${s.value} ${s.table__price}`}
+                      >
+                        {tr.given.value} {tr.given.currency}
+                      </td>
+                    </tr>
+                    {/* // ? date */}
+                    <tr key={`tr_4_${tr._id}_${index}`}>
+                      <td className={`caption ${s.table__price}`}>date</td>
+                      <td
+                        onClick={() => copy(time)}
+                        className={`caption copy ${s.value} ${s.table__price}`}
+                      >
+                        {time}
+                      </td>
+                    </tr>
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </article>
 
       {/* // ? таблица курса валют */}
@@ -121,15 +256,15 @@ function Dashboard({ addNotification }) {
         </h3>
         {isPricesLoad ? (
           <>
-            <table className={s.priceTable}>
+            <table className={s.table}>
               <thead>
                 <tr>
-                  <th className={`subhead ${s.priceTable__title}`}>Name</th>
+                  <th className={`subhead ${s.table__title}`}>Name</th>
 
                   {/* Добавьте столбцы для остальных валют */}
                   {Object.keys(allPrices[0].data).map((currency) => (
                     <th
-                      className={`caption ${s.priceTable__title}`}
+                      className={`caption ${s.table__title}`}
                       key={`${currency}_t1_h_c1`}
                     >
                       {currency.toUpperCase()}
@@ -143,7 +278,7 @@ function Dashboard({ addNotification }) {
                   return (
                     <tr key={`tr_${crypto.name}`}>
                       <td
-                        className={`caption ${s.priceTable__price}`}
+                        className={`caption ${s.table__price}`}
                         key={`${crypto.name}_t1_b_n1`}
                       >
                         {crypto.name}
@@ -152,7 +287,7 @@ function Dashboard({ addNotification }) {
                       {Object.keys(crypto.data).map((currency) => (
                         <>
                           <td
-                            className={`detail ${s.priceTable__price}`}
+                            className={`detail ${s.table__price}`}
                             key={`${currency}_t1_b_c1`}
                           >
                             {Number(
@@ -182,17 +317,15 @@ function Dashboard({ addNotification }) {
         {isPricesLoad ? (
           <div>
             {hasUserCurrency && (
-              <table className={s.priceTable}>
+              <table className={s.table}>
                 <thead>
                   <tr>
-                    <th className={`subhead ${s.priceTable__title}`}>Name</th>
-                    <th className={`subhead ${s.priceTable__title}`}>
-                      User wallet
-                    </th>
+                    <th className={`subhead ${s.table__title}`}>Name</th>
+                    <th className={`subhead ${s.table__title}`}>User wallet</th>
                     {/* Добавьте столбцы для остальных валют */}
                     {Object.keys(allPrices[0].data).map((currency) => (
                       <th
-                        className={`caption ${s.priceTable__title}`}
+                        className={`caption ${s.table__title}`}
                         key={`${currency}_t2_h_c1`}
                       >
                         {currency.toUpperCase()}
@@ -214,22 +347,22 @@ function Dashboard({ addNotification }) {
                         <tr key={`tr_${crypto.name}`}>
                           <td
                             key={`${crypto.name}_t2_b_n1`}
-                            className={`caption ${s.priceTable__price}`}
+                            className={`caption ${s.table__price}`}
                           >
                             {crypto.name}
                           </td>
-                          <th
+                          <td
                             key={`${crypto.name}_t2_b_n2`}
-                            className={`caption ${s.priceTable__price}`}
+                            className={`caption ${s.table__price}`}
                           >
                             {_value}
-                          </th>
+                          </td>
 
                           {/* Добавьте ячейки для остальных валют */}
                           {Object.keys(crypto.data).map((currency) => {
                             return (
                               <td
-                                className={`detail ${s.priceTable__price}`}
+                                className={`detail ${s.table__price}`}
                                 key={`${currency}_t2_b_c1`}
                               >
                                 {Number(

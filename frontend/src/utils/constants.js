@@ -180,6 +180,29 @@ export const LEGAL_FORM_VALUES = [
   'Other',
 ];
 
+export const PAYMENTS = {
+  CURRENCY: {
+    CRYPTO: [
+      'algorand',
+      'avalanche-2',
+      'binancecoin',
+      'bitcoin',
+      'cardano',
+      'chainlink',
+      'dogecoin',
+      'ethereum',
+      'polkadot',
+      'ripple',
+      'solana',
+      'terra-luna-2',
+      'tether',
+      'usd-coin',
+    ],
+    FIAT: ['eur', 'usd'],
+  },
+  WALLETS: ['crypto wallet', 'fiat wallet', 'card'],
+};
+
 export const STATUS = {
   SIMPLE: configSite.status,
   DEV: configSite.status === 'dev',

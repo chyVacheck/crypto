@@ -1,0 +1,10 @@
+# Custom Dictionary Words
+Authorised
+IBAN
+solana
+algorand
+binancecoin
+cardano
+chainlink
+dogecoin
+polkadot

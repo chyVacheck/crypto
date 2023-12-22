@@ -53,7 +53,7 @@ function DropdownInput({
   // удаление содержимого поля
   function handleClearInput(e) {
     customRef.current.value = null;
-    onChoose();
+    onChoose(customRef.current.value);
     setInputCleared(true);
     options.isCountry && setCountryFullName(null);
   }
@@ -159,7 +159,7 @@ function DropdownInput({
                     customRef.current.value = element;
                   }
                   setInputCleared(false);
-                  onChoose();
+                  onChoose(customRef.current.value);
                 }
               }}
               key={index}

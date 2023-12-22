@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -34,6 +35,8 @@ import CreateAdmin from '../pages/CreateAdmin/CreateAdmin';
 import CreateCompany from '../pages/CreateCompany/CreateCompany';
 // Dashboard
 import Dashboard from '../pages/Dashboard/Dashboard';
+// Exchange
+import Exchange from '../pages/Exchange/Exchange';
 // ListOfUsers
 import ListOfUsers from '../pages/ListOfUsers/ListOfUsers';
 // Login
@@ -284,7 +287,7 @@ function App() {
                     <ProtectedRoute
                       isActive={!isUserLogin}
                       page={page}
-                      to={paths.main}
+                      to={paths.user.profile}
                     >
                       <Signup
                         addNotification={addNotification}
@@ -340,6 +343,20 @@ function App() {
                       to={paths.signin}
                     >
                       <Dashboard addNotification={addNotification} />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* EXCHANGE */}
+                <Route
+                  path={paths.user.exchange}
+                  element={
+                    <ProtectedRoute
+                      isActive={isUserLogin}
+                      page={page}
+                      to={paths.signin}
+                    >
+                      <Exchange addNotification={addNotification} />
                     </ProtectedRoute>
                   }
                 />

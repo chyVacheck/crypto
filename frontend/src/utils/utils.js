@@ -7,8 +7,9 @@ export function checkPattern(value, pattern) {
   return isValid;
 }
 
-export function checkValidity(input, pattern) {
-  const validity = input.validity;
+export function checkValidity(input) {
+  const { validity } = input;
+
   if (validity.tooShort) {
     return 'Field is too short';
   } else if (validity.tooLong) {
@@ -23,6 +24,8 @@ export function checkValidity(input, pattern) {
     return 'Range underflow, try bigger one';
   } else if (validity.rangeOverflow) {
     return 'Range overflow, try lower one';
+  } else if (validity.badInput) {
+    return 'Enter the correct data type';
   }
 
   return '';

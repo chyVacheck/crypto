@@ -31,6 +31,10 @@
   color: var(--fg-primary);
   background-color: var(--bg-input);
   border: 1px solid var(--bg-input);
+
+  &:read-only {
+    cursor: default;
+  }
 }
 
 /* ? input невалидный */

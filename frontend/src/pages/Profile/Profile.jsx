@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // ! modules
 import { useState, useRef, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // ? styles
 import s from './Profile.module.css';
@@ -26,7 +25,6 @@ import { VALIDATION, paths /*, TYPE_OF_USER */ } from '../../utils/constants';
 import { checkValidity, checkValueIfNotNull, copy } from '../../utils/utils';
 
 function Profile({ addNotification, setUser }) {
-  const navigate = useNavigate();
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] =

@@ -6,11 +6,13 @@ function Input({
   nameForChangeFunction,
   required = false,
   id,
+  step,
+  readOnly = false,
   placeholder,
   type = 'text',
   pattern,
-  minLength,
-  maxLength,
+  minLength = null,
+  maxLength = null,
   min,
   max,
   customRef,
@@ -28,12 +30,14 @@ function Input({
         className={`${s.input} ${isValid ? '' : s.input_validity_invalid}`}
         placeholder={placeholder}
         id={id}
+        readOnly={readOnly}
         type={type}
         pattern={pattern}
         minLength={minLength}
         maxLength={maxLength}
         min={min}
         max={max}
+        step={step ? step : 0.000000000000000000000000000000000000001}
         ref={customRef}
         onChange={onChange}
       ></input>

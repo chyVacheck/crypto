@@ -41,7 +41,7 @@ function CreateCompany({ addNotification, setUser }) {
   const userData = useContext(CurrentUserContext);
   // ? текст кнопки submit
   const [currentTextSubmitButton, setCurrentTextSubmitButton] = useState(
-    'Add info of company',
+    'Save info of company',
   );
 
   // * валидация полей
@@ -108,7 +108,7 @@ function CreateCompany({ addNotification, setUser }) {
 
   // ? handle submit form
   async function handleSubmit(e) {
-    setCurrentTextSubmitButton('Add info of company...');
+    setCurrentTextSubmitButton('Save info of company...');
     e.preventDefault();
 
     let _shareholders = [];
@@ -226,7 +226,7 @@ function CreateCompany({ addNotification, setUser }) {
         setIsFormValid(false);
       })
       .finally(() => {
-        setCurrentTextSubmitButton('Add info of company');
+        setCurrentTextSubmitButton('Save info of company');
         setIsFormValid(false);
       });
   }

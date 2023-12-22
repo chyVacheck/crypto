@@ -642,7 +642,7 @@ function Header({
                     </NavLink>
                   </li>
                   {/* // ? company */}
-                  {!!userData.companyId && (
+                  {/* {!!userData.companyId && (
                     <li>
                       <NavLink
                         onClick={() => {
@@ -669,7 +669,7 @@ function Header({
                         Company
                       </NavLink>
                     </li>
-                  )}
+                  )} */}
                   {/* // ? dashboard */}
                   <li>
                     <NavLink

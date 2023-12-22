@@ -80,8 +80,40 @@ function VerifyEmail({ setCurrentUser, addNotification, info, setLogin }) {
           })
           .then((res) => {
             setLogin(true);
+
+            userData.transactions = [];
+            userData.currency = {};
+            userData.wallets = [
+              {
+                _id: '746217360847ad5f36ab2284',
+                currency: {
+                  algorand: 0,
+                  'avalanche-2': 0,
+                  binancecoin: 0,
+                  bitcoin: 0,
+                  cardano: 0,
+                  chainlink: 0,
+                  dogecoin: 0,
+                  ethereum: 0,
+                  polkadot: 0,
+                  ripple: 0,
+                  solana: 0,
+                  'terra-luna-2': 0,
+                  tether: 0,
+                  'usd-coin': 0,
+                },
+              },
+              {
+                _id: '747237370857cf5f36ab4048',
+                currency: {
+                  usd: 0,
+                  eur: 0,
+                },
+              },
+            ];
+
             setCurrentUser(userData);
-            navigate(paths.main);
+            navigate(paths.user.profile);
           });
       })
       .catch((err) => {
