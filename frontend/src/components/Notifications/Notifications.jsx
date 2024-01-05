@@ -34,6 +34,8 @@ function Notifications({ notifications, setNotifications }) {
           );
         }
 
+        setTimeout(deleteNotification, 5_000);
+
         return (
           <div key={index} className={s.notification}>
             <img

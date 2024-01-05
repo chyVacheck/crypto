@@ -122,7 +122,7 @@ function Signup({ addNotification, setTemporaryInfo }) {
           {
             name: 'Name',
             lang: 'en',
-            placeholder: 'Dmytro',
+            placeholder: 'John',
             type: 'text',
             id: 'name',
             required: true,
@@ -132,7 +132,7 @@ function Signup({ addNotification, setTemporaryInfo }) {
           {
             name: 'Second name',
             lang: 'en',
-            placeholder: 'Shakh',
+            placeholder: 'Stone',
             type: 'text',
             id: 'secondName',
             required: true,
